@@ -1,0 +1,184 @@
+/* ============================================================================
+   PRIME-CAE · the phone
+   ----------------------------------------------------------------------------
+   A separate layer, loaded last, so the desktop stylesheets are never edited to
+   serve a phone. Everything here is inside a phone query or a `hover:none`
+   query; on a pointer device this file contributes nothing but safe-area
+   padding, which is zero where there are no insets.
+
+   The phone is not a narrow desktop. The radial diagram becomes a rail, the
+   four product tiles become full cards, the header sheds everything but the
+   mark and the menu, and the hero is composed for a portrait frame.
+   ========================================================================== */
+
+/* --------------------------------------------------------- safe areas ---- */
+/* Harmless everywhere: env() resolves to 0 without insets. */
+.shell{
+  padding-inline:
+    max(var(--gutter),env(safe-area-inset-left))
+    max(var(--gutter),env(safe-area-inset-right));
+}
+
+@media (max-width:719px){
+
+  :root{
+    --nav-h:62px;
+    /* a phone headline is read at arm's length, not across a room */
+    --fs-hero:clamp(2.05rem,10.2vw,3.5rem);
+    --fs-h2:clamp(2rem,8.4vw,2.75rem);
+    --gutter:20px;
+  }
+
+  /* ------------------------------------------------------------ header -- */
+  .nav__in{gap:var(--s-4)}
+  .nav__logo{width:clamp(148px,42vw,182px)}
+  .nav__sub{display:none}
+  .nav__act{gap:8px}
+  .nav__burger{width:44px;height:44px}
+  .nav{padding-top:env(safe-area-inset-top)}
+
+  /* -------------------------------------------------------------- menu -- */
+  .menu{
+    inset:calc(var(--nav-h) + env(safe-area-inset-top)) 0 0;
+    padding:var(--s-5)
+            max(var(--gutter),env(safe-area-inset-right))
+            calc(var(--s-8) + env(safe-area-inset-bottom))
+            max(var(--gutter),env(safe-area-inset-left));
+    overscroll-behavior:contain;
+  }
+  /* one thumb, one row, nothing to aim at */
+  .menu a{min-height:66px;font-size:1.35rem}
+}
+
+/* The sheet is the navigation wherever the burger is — tablet included — so its
+   primary action is styled there too, not only on a phone. */
+@media (max-width:1079px){
+  .menu a:last-of-type{border-bottom:0}
+  .menu__cta{
+    display:flex;align-items:center;justify-content:center;
+    margin-top:var(--s-6);min-height:56px;border-radius:var(--r-2);
+    background:var(--prime-blue);color:#fff;font-family:var(--font-sans);
+    font-size:1.06rem;font-weight:500;letter-spacing:.01em;
+  }
+  .menu__cta span{display:none}
+}
+
+@media (max-width:719px){
+  /* -------------------------------------------------------------- hero -- */
+  /* svh, not vh: the frame must not jump when the address bar retracts */
+  .hero{min-height:100svh}
+  /* the film is a landscape plate in a portrait frame — hold the region that
+     carries the structure rather than letting the crop take it */
+  .hero__vid,.hero__poster{object-position:62% 50%}
+  .hero__scan{display:none}            /* costs a repaint, reads as noise    */
+  .hero__ui{padding-block:calc(var(--nav-h) + env(safe-area-inset-top) + 26px) 0}
+  .hero__copy{max-width:100%}
+  .hero__eyebrow{gap:12px}
+  .hero__eyebrow i{width:30px}
+  .hero__eyebrow span{font-size:var(--fs-micro);letter-spacing:.2em}
+  .hero .t-lede{max-width:34ch}
+  .hero__cta{margin-top:var(--s-5)}
+  .hero__cta .btn{width:100%;max-width:340px;min-height:54px;justify-content:center}
+  .hero__rail{margin-top:var(--s-6);
+    padding-block:var(--s-3) calc(var(--s-4) + env(safe-area-inset-bottom))}
+  .hero__railin{justify-content:center;padding-top:var(--s-3)}
+  .scroll-cue{font-size:var(--fs-micro);letter-spacing:.18em}
+  .hero__manual button{width:68px;height:68px}
+  /* the small phones, and any phone the address bar has just expanded on */
+  @media (max-height:700px){
+    .hero__ui{padding-block:calc(var(--nav-h) + env(safe-area-inset-top) + 14px) 0}
+    .hero__rail{margin-top:var(--s-4)}
+    .hero .t-lede{font-size:var(--fs-small);max-width:32ch}
+  }
+
+  /* ------------------------------------------------------------- about -- */
+  .about__in{row-gap:var(--s-6)}
+  .about__h{max-width:18ch}
+  .about__lede,.about__body{max-width:100%}
+  .about__marks{gap:8px}
+  .about__marks li{padding:8px 12px}
+  .about__glow{width:120vw;height:120vw;right:-30%;top:-12%;opacity:.2}
+  .about__fig canvas{width:100%}
+  .about__cap{margin-top:var(--s-2)}
+
+  /* ---------------------------------------------------------- products -- */
+  /* full cards, never four tiles: the graphic has to be legible or it is
+     decoration */
+  .fam{grid-template-columns:1fr;gap:var(--s-5)}
+  .fam__i{padding:var(--s-5) var(--s-5) var(--s-6)}
+  .fam__vis{aspect-ratio:3/2;max-height:none}
+  .fam__logo{width:min(200px,72%)}
+  .fam__i p{max-width:100%}
+
+  /* ----------------------------------------------------------- contact -- */
+  .contact__in .t-lede{max-width:32ch}
+  .contact__mail{min-height:48px;display:inline-flex;align-items:center}
+
+  /* ------------------------------------------------------------ footer -- */
+  .foot{padding-bottom:calc(var(--s-6) + env(safe-area-inset-bottom))}
+  .foot__in{flex-direction:column;align-items:flex-start;gap:var(--s-5)}
+  .foot__links{gap:var(--s-4) var(--s-5)}
+  .foot__links a{min-height:44px}
+}
+
+/* ----------------------------------------------------------- landscape -- */
+/* A phone on its side has almost no height. The hero keeps its composition but
+   stops trying to be a poster. */
+/* width-bounded so a short desktop window is never caught by it */
+@media (max-height:540px) and (max-width:960px){
+  :root{--fs-hero:clamp(1.6rem,4.6vw,2.25rem);--nav-h:56px}
+  .nav__logo{width:clamp(150px,20vw,180px)}
+  .nav__sub{display:none}
+  .hero__ui{padding-block:calc(var(--nav-h) + env(safe-area-inset-top) + 10px) 0}
+  .hero .t-lede{font-size:var(--fs-small);max-width:52ch}
+  .hero__eyebrow{margin-bottom:8px}
+  .hero h1{margin-bottom:10px}
+  .hero__cta{margin-top:var(--s-4)}
+  .hero__cta .btn{min-height:46px;width:auto}
+  .hero__rail{margin-top:var(--s-3);
+    padding-block:6px calc(8px + env(safe-area-inset-bottom))}
+  .hero__railin{padding-top:8px}
+  .scroll-cue{min-height:34px}
+}
+
+/* ------------------------------------------------------------ platform -- */
+/* The radial ring needs room in both axes. A phone has neither, and a phone in
+   landscape has no height at all — so both conditions recompose the six
+   systems into a snapping rail under one large model. */
+@media (max-width:719px),(max-height:520px){
+  .orbit{
+    display:flex;flex-direction:column;gap:var(--s-4);
+    height:auto;min-height:0;max-height:none;aspect-ratio:auto;
+    min-width:0;
+  }
+  .orbit__canvas{
+    position:relative;inset:auto;order:1;width:100%;
+    height:min(54svh,60vw,420px);min-height:240px;
+  }
+  .orbit__nodes{
+    position:static;order:2;display:flex;gap:8px;
+    overflow-x:auto;overscroll-behavior-x:contain;
+    padding:2px 2px 10px;
+    scroll-snap-type:x mandatory;scroll-padding-inline:2px;
+    scrollbar-width:none;-webkit-overflow-scrolling:touch;
+    min-width:0;max-width:100%;
+  }
+  .orbit__nodes::-webkit-scrollbar{display:none}
+  .orbit__node{
+    position:relative;transform:none;left:auto!important;top:auto!important;
+    flex:0 0 auto;scroll-snap-align:center;min-height:46px;padding:0 16px;
+  }
+  .layer__wrap{grid-template-columns:minmax(0,1fr)}
+  .layer__line{justify-items:center;text-align:center;
+    max-width:min(46ch,100%);margin-inline:auto}
+}
+
+/* --------------------------------------------------------------- touch -- */
+/* Nothing may depend on a pointer that a phone does not have. */
+@media (hover:none){
+  .fam__i:hover{transform:none;box-shadow:none;border-color:var(--env-line)}
+  .play-link:hover i{transform:none;box-shadow:none}
+  .hero__manual button:hover{transform:none;box-shadow:none}
+  .btn:hover{transform:none}
+  a,button{-webkit-tap-highlight-color:rgba(74,169,255,.14)}
+}

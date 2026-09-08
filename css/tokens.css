@@ -1,0 +1,290 @@
+/* ============================================================================
+   PRIME-CAE · design tokens
+   ----------------------------------------------------------------------------
+   Two layers:
+     1. a fixed palette and type/space scale (:root)
+     2. four ENVIRONMENTS — navy, sky, ice, white — each of which republishes a
+        complete --env-* contract. Components never name a colour directly; they
+        inherit the environment they happen to sit in, so a panel, a chart axis
+        and a caption all re-tune themselves when the background changes.
+   ========================================================================== */
+:root{
+  /* ---------------------------------------------------------- palette --- */
+  --navy-990:#020710;
+  --navy-950:#030A14;
+  --navy-900:#061120;
+  --navy-850:#08182A;
+  --navy-800:#0A2037;
+  --navy-700:#0E2C48;
+  --navy-600:#134064;
+
+  --sky-800:#0C63A8;
+  --sky-700:#1E7FC4;
+  --sky-600:#3AA0E4;
+  --sky-500:#57B9F5;
+  --sky-400:#76CAFA;
+  --sky-300:#A4DCFA;
+  --sky-200:#C4E8FC;
+  --sky-100:#D4F0FF;
+
+  --ice-200:#DDEBF5;
+  --ice-100:#EAF5FC;
+  --ice-50:#F0F6FA;
+  --paper:#F7FAFD;
+  --white:#FFFFFF;
+
+  --prime-blue:#087FE8;         /* active engineering state              */
+  --prime-lift:#4AA9FF;         /* the same, lifted for dark grounds     */
+  --prime-cyan:#22C9D4;         /* AI / learned response / data transfer */
+  --prime-navy:#0F204B;         /* brand navy from the lockup            */
+
+  /* status — only ever used for engineering state ---------------------- */
+  --pass-l:#12885F;  --warn-l:#A9710A;  --fail-l:#C4342F;
+  --pass-d:#35D39A;  --warn-d:#E8B23A;  --fail-d:#F0605A;
+
+  /* field ramp — identical in every environment, because it carries data */
+  --f0:#0B245C; --f1:#1464CD; --f2:#29C8E0; --f3:#7EE2A8; --f4:#F0B429; --f5:#FF5454;
+
+  /* ------------------------------------------------- text ink families - */
+  --tod-1:#F5F9FF;  --tod-2:#C5D2DF;  --tod-3:#91A5B9;  --tod-4:#8298AD;
+  --tol-1:#07182B;  --tol-2:#29445F;  --tol-3:#58718A;  --tol-4:#6E8398;
+
+  /* ------------------------------------------------------------- type -- */
+  --font-sans:"Space Grotesk","Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  --font-text:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+  --font-mono:"JetBrains Mono",ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+
+  --fs-micro:0.75rem;                            /* 12 · tertiary marks   */
+  --fs-meta:0.8125rem;                           /* 13 · instrumentation  */
+  --fs-small:0.9375rem;                          /* 15 · technical copy   */
+  --fs-body:1.0625rem;                           /* 17 · body             */
+  --fs-lede:clamp(1.09rem,.62vw + .92rem,1.25rem);
+  --fs-nav:0.9688rem;                            /* 15.5                  */
+  --fs-eyebrow:0.8125rem;
+  --fs-h3:min(clamp(1.5rem,.9vw + 1.24rem,1.875rem),3.4vh);
+  --fs-d2:min(clamp(1.75rem,1.6vw + 1.24rem,2.5rem),4.2vh);
+  /* the display sizes are capped against the viewport's height as well as its
+     width: a wide, short laptop must not be handed a 68px heading it has no
+     room for. min() keeps it continuous — no breakpoint jump. */
+  --fs-h2:min(clamp(2.625rem,3.1vw + 1.6rem,4.25rem),5.6vh);
+  --fs-hero:min(clamp(3rem,5.1vw + 1.1rem,6rem),9.4vh);
+  --fs-value:clamp(1.25rem,1.1vw + .9rem,1.875rem);   /* engineering values */
+  --fs-value-lg:clamp(1.75rem,2vw + 1rem,2.75rem);
+
+  --lh-tight:1.04;
+  --lh-title:1.14;
+  --lh-body:1.62;
+  --lh-copy:1.68;
+
+  /* ------------------------------------------------------------ space -- */
+  --s-1:4px;  --s-2:8px;   --s-3:12px;  --s-4:18px;  --s-5:26px;
+  --s-6:36px; --s-7:52px;  --s-8:72px;  --s-9:104px; --s-10:140px;
+  --gutter:clamp(22px,3.6vw,72px);
+  --measure:1320px;
+  /* Vertical space is spent out of the viewport's height, so it is measured in
+     it. On a 2560x1440 screen this is ~122px; on a 1990x900 laptop ~86px; on a
+     1280x720 laptop ~63px — the page keeps its proportions instead of its
+     pixel values. */
+  --section-y:clamp(40px,3.2vh + 1.6vw,112px);
+  --section-y-tight:clamp(32px,2.4vh + 1.2vw,84px);
+  --nav-h:88px;
+
+  /* ------------------------------------------------------- line weight - */
+  --lw-hair:1px;
+  --lw-1:1.25px;
+  --lw-2:1.5px;
+  --lw-3:2px;
+  --lw-chart:2.5px;
+
+  /* ----------------------------------------------------------- radius -- */
+  --r-1:5px; --r-2:8px; --r-3:12px; --r-4:16px;
+
+  /* ----------------------------------------------------------- motion -- */
+  --ease-fast:cubic-bezier(.3,0,.2,1);
+  --ease-standard:cubic-bezier(.22,.61,.36,1);
+  --ease-large:cubic-bezier(.16,1,.3,1);
+  --t-fast:150ms;
+  --t-normal:280ms;
+  --t-large:560ms;
+  --t-reveal:700ms;
+
+  --z-nav:70; --z-modal:90; --z-hero-ui:40;
+}
+
+@media (min-width:1700px){ :root{ --measure:1520px } }
+@media (min-width:1900px){ :root{ --measure:1680px } }
+
+/* ==========================================================================
+   ENVIRONMENT · NAVY — computation, physics, model state, authority
+   ========================================================================== */
+[data-env="navy"]{
+  --env-mode:dark;
+  --env-bg:var(--navy-950);
+  --env-bg-far:var(--navy-990);
+  --env-wash:radial-gradient(115% 78% at 72% 8%,rgba(20,84,150,.22),transparent 62%),
+             radial-gradient(85% 60% at 8% 96%,rgba(12,52,96,.20),transparent 66%);
+  --env-surface:rgba(160,205,245,.055);
+  --env-surface-2:rgba(160,205,245,.10);
+  --env-panel:linear-gradient(152deg,rgba(15,30,49,.96),rgba(5,13,23,.985));
+  --env-panel-solid:#08131F;
+  --env-inset:rgba(2,7,14,.55);
+
+  --env-text:var(--tod-1);
+  --env-text-2:var(--tod-2);
+  --env-text-3:var(--tod-3);
+  --env-text-4:var(--tod-4);
+
+  --env-line:rgba(151,190,222,.20);
+  --env-line-strong:rgba(126,190,238,.34);
+  --env-line-active:rgba(74,169,255,.72);
+  --env-grid:rgba(126,182,236,.085);
+  --env-grid-major:rgba(126,182,236,.17);
+
+  --env-accent:var(--prime-lift);
+  --env-accent-2:var(--prime-cyan);
+  --env-accent-wash:rgba(74,169,255,.16);
+  --env-accent-edge:rgba(74,169,255,.42);
+
+  --env-btn-bg:linear-gradient(180deg,#5FB2FF,#1D7FE4);
+  --env-btn-fg:#031425;
+  --env-btn-glow:0 14px 40px -14px rgba(30,127,228,.75);
+
+  --env-pass:var(--pass-d); --env-warn:var(--warn-d); --env-fail:var(--fail-d);
+  --env-shadow:0 34px 76px -36px rgba(0,0,0,.96);
+  --env-logo-opacity:1;
+}
+
+/* ==========================================================================
+   ENVIRONMENT · SKY — flow, atmosphere, propagation, expansion
+   ========================================================================== */
+[data-env="sky"]{
+  --env-mode:light;
+  --env-bg:var(--sky-300);
+  --env-bg-far:var(--sky-200);
+  --env-wash:linear-gradient(180deg,rgba(87,185,245,.55),rgba(212,240,255,.9)),
+             radial-gradient(90% 70% at 76% 6%,rgba(255,255,255,.62),transparent 60%);
+  --env-surface:rgba(255,255,255,.52);
+  --env-surface-2:rgba(255,255,255,.78);
+  --env-panel:linear-gradient(160deg,rgba(255,255,255,.90),rgba(240,250,255,.82));
+  --env-panel-solid:#EFF9FF;
+  --env-inset:rgba(6,22,42,.06);
+
+  --env-text:#06162A;
+  --env-text-2:#173451;
+  --env-text-3:#365774;
+  --env-text-4:#4C6B87;
+
+  --env-line:rgba(5,31,57,.22);
+  --env-line-strong:rgba(5,31,57,.36);
+  --env-line-active:var(--sky-800);
+  --env-grid:rgba(5,31,57,.10);
+  --env-grid-major:rgba(5,31,57,.19);
+
+  --env-accent:var(--sky-800);
+  --env-accent-2:#0A5C93;
+  --env-accent-wash:rgba(8,99,168,.13);
+  --env-accent-edge:rgba(8,99,168,.40);
+
+  --env-btn-bg:linear-gradient(180deg,#0F2E52,#06162A);
+  --env-btn-fg:#EAF4FF;
+  --env-btn-glow:0 14px 36px -16px rgba(6,22,42,.6);
+
+  --env-pass:var(--pass-l); --env-warn:var(--warn-l); --env-fail:var(--fail-l);
+  --env-shadow:0 30px 64px -34px rgba(9,46,82,.42);
+  --env-logo-opacity:1;
+}
+
+/* ==========================================================================
+   ENVIRONMENT · ICE — analysis, comparison, readable data work
+   ========================================================================== */
+[data-env="ice"]{
+  --env-mode:light;
+  --env-bg:var(--ice-50);
+  --env-bg-far:var(--ice-100);
+  --env-wash:radial-gradient(110% 74% at 78% 4%,rgba(150,205,245,.30),transparent 64%),
+             radial-gradient(80% 60% at 4% 98%,rgba(180,220,250,.26),transparent 66%);
+  --env-surface:rgba(255,255,255,.72);
+  --env-surface-2:#FFFFFF;
+  --env-panel:linear-gradient(160deg,rgba(255,255,255,.96),rgba(246,251,254,.92));
+  --env-panel-solid:#FFFFFF;
+  --env-inset:rgba(9,43,74,.05);
+
+  --env-text:var(--tol-1);
+  --env-text-2:var(--tol-2);
+  --env-text-3:var(--tol-3);
+  --env-text-4:var(--tol-4);
+
+  --env-line:rgba(9,43,74,.16);
+  --env-line-strong:rgba(9,58,100,.30);
+  --env-line-active:rgba(4,111,210,.78);
+  --env-grid:rgba(9,43,74,.085);
+  --env-grid-major:rgba(9,43,74,.16);
+
+  --env-accent:var(--prime-blue);
+  --env-accent-2:#0A6FA8;
+  --env-accent-wash:rgba(8,127,232,.10);
+  --env-accent-edge:rgba(8,127,232,.36);
+
+  --env-btn-bg:linear-gradient(180deg,#0B2846,#061424);
+  --env-btn-fg:#EAF4FF;
+  --env-btn-glow:0 14px 34px -16px rgba(9,43,74,.45);
+
+  --env-pass:var(--pass-l); --env-warn:var(--warn-l); --env-fail:var(--fail-l);
+  --env-shadow:0 26px 60px -34px rgba(9,43,74,.34);
+  --env-logo-opacity:1;
+}
+
+/* ==========================================================================
+   ENVIRONMENT · WHITE — clarity, explanation, product storytelling
+   ========================================================================== */
+[data-env="white"]{
+  --env-mode:light;
+  --env-bg:var(--white);
+  --env-bg-far:var(--paper);
+  --env-wash:radial-gradient(120% 68% at 50% -8%,rgba(160,210,248,.24),transparent 58%);
+  --env-surface:rgba(247,250,253,.9);
+  --env-surface-2:#FFFFFF;
+  --env-panel:linear-gradient(160deg,#FFFFFF,#F6FAFD);
+  --env-panel-solid:#FFFFFF;
+  --env-inset:rgba(9,43,74,.045);
+
+  --env-text:var(--tol-1);
+  --env-text-2:var(--tol-2);
+  --env-text-3:var(--tol-3);
+  --env-text-4:var(--tol-4);
+
+  --env-line:rgba(13,55,91,.15);
+  --env-line-strong:rgba(13,55,91,.28);
+  --env-line-active:rgba(4,111,210,.78);
+  --env-grid:rgba(13,55,91,.075);
+  --env-grid-major:rgba(13,55,91,.15);
+
+  --env-accent:var(--prime-blue);
+  --env-accent-2:#0A6FA8;
+  --env-accent-wash:rgba(8,127,232,.09);
+  --env-accent-edge:rgba(8,127,232,.34);
+
+  --env-btn-bg:linear-gradient(180deg,#0B2846,#061424);
+  --env-btn-fg:#EAF4FF;
+  --env-btn-glow:0 14px 34px -16px rgba(9,43,74,.4);
+
+  --env-pass:var(--pass-l); --env-warn:var(--warn-l); --env-fail:var(--fail-l);
+  --env-shadow:0 24px 56px -34px rgba(9,43,74,.30);
+  --env-logo-opacity:1;
+}
+
+/* An environment paints its own ground and coordinates every dependent
+   property in one transition, so a theme change never flashes. */
+.env{
+  position:relative;isolation:isolate;
+  background-color:var(--env-bg);
+  color:var(--env-text);
+  transition:background-color var(--t-large) var(--ease-standard),
+             color var(--t-large) var(--ease-standard);
+}
+/* z-index:-1 inside an isolated stacking context, so the wash sits behind the
+   section's own content without disturbing any child's positioning */
+.env::before{
+  content:"";position:absolute;inset:0;pointer-events:none;z-index:-1;
+  background:var(--env-wash);
+}

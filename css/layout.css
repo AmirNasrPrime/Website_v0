@@ -1,0 +1,100 @@
+/* ============================================================================
+   PRIME-CAE · layout — measure, the 12-column field, section chrome, seams
+   ========================================================================== */
+.shell{width:100%;max-width:var(--measure);margin-inline:auto;padding-inline:var(--gutter)}
+
+/* a wide shell for the engineering viewports; copy never uses it */
+.shell--wide{max-width:min(96vw,1840px)}
+
+.section{position:relative;padding-block:var(--section-y);scroll-margin-top:var(--nav-h)}
+.section--tight{padding-block:var(--section-y-tight)}
+
+/* ---------------------------------------------------------------- field - */
+.field{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));
+  gap:var(--s-5) var(--s-6)}
+.c-1,.c-4,.c-5,.c-6,.c-7,.c-8,.c-9,
+.c-l5,.c-l6,.c-l7,.c-r5,.c-r6,.c-r7,.c-in10{grid-column:1/-1}
+/* Below the breakpoint every child already spans the full field, so the twelve
+   tracks buy nothing — and their eleven 36px gaps add up to more than a phone
+   is wide, which collapses every track to 0 and pushes the row past the
+   viewport. One column at narrow widths, and the arithmetic cannot happen. */
+@media (max-width:899px){
+  .field{grid-template-columns:minmax(0,1fr)}
+}
+@media (min-width:900px){
+  .c-4{grid-column:span 4}.c-5{grid-column:span 5}.c-6{grid-column:span 6}
+  .c-7{grid-column:span 7}.c-8{grid-column:span 8}.c-9{grid-column:span 9}
+  .c-l7{grid-column:1/8}.c-r5{grid-column:8/-1}
+  .c-l5{grid-column:1/6}.c-r7{grid-column:6/-1}
+  .c-l6{grid-column:1/7}.c-r6{grid-column:7/-1}
+  .c-in10{grid-column:2/12}
+}
+
+/* --------------------------------------------------------- section head - */
+.sec-head{display:grid;gap:clamp(16px,2.2vh,var(--s-5))}
+.sec-mark{display:flex;align-items:center;gap:var(--s-4);
+  padding-bottom:var(--s-3);border-bottom:var(--lw-1) solid var(--env-line)}
+.sec-mark__n{font-family:var(--font-mono);font-size:var(--fs-meta);font-weight:500;
+  letter-spacing:.12em;color:var(--env-accent)}
+.sec-mark__t{font-family:var(--font-mono);font-size:var(--fs-eyebrow);font-weight:500;
+  letter-spacing:.18em;text-transform:uppercase;color:var(--env-text-3)}
+.sec-mark__r{flex:1;height:var(--lw-1);
+  background:linear-gradient(90deg,var(--env-line-strong),transparent)}
+.sec-title{max-width:19ch}
+.sec-intro{max-width:54ch}
+
+/* ------------------------------------------------------------- seams ---- */
+/* An environment change is a horizon, not a cut. Each seam blends the two
+   grounds it sits between and carries a single instrument line. */
+/* The seam is the environment change, not a gap. It needs enough height for
+   the gradient to read as a transition and not one pixel more. */
+.seam{position:relative;height:clamp(24px,2.6vh + 1vw,72px);overflow:hidden}
+.seam::after{content:"";position:absolute;left:var(--gutter);right:var(--gutter);
+  top:50%;height:var(--lw-hair);opacity:.5;
+  background:linear-gradient(90deg,transparent,var(--seam-line,rgba(126,182,236,.4)) 18%,
+             var(--seam-line,rgba(126,182,236,.4)) 82%,transparent)}
+.seam[data-from="navy"][data-to="ice"] {background:linear-gradient(180deg,var(--navy-950),var(--ice-50))}
+/* the long atmospheric horizon: computation rises through flow into analysis */
+.seam[data-from="navy"][data-to="ice"][data-via="sky"]{
+  height:clamp(150px,17vw,300px);
+  background:linear-gradient(180deg,var(--navy-950) 0%,var(--navy-700) 22%,
+             var(--sky-800) 46%,var(--sky-400) 70%,var(--sky-100) 86%,var(--ice-50) 100%)}
+.seam[data-via="sky"]::after{--seam-line:rgba(255,255,255,.5);top:62%}
+.seam[data-from="ice"][data-to="navy"] {background:linear-gradient(180deg,var(--ice-50),var(--navy-950))}
+.seam[data-from="navy"][data-to="sky"] {background:linear-gradient(180deg,var(--navy-950),var(--navy-700) 34%,var(--sky-700) 78%,var(--sky-300))}
+.seam[data-from="sky"][data-to="ice"]  {background:linear-gradient(180deg,var(--sky-300),var(--ice-50))}
+.seam[data-from="navy"][data-to="white"]{background:linear-gradient(180deg,var(--navy-950),var(--white))}
+.seam[data-from="white"][data-to="ice"] {background:linear-gradient(180deg,var(--white),var(--ice-50))}
+.seam[data-from="ice"][data-to="white"] {background:linear-gradient(180deg,var(--ice-50),var(--white))}
+.seam[data-from="white"][data-to="navy"]{background:linear-gradient(180deg,var(--white),var(--navy-950))}
+.seam[data-from="ice"][data-to="sky"]  {background:linear-gradient(180deg,var(--ice-50),var(--sky-300))}
+.seam[data-from="sky"][data-to="navy"] {background:linear-gradient(180deg,var(--sky-300),var(--sky-800) 30%,var(--navy-800) 70%,var(--navy-950))}
+.seam[data-to="navy"]{--seam-line:rgba(126,182,236,.34)}
+.seam[data-to="ice"],.seam[data-to="white"]{--seam-line:rgba(9,43,74,.22)}
+.seam[data-to="sky"]{--seam-line:rgba(5,31,57,.26)}
+
+/* ------------------------------------------------- measurement grids ---- */
+/* Grids appear where they mean scale and reference — never behind prose. */
+.grid-bg{position:absolute;inset:0;pointer-events:none;z-index:0;
+  background-image:
+    linear-gradient(var(--env-grid) var(--lw-hair),transparent var(--lw-hair)),
+    linear-gradient(90deg,var(--env-grid) var(--lw-hair),transparent var(--lw-hair)),
+    linear-gradient(var(--env-grid-major) var(--lw-hair),transparent var(--lw-hair)),
+    linear-gradient(90deg,var(--env-grid-major) var(--lw-hair),transparent var(--lw-hair));
+  background-size:34px 34px,34px 34px,170px 170px,170px 170px;
+  /* the fade has to clear the whole section, or the grid reads as a patch in
+     one corner rather than as the ground the figure sits on */
+  -webkit-mask-image:radial-gradient(150% 128% at 50% 28%,#000 52%,transparent 96%);
+          mask-image:radial-gradient(150% 128% at 50% 28%,#000 52%,transparent 96%)}
+
+.glow{position:absolute;pointer-events:none;border-radius:50%;filter:blur(120px);opacity:.42}
+.rule{height:var(--lw-hair);background:linear-gradient(90deg,transparent,
+  var(--env-line) 14%,var(--env-line) 86%,transparent)}
+
+.stack-2>*+*{margin-top:var(--s-2)}
+.stack-3>*+*{margin-top:var(--s-3)}
+.stack-4>*+*{margin-top:var(--s-4)}
+.stack-5>*+*{margin-top:var(--s-5)}
+.stack-6>*+*{margin-top:var(--s-6)}
+.row{display:flex;align-items:center;gap:var(--s-3);flex-wrap:wrap}
+.row--between{justify-content:space-between}

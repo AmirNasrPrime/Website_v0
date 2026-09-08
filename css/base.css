@@ -1,0 +1,92 @@
+/* ============================================================================
+   PRIME-CAE · reset and typography
+   Every colour here resolves through the environment contract, so a heading
+   never has to know which background it landed on.
+   ========================================================================== */
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;background:var(--navy-950);scroll-behavior:smooth}
+body{
+  margin:0;
+  background:var(--navy-950);
+  color:var(--tod-1);
+  font-family:var(--font-text);
+  font-size:var(--fs-body);
+  line-height:var(--lh-body);
+  -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;
+  font-feature-settings:"ss01","cv02","cv03";
+  overflow-x:hidden;
+}
+img,video,canvas,svg{display:block;max-width:100%}
+button,input,select,textarea{font:inherit;color:inherit}
+button{background:none;border:0;cursor:pointer;padding:0}
+a{color:inherit;text-decoration:none}
+ul,ol{margin:0;padding:0;list-style:none}
+h1,h2,h3,h4,h5,p,figure{margin:0}
+fieldset{border:0;margin:0;padding:0}
+::selection{background:rgba(74,169,255,.28);color:#fff}
+
+:focus{outline:none}
+:focus-visible{
+  outline:var(--lw-3) solid var(--env-line-active,var(--prime-lift));
+  outline-offset:3px;border-radius:var(--r-1);
+}
+
+::-webkit-scrollbar{width:12px;height:12px}
+::-webkit-scrollbar-track{background:var(--navy-990)}
+::-webkit-scrollbar-thumb{background:#16273c;border-radius:20px;border:3px solid var(--navy-990)}
+::-webkit-scrollbar-thumb:hover{background:#22394f}
+
+/* ------------------------------------------------------------------ type - */
+.t-hero{font-family:var(--font-sans);font-weight:500;font-size:var(--fs-hero);
+  line-height:var(--lh-tight);letter-spacing:-.036em;color:var(--env-text)}
+.t-h2{font-family:var(--font-sans);font-weight:500;font-size:var(--fs-h2);
+  line-height:var(--lh-title);letter-spacing:-.03em;color:var(--env-text)}
+.t-d2{font-family:var(--font-sans);font-weight:500;font-size:var(--fs-d2);
+  line-height:1.12;letter-spacing:-.026em;color:var(--env-text)}
+.t-h3{font-family:var(--font-sans);font-weight:500;font-size:var(--fs-h3);
+  line-height:1.2;letter-spacing:-.018em;color:var(--env-text)}
+.t-lede{font-size:var(--fs-lede);line-height:var(--lh-copy);color:var(--env-text-2);max-width:58ch}
+.t-body{font-size:var(--fs-body);line-height:var(--lh-copy);color:var(--env-text-2);max-width:66ch}
+.t-small{font-size:var(--fs-small);line-height:1.6;color:var(--env-text-2);max-width:70ch}
+.t-mono{font-family:var(--font-mono);font-variant-ligatures:none}
+
+/* instrumentation: compact, never faint */
+.t-meta{font-family:var(--font-mono);font-size:var(--fs-meta);font-weight:500;
+  letter-spacing:.16em;text-transform:uppercase;color:var(--env-text-3)}
+.t-micro{font-family:var(--font-mono);font-size:var(--fs-micro);font-weight:500;
+  letter-spacing:.15em;text-transform:uppercase;color:var(--env-text-4)}
+
+/* engineering results are part of the design, not a footnote */
+.t-value{font-family:var(--font-sans);font-weight:500;font-size:var(--fs-value);
+  line-height:1;letter-spacing:-.02em;font-variant-numeric:tabular-nums;color:var(--env-text)}
+.t-value-lg{font-family:var(--font-sans);font-weight:500;font-size:var(--fs-value-lg);
+  line-height:1;letter-spacing:-.028em;font-variant-numeric:tabular-nums;color:var(--env-text)}
+
+.ink-2{color:var(--env-text-2)} .ink-3{color:var(--env-text-3)} .ink-4{color:var(--env-text-4)}
+.accent{color:var(--env-accent)}
+.nowrap{white-space:nowrap}
+
+/* Emphasis inside a heading. On dark it lifts to PRIME-CAE blue; on light it
+   stays navy, which reads as more authoritative than a gradient would. */
+.grad{color:var(--env-accent)}
+[data-env="navy"] .grad{
+  background:linear-gradient(96deg,#FFFFFF 2%,#CFE4FB 38%,var(--prime-lift) 96%);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+}
+[data-env="ice"] .grad,[data-env="white"] .grad{color:var(--prime-blue)}
+[data-env="sky"] .grad{color:#06162A;opacity:.62}
+
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;
+  clip:rect(0 0 0 0);white-space:nowrap;border:0}
+
+/* --------------------------------------------------- progressive reveal - */
+.js [data-reveal]{opacity:0;transform:translate3d(0,22px,0);
+  transition:opacity var(--t-reveal) var(--ease-large),transform var(--t-reveal) var(--ease-large)}
+.js [data-reveal].in{opacity:1;transform:none}
+
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;
+    transition-duration:.01ms!important}
+  .js [data-reveal]{opacity:1!important;transform:none!important}
+}

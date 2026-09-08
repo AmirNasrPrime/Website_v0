@@ -1,0 +1,211 @@
+/* ============================================================================
+   PRIME-CAE · section compositions
+   Each section declares an environment; everything inside inherits it.
+   ========================================================================== */
+
+/* ---------------------------------------------------------- scroll line - */
+.progress{position:fixed;top:0;left:0;right:0;height:3px;
+  z-index:calc(var(--z-nav) + 5);pointer-events:none}
+.progress i{display:block;height:100%;width:0;
+  background:linear-gradient(90deg,var(--navy-600),var(--prime-blue),var(--prime-cyan));
+  box-shadow:0 0 14px rgba(74,169,255,.75)}
+
+/* =========================================================================
+   INSTRUMENT STRIP — how every engineering result is presented
+   label above, value loud, status beside it
+   ========================================================================= */
+.instr{display:flex;flex-wrap:wrap;gap:var(--s-3) clamp(20px,2.6vw,44px);
+  padding:var(--s-4) var(--s-5);border:var(--lw-1) solid var(--env-line);
+  border-radius:var(--r-2);background:var(--env-surface)}
+.instr__i{display:grid;gap:5px;min-width:0}
+.instr__k{font-family:var(--font-mono);font-size:var(--fs-micro);font-weight:500;
+  letter-spacing:.16em;text-transform:uppercase;color:var(--env-text-3)}
+.instr__v{font-family:var(--font-sans);font-size:var(--fs-value);font-weight:500;
+  line-height:1;letter-spacing:-.02em;font-variant-numeric:tabular-nums;color:var(--env-text)}
+.instr__v small{font-family:var(--font-mono);font-size:.5em;font-weight:500;
+  letter-spacing:.08em;color:var(--env-text-3);margin-left:5px}
+.instr__v--pass{color:var(--env-pass)}
+
+/* =========================================================== 01 · LAYER = */
+/* Diagram left, the line it is describing right — so the two are read together
+   instead of the caption being pushed below the fold. Below the breakpoint they
+   stack and the line centres under the figure. */
+.layer__wrap{position:relative;margin-top:clamp(18px,2.4vh,var(--s-7));
+  display:grid;grid-template-columns:minmax(0,1fr);
+  gap:clamp(18px,2.6vh,32px);align-items:center}
+@media (min-width:1000px){
+  .layer__wrap{grid-template-columns:minmax(0,1fr) minmax(0,.5fr);
+    gap:clamp(24px,2.6vw,56px)}
+}
+/* The diagram is sized from the height left after the header, the section's
+   own padding, its heading and the line underneath — so the whole section is
+   readable in one screen instead of being scrolled through in pieces. */
+.orbit{position:relative;width:100%;min-width:0;
+  height:clamp(300px,min(56vh,42vw),580px);
+  height:clamp(300px,min(56svh,42vw),580px)}
+.orbit__canvas{position:absolute;inset:0;width:100%;height:100%}
+.orbit__nodes{position:absolute;inset:0}
+.orbit__node{position:absolute;transform:translate(-50%,-50%);z-index:2;
+  display:flex;align-items:center;gap:10px;min-height:44px;padding:0 18px;border-radius:100px;
+  border:var(--lw-1) solid var(--env-line-strong);background:var(--env-panel-solid);
+  font-family:var(--font-mono);font-size:var(--fs-meta);font-weight:500;
+  letter-spacing:.13em;text-transform:uppercase;color:var(--env-text-2);white-space:nowrap;
+  box-shadow:var(--env-shadow);
+  transition:color var(--t-fast),border-color var(--t-fast),box-shadow var(--t-normal)}
+.orbit__node::before{content:"";width:7px;height:7px;border-radius:50%;
+  background:var(--env-text-4);transition:background var(--t-fast),box-shadow var(--t-fast)}
+.orbit__node:hover{color:var(--env-text);border-color:var(--env-line-active)}
+.orbit__node[aria-pressed="true"]{color:var(--env-text);border-color:var(--env-accent-edge);
+  box-shadow:0 0 0 5px var(--env-accent-wash),var(--env-shadow)}
+.orbit__node[aria-pressed="true"]::before{background:var(--env-accent);
+  box-shadow:0 0 10px var(--env-accent)}
+/* Below the radial layout's honest minimum the six-node circle stops being
+   readable, so the same six controls recompose into one scrollable rail and
+   the model keeps the whole frame to itself. */
+@media (max-width:719px){
+  .orbit{aspect-ratio:auto;min-height:0;max-height:none;
+    display:flex;flex-direction:column;gap:var(--s-4)}
+  .orbit__canvas{position:relative;inset:auto;width:100%;height:auto;
+    aspect-ratio:5/4;min-height:280px;order:1}
+  .orbit__nodes{position:static;order:2;display:flex;gap:10px;overflow-x:auto;
+    padding:2px 2px 6px;scroll-snap-type:x proximity;
+    scrollbar-width:none;-webkit-overflow-scrolling:touch}
+  .orbit__nodes::-webkit-scrollbar{display:none}
+  .orbit__node{position:relative;transform:none;left:auto!important;top:auto!important;
+    flex:0 0 auto;scroll-snap-align:start}
+}
+
+.layer__read{margin-top:var(--s-7);display:grid;gap:var(--s-6);grid-template-columns:1fr;align-items:start}
+@media (min-width:900px){.layer__read{grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:var(--s-8)}}
+.layer__read h3{margin-bottom:var(--s-3)}
+
+/* =========================================================== FOOTER ==== */
+.foot{padding-block:var(--s-8) var(--s-5);border-top:var(--lw-1) solid var(--env-line)}
+.foot__logo{width:clamp(190px,15vw,240px);height:auto}
+.foot__mark{margin-top:var(--s-5);font-family:var(--font-mono);font-size:var(--fs-meta);
+  font-weight:500;letter-spacing:.28em;text-transform:uppercase;color:var(--env-text-2);line-height:2.2}
+.foot__nav h4{font-family:var(--font-mono);font-size:var(--fs-micro);font-weight:500;
+  letter-spacing:.18em;text-transform:uppercase;color:var(--env-text-3);margin-bottom:var(--s-3)}
+.foot__nav a{display:block;min-height:38px;padding:7px 0;font-size:var(--fs-small);
+  color:var(--env-text-2);transition:color var(--t-fast)}
+.foot__nav a:hover{color:var(--env-text)}
+.foot__bot{display:flex;flex-wrap:wrap;gap:14px;justify-content:space-between;align-items:center;
+  margin-top:var(--s-7);padding-top:var(--s-5);border-top:var(--lw-1) solid var(--env-line);
+  font-family:var(--font-mono);font-size:var(--fs-micro);color:var(--env-text-3);letter-spacing:.06em}
+
+/* =========================================================================
+   04 · CONTACT — one address, and nothing standing in front of it
+   ========================================================================= */
+.contact{padding-block:clamp(44px,3.6vh + 1.8vw,124px)}
+/* One address, centred, with nothing standing in front of it. The measure and
+   the vertical rhythm are the section's own — only the second column is gone. */
+.contact__in{display:grid;justify-items:center;text-align:center}
+/* the eyebrow carries the section on its own here, so it is set well above the
+   13px instrumentation size the mark uses elsewhere — scoped, so every other
+   .t-meta on the site is untouched */
+.contact__in > .t-meta{font-size:clamp(1.05rem,1.5vw,1.4rem);letter-spacing:.22em}
+.contact__in .t-h2{max-width:17ch}
+.contact__in .t-lede{max-width:46ch}
+.contact__mail{display:inline-block;margin-top:var(--s-6);
+  font-family:var(--font-mono);font-size:clamp(1rem,1.5vw,1.25rem);font-weight:500;
+  letter-spacing:.02em;color:var(--env-accent);
+  border-bottom:var(--lw-2) solid var(--env-accent-edge);padding-bottom:4px;
+  transition:color var(--t-fast),border-color var(--t-fast)}
+.contact__mail:hover{color:var(--env-text);border-color:var(--env-line-active)}
+
+.foot__mail{display:inline-block;margin-top:var(--s-5);font-family:var(--font-mono);
+  font-size:var(--fs-small);color:var(--env-accent);
+  border-bottom:var(--lw-1) solid var(--env-accent-edge);padding-bottom:3px;
+  transition:color var(--t-fast)}
+.foot__mail:hover{color:var(--env-text)}
+
+/* =========================================================================
+   01 · ABOUT — the landing after the hero
+   The cinematic environment is held one section longer, so the drop into the
+   ice engineering environment is a decision rather than an accident. Nothing
+   here is decoration: the field is a coordinate field, and the figure is the
+   one claim the section makes, drawn — data alone admits many answers, physics
+   admits one.
+   ========================================================================= */
+.about{position:relative;overflow:hidden;
+  padding-block:clamp(46px,3.6vh + 1.8vw,124px) clamp(40px,3.2vh + 1.6vw,112px)}
+.about__field{position:absolute;inset:0;width:100%;height:100%;z-index:0;
+  pointer-events:none;opacity:.9}
+.about__glow{width:min(64vw,780px);height:min(64vw,780px);
+  right:-14%;top:-24%;background:var(--env-accent);opacity:.15}
+.about .shell{position:relative;z-index:1}
+
+/* the figure sits in the field rather than in a box — the graphic carries its
+   own frame in the axes it draws */
+.about__fig{position:relative;margin:0;align-self:center}
+/* capped by height as well as width, so the figure cannot push the copy off a
+   short screen */
+.about__fig canvas{display:block;margin-inline:auto;aspect-ratio:5/4;
+  width:min(100%,calc(min(42vh,390px) * 1.25));
+  width:min(100%,calc(min(42svh,390px) * 1.25))}
+.about__cap{display:block;margin-top:var(--s-3);text-align:center;
+  color:var(--env-text-4)}
+.about__cap b{color:var(--env-accent);font-weight:500}
+.about__in{align-items:center;row-gap:clamp(28px,3.4vh,var(--s-7))}
+
+.about__h{max-width:15ch;margin:clamp(14px,1.8vh,var(--s-5)) 0 clamp(18px,2.4vh,var(--s-6))}
+.about__lede{max-width:46ch}
+.about__body{margin-top:clamp(14px,1.8vh,var(--s-5));max-width:52ch;color:var(--env-text-3)}
+
+.about__marks{list-style:none;margin:clamp(20px,2.8vh,var(--s-7)) 0 0;padding:0;
+  display:flex;flex-wrap:wrap;gap:9px 10px}
+.about__marks li{display:flex;align-items:center;gap:8px;
+  padding:7px 12px;border-radius:100px;
+  border:var(--lw-1) solid var(--env-line-strong);
+  background:var(--env-surface);color:var(--env-text-2);white-space:nowrap}
+.about__marks i{width:5px;height:5px;border-radius:50%;
+  background:var(--env-accent);box-shadow:0 0 8px var(--env-accent)}
+
+
+/* =========================================================================
+   02 · WHAT PRIME-CAE IS — one statement under the diagram, nothing more
+   ========================================================================= */
+/* The line under the diagram has to be readable while the diagram is running,
+   which means it has to be on the same screen as it: set wide enough to land in
+   one or two lines rather than four, at a size that does not compete with the
+   section title. */
+.layer__line{display:grid;gap:var(--s-3);margin:0;max-width:30ch}
+.layer__line .t-d2{color:var(--env-text);transition:opacity var(--t-normal);
+  font-size:min(clamp(1.18rem,.9vw + .9rem,1.85rem),4vh);line-height:1.32}
+@media (max-width:999px){
+  .layer__line{justify-items:center;text-align:center;
+    max-width:min(60ch,94%);margin-inline:auto}
+}
+
+/* =========================================================================
+   03 · PRIME-CAE PRODUCTS — the supplied wordmarks carry the identity
+   ========================================================================= */
+.fam{display:grid;gap:var(--s-5);margin-top:clamp(22px,3vh,var(--s-7));
+  grid-template-columns:repeat(4,minmax(0,1fr))}
+/* four across as long as the cards stay legible — dropping to two rows makes
+   the section twice as tall as the screen it has to fit in */
+@media (max-width:940px){.fam{grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--s-6)}}
+@media (max-width:600px){.fam{grid-template-columns:1fr}}
+.fam__i{display:grid;gap:var(--s-4);align-content:start;
+  padding:var(--s-5);border:var(--lw-1) solid var(--env-line);border-radius:var(--r-3);
+  background:var(--env-surface-2);
+  transition:border-color var(--t-normal),transform var(--t-normal) var(--ease-standard),
+             box-shadow var(--t-large)}
+.fam__i:hover{border-color:var(--env-accent-edge);transform:translateY(-4px);
+  box-shadow:var(--env-shadow)}
+.fam__vis{border-radius:var(--r-2);overflow:hidden;background:var(--env-panel-solid);
+  border:var(--lw-1) solid var(--env-line);aspect-ratio:4/3;
+  max-height:min(26vh,240px);max-height:min(26svh,240px)}
+.fam__vis canvas{width:100%;height:100%}
+.fam__logo{width:min(190px,88%);height:auto;max-width:100%}
+.fam__i p{max-width:34ch}
+
+/* =============================================================== FOOTER = */
+.foot{padding-block:var(--s-7) var(--s-6);border-top:var(--lw-1) solid var(--env-line)}
+.foot__in{display:flex;align-items:center;justify-content:space-between;
+  gap:var(--s-6);flex-wrap:wrap}
+.foot__logo{width:clamp(170px,14vw,210px);height:auto}
+.foot__links{display:flex;gap:var(--s-5);flex-wrap:wrap}
+.foot__links a{min-height:40px;display:inline-flex;align-items:center;
+  font-size:var(--fs-small);color:var(--env-text-2);transition:color var(--t-fast)}
+.foot__links a:hover{color:var(--env-text)}

@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>PRIME-CAE — AI-Native Computer-Aided Engineering</title>
+<meta name="description" content="PRIME-CAE is an AI-native computer-aided engineering platform connecting design, physics, engineering data, artificial intelligence and optimization in one environment.">
+<meta name="theme-color" content="#050709">
+<meta name="color-scheme" content="dark">
+<link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16.png?v=2">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png?v=2">
+<link rel="icon" type="image/png" sizes="48x48" href="assets/favicon-48.png?v=2">
+<link rel="icon" type="image/png" sizes="192x192" href="assets/favicon-192.png?v=2">
+<link rel="apple-touch-icon" sizes="180x180" href="assets/favicon-180.png?v=2">
+<meta property="og:title" content="PRIME-CAE — Engineering Intelligence. Built on Physics.">
+<meta property="og:description" content="One engineering intelligence layer. Design, simulate, learn, optimize and validate in a single connected environment.">
+<meta property="og:image" content="assets/prime-cae-lockup-color.png">
+<meta property="og:type" content="website">
+
+<!-- ==========================================================================
+     CRITICAL INLINE STYLE
+     Self-contained on purpose. If every external subresource is blocked —
+     which is what Safari does to file:// pages — the document must still be
+     a designed PRIME-CAE screen, never raw browser-default HTML.
+     ========================================================================== -->
+<style>
+  html{background:#050709;color-scheme:dark}
+  body{margin:0;background:#050709;color:#EDF1F6;
+    font-family:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+    -webkit-font-smoothing:antialiased}
+  #filegate{display:none}
+  html.is-file{overflow:hidden}
+  html.is-file body>*{display:none!important}
+  html.is-file #filegate{display:grid!important}
+
+  #filegate{position:fixed;inset:0;z-index:9999;place-items:center;padding:28px;
+    background:
+      radial-gradient(120% 90% at 50% -10%,rgba(60,134,232,.16),transparent 62%),
+      radial-gradient(90% 70% at 50% 120%,rgba(34,201,212,.07),transparent 60%),
+      #050709;
+    text-align:center;overflow:auto}
+  #filegate .fg-frame{position:absolute;inset:26px;border:1px solid rgba(255,255,255,.09);
+    pointer-events:none;border-radius:2px}
+  #filegate .fg-in{position:relative;max-width:600px;display:grid;gap:22px;justify-items:center}
+  #filegate img{height:52px;width:auto;filter:drop-shadow(0 4px 22px rgba(60,134,232,.4))}
+  #filegate .fg-eyebrow{font-family:ui-monospace,"SF Mono",Menlo,monospace;font-size:.6rem;
+    letter-spacing:.36em;text-transform:uppercase;color:#98A3B2;text-indent:.36em;margin:0}
+  #filegate h1{margin:0;font-size:clamp(1.5rem,3.6vw,2.15rem);line-height:1.14;
+    letter-spacing:-.03em;font-weight:500;
+    font-family:"Space Grotesk","Inter",-apple-system,sans-serif}
+  #filegate p{margin:0;font-size:.95rem;line-height:1.66;color:#98A3B2;max-width:50ch}
+  #filegate .fg-card{width:100%;border:1px solid rgba(255,255,255,.10);border-radius:12px;
+    background:rgba(255,255,255,.028);padding:20px 22px;text-align:left;display:grid;gap:12px}
+  #filegate .fg-step{display:grid;grid-template-columns:auto 1fr;gap:13px;align-items:start}
+  #filegate .fg-num{font-family:ui-monospace,"SF Mono",Menlo,monospace;font-size:.62rem;
+    letter-spacing:.12em;color:#5CA6FF;border:1px solid rgba(92,166,255,.32);border-radius:3px;
+    padding:3px 7px;background:rgba(60,134,232,.13)}
+  #filegate .fg-step div{font-size:.9rem;line-height:1.6;color:#98A3B2}
+  #filegate code{font-family:ui-monospace,"SF Mono",Menlo,monospace;font-size:.84rem;color:#EDF1F6;
+    background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.10);
+    border-radius:5px;padding:2px 7px;white-space:nowrap}
+  #filegate .fg-why{font-family:ui-monospace,"SF Mono",Menlo,monospace;font-size:.62rem;
+    line-height:1.85;letter-spacing:.05em;color:#68727F;max-width:56ch}
+  #filegate .fg-mark{position:absolute;font-family:ui-monospace,"SF Mono",Menlo,monospace;
+    font-size:.64rem;letter-spacing:.2em;text-transform:uppercase;color:#464F5A;line-height:2}
+  #filegate .fg-tl{top:40px;left:42px;text-align:left}
+  #filegate .fg-br{bottom:40px;right:42px;text-align:right}
+  @media (max-width:620px){#filegate .fg-mark{display:none}#filegate .fg-frame{inset:14px}}
+</style>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="css/tokens.css">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/layout.css">
+<link rel="stylesheet" href="css/components.css">
+<link rel="stylesheet" href="css/hero.css">
+<link rel="stylesheet" href="css/sections.css">
+<link rel="stylesheet" href="css/mobile.css">
+
+<link rel="preload" as="image" href="media/hero-field-poster.jpg">
+</head>
+
+<body>
+
+<!-- ==========================================================================
+     file:// LAUNCH GATE — shown only when the page is opened directly from
+     disk, where browsers block ES modules and (in Safari) all subresources.
+     ========================================================================== -->
+<div id="filegate" role="dialog" aria-modal="true" aria-labelledby="fgTitle">
+  <div class="fg-frame"></div>
+  <div class="fg-mark fg-tl">PRIME-CAE<br>LOCAL SESSION</div>
+  <div class="fg-mark fg-br">PROTOCOL: FILE<br>STATE: HELD</div>
+  <div class="fg-in">
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAR0AAAA+CAYAAAAWJc9XAAAmp0lEQVR42u2deZgdVZ33P79TVXfpfUl3dhICBJJGBDsKRJAb3JUQQG9cxnV0wozOI+O4zAz62h23mXln10En6AwiA8G+igzuuPRl9MVB07KlgwQIIQkJSUPWXu+tOr/3j6p7+3anO91pMhKwvs9zn15u1alzTtX51m8/wgmEqhpAoj+tiOgEx0h0jFT+G9CJjo8RI8YLC+4JJBtExI77xqgi0XW8nRCIyFBEMsciLQFs6ThjRDWmoxgxXlikUyKO40WuF1dECgCPH9azGjwurHa5AGGpEaqiaySA9HyLXwh0l8DTwL7BIttdh22HBti1aRf7RGTHOBqSbsWxVqUHaA9JyMa3LUaM5x9KQok8S9JxRKT4yC5dOH82H026vNtA/QzaKVrL0woPBPDbos99h30e7H6IJ/5ghTw9gTTklFS4CvUsRowYL2TS6QFnhUhx7yFd2VrHzcDi6KuAUUaQCRrVcb87jLXvlIkosOywym9VeHj/IPcMDXP/kn/lMdaLX9FvBzDX98DuI2hnJpaEYsR4wZFOZy/u+rOl8ORhvWhOLd8y0GotvjGTEshU0ArJxUZENFF/jljL5qJl06ECdz20hwcyp7MNJIgGIV3g0Qu9fdiYgGLEeAGQzvU9OLvbCS7azYJL5/ELAwsj6cY5gf3Tip+lj5mAiPYHlgeLlnuODPHd67Zw//oL5HDFmDyAfB7t60Oz2VgNixHj+SjpGBHxh4u6MenyVsDnBHnBpklGdhIS0sCyxbd0D/t89+Fn2HT+AnmmYnwu47xiMWLEOPlJx4iIf2hE31GX4KZIwjEzVKlOlDRkbdiJMZKWtWwrWroLAT945Ai/bG+R3aXvNmxS7+UppK2trM7FiBHjZCKdXA7JZsPD7t1D83lzuYfQcKxMbHv5XZHOUQGGjNqEyt9Z2BP4/Ly/yPcef5q720+RRyvGXbIfaS53lAomsVQUI8ZzJOn09OCsWCHFoaJ+OuXyf37HatVMYCuIqXJsB6zlroLyk32HyC9qlt5xc+DkQTPh+THpxIjxHJGOCNjePk5f3sLdQPNzLOXMRCqy1iLGjOnzYDHgf6zlJ/sH+fG8b3A/V0sRoLtb3UwmtgHFiPGckE4vuGeLFAYL+om0x2efB1LOlAQU/V5pBypYyz2Bcsdjh/nRsiY2Q5gLFhuhY8Q4caQzLeLYAkH7OvUSDm+YwJbyvBt7BdlUElDCGC42cPHSetb7Ab84VNBv9x/iThHZVjp582ZNALS1EcQEFCPGzBbgVJKOERF/90Ftn1vPz4H0C4B4KqUemUIC2h9Y8kM+3976FD9rXzTqBYvigCpjiWLEiDGFpDMdm4wANNdwZkQ4xXEL7fm82GQCCciJxhREnybHcFVNgptecgq/KhT1P/YM6OrbtmiziBRFxO/sRHvB7emZcUR2jBi/N5gO6diODjX7i/zSwi7AYzQ2pyQd+BWf0mK140jp+URQExGQBeZ7Lu+dU8Uda5Zx90ig/7zvsF6y8zyqzxYprFghJUJ2eP4Y2WPEOOnUK67vwbl6hRR3HdKlc+u4BssaY5h7HAtrPPmEbDbagB5D+hj/u0zjWkzz2JmoY5ZxAZG+5X7guwMBtzck+A2EYmR3t7p9LZiWPuyX+sJ+dcWpGDF+z9Wracfp5POYVavC7O779mjrknrOCAytKaHecWhVZaEICzyHudZSZww1kTpWA6RO8MIfT2AaucOnS1zjCWom5GQrpJoSAmv5RTHgjsf7+fGyJnmwYn5jD1iMmHSYQRpEdLI/2QHZLnVetYRk+1yq5jVSnXKoc4TaANy0kHCh3obFvUSgGmhRIYXFMYYG19AAuBbqgHq1pARSxlALtDCzxNKJbFAl9XB8+VR5Fm1X9q0/sPz3sM9tD+7npxfOle0Vcx0boGPEpHOc9XSkpwfT3j5OGgL9Ug7NZbGcgHrH7RvUO3spztvPwnl5LXV4zDZCtRHqraVBhJoAmhwhlTDMMYbTLKSw1BqDBzQBtYTkdrwSjE6i1h2LnCb0gFno04D8gSFuf3QfP73wNNlb+q5b1e3rxRwYRncfQbf0obEKFiMmnRnaiaZpi5FjqE4zKti+YZN6r2/H1UEaqxxqiwF1dQlmeUKrQpMqcxMuS7DMNoYqCw0G5kbq4PHYdnQSFU7GjaWSgJ6wljsPF7jt8f1sWjG/sjKiimroAcuD5vPQlkGzz14akrW50J6UB5OZQQP5PGQyR9vlOvOYzsxR6uqUEmM++tnHmPGVpc98Hslk0DxIHyg5IAsteYQMZKI2xp0/5Tzk81G/wjYUIJeDKLdwTL/z+bEnV4y/9L2U/lfxux7HOtFcDultQdoyk5/Xmx87l5XH5nLTsxPmcgjZcVrJNPuaA8mGP4/qV1sGrexfZtw97sygpbkRkWDsKlI1J+HHGfdxo49X+dmsmtik6nV3q6uqTkeHGjqmR6Kq6j5xUBt3HNTT9w/qRSO+Zod8ff9gQf88CPQrgeqPA9X/UdWHVLVPVYd1+ghU1Q8CLarqcKBaGPf9436gtw0U9IMHB3RF12atGdO5DjWV4+3uVrerS52ZzifhThzPzqCmKlGfzIl6UW3YpN6Yfk6Ari6dUK3u6Cg/J9N6niYYkHScuBcux9EXo6qmI3xmZaZvdlWV6TwT468jQNf0+yozNXweU8o4gZLOc4pcxZiyo6qgbEshy9ugLWL3PGj0lrRTSlJZdR76ElU1Qn1VLfUJw7xikdaEQzrpsliVsz2HeqDWWlpMaJeqO86uDwO/HfF5sL/ITxOGe953B9tya8Oi9+VF1q1uZ2Z0m5/jsQl9ZzepWQHzRkbAq0MZnn7njITXfNtP2fXEe2W4u1vdL/Wh61bSsMij4ckRhJHwWC+BJpJT98sIct9+9r1/mRyJxmVzOWTJy2n0LSkjSMLBrfJ45oxmjvQcoC5ZZNaAxZoC0lCPfGILu3MrZSgiFD2WVCEZTM9G5quivsV6FnvYsj+zmJFfPUnTyAjNRZegNI6qWgLfhupyUtFkCvW1ohTKIPgpbFrRAeDUaphdQ99057Qzj1l/qfhXfE2bA4/5xo12P7FoYLAmCP+2DmIC1Leoa8LrFy16ZjPDF7yWvb2d+J2dU1/vTTez0CaYJRa1St/tb2XXNLhEV99Cs+dwSmBRvOi/RVAIjBv2q9RvcdHS/JEs/wiWtzDSlmHnWpHgBUc6z4J4J1MDbaTiTVl354bHNfXKRqp8S+2CGhYWhdkFn7pqj2YRTjUwzxhaLDRiaTSGeqBqUuOSZUsADxUD/tsG9D46zGPnNY4apI/HASAi/jODurIhyQ8oZdCb0UWq9tgPn4Aag/qWh46M8JdNVfJzgJFAP58wfNCCbyJHg52gvfE6tIBiQC27Dg/ziaZquUNVzS93kjx/PncawzILPpZUIeCT6YT864Eh/aO6FH+vFl+iWKpAyX//Ed5x5XI5Yq26jKuPVFL/RMQfKurnUi5/AuUUFvHhnZ7ID4NAr8fwFizFkjpsDGpBseHvE6iQpb8DIG0t/+448pHIU2mnUFdNJ1C/h/eKwx+r5bTQ7hFOlSpWBC1PlkamBrC+og1J/D+7gC88/gRfyF5YXuYTEltnhuCKW1mEcBuGM7BIwuFhT7jq5jezo7MbZyJbYilU5oouXScO/xgUKEqF00UnIHkRbNRrEMRaNJXAef+5/OtrTqNTRHyXGJM9TGPmUlWdfB7ZWos0ppBs2zj9HjTfSeGU9TIM7AeemET+ljt6SNfOpWrFLGanEsyTgAbHocHCadaGxGSg1RhaDVzmGd6EB+emGAkC7bXwSCEgP3SYW4AjRPWAphpo4OOZ9CQS2DRfOa5hZX2am7bv0wsXt8qeREicdWZ8U+aY8y0VBzc0VnHjgSE9T0S2d29Wh/m0AM0mJCaRICRmhZSBusq2DVz+hjO4+Ys/07cDAxFhlBa8lAhnsKAdKZdrj+qNXw7naBzf9jTGUh6PtWzeO8DfdB1b4io9K2bVKvFXb9TLxOU6x8OzBVANyUXCxRstWyD6X3QxaxI4rmHv3U9y5zXHlvIEYG0OT6HTS3OeH+46p5rkJUcG+IR08ScbapEtmWP2OW0cqq1EOy0oqKWkc2nUMWGUiSLqxJLANKTY/vNdfOu1p4uvqhKTznEQUyY0Pk74BssAmU6kszMkp9paZLx3r2yAbmdIRAYJ9//qneBy0rEZb3EfJrOchtoaFqcS1FW71KvSLDAr4bDUaWYe8PB0B+G6R7npzQzIOTCwaH4L5wB7rA0lIEYrD0wlrsu49nygIeVxKfAfc2YjQCH6vgh4xpR3GNEKycKJpKrAc1j9vou5OfdL3pq9kGHAiQqyGREpDhb02rRHZ3SeRNGdpdIsQTQTpWjy6Y6jcjwj/QHr5tVJ36YwHCKYyigfnfh6N4FXHGIE8IyDcVxkjEl9lHpKC9qpcxis9fjoNS+Te7u71Y3GOiHWrxL/8lv1XcbhXcXBqF+CLQ5iXId3vd2w8eoV0r1uk3q0T9xv66PGRVECDXAQxEkhEkpgUnlXBTBaVhFMo8fQ6Y1c+xcvl3s7VI2I2Jh0ZiYVTUVOeiyxGqBblVqQfY9g9nrIyxejjz4SHtNfQK/rw96VoYjIU8BTxzBcTkfKEYAgCCOpKyLBD1m4HShiw4oDxmDsaP1px4QBjy3G8EpGC6Jp4JOooK3KWKchC7cZGLQWp6TCGcpbEvnW0mAMVxKm1AhhcGc5gNSYsK3oeKlQN824a5XK1Poph8uvOp8bv/AD3vmh1+NnszgiUtjXr9emPT5nwUZtGVMZn+VOqmrvAX4RLR41kUpmQ/tFEKlePhYpWn5Qn5BfbtikXjsEa3NIV/Zo0urpCf83r7aC8RVFMI6LkYAHggI3qGLKqm+lmhoe6y6bx5bzX8GPvhjee3sMj5O9YqMuVfh0icTEwRFwgoDATZD0Az658qu66cA2BnPbkAk3L5BorkalmkF/mLwIAyiiSiAGqwoCwYI69g8HiFUSL5rF/9s/RK6rS50s2PU8f2viPL+M25G7Mhu5ETORjP2dPEFnJ/5EhuyObnVbc6T236hVboLaxTW0nt5EauVi9h0a4PHXn1G2S0zbkOyPLlQLOBb2OsJ7S3WDJsMDT+k5bS3cZ0yooxtD2fdpxqmn1tL/s+188NWnyaHJ2vvhLl346rm8MYql0sr3+qwJND5rjxl2USJC3zFkP/BaCmtz/GFurRSeGdSPN6X5HCHhVAZvjsoRfnlOxkhggeU3riNrpzu33d3qZiJJIcuxA2gv6VYXwCrWEUQUaxKQCrjj5ivln6e61h2R52myZy2bRQ/0YGSFBKtv0asTVSwqDlIUD08CDljFcRxq/QK+9bh0Tg3X5NbKZz8Q9ksnNeopalzEBjwTGNat6GXPljbcfS2jxNfah163C8PVWJbjsEUKHaqGHFJ6zmPS+V8gmJaW0cURbX1jjYiWnuD1wLoN6u09l7o33ULT5bfqAoEWlFof5lW7tN6/jwW+ZcGSZuz7z+NeUY4o9NV4/GrzYR7j+ArKT5juYUD276eusVEHJl4kakDsnkHSZ5tooU6hkBkD582hBjj04bs17R/EjrSGfW2rw1yzlIIXUGfGtRNEfTsgyKxJ2m5IHiX+FyM7TkNJNXINf3DTlQxeP6wPNyT5W8amqwxEPhV3AqN9KY2m5B5+aRBoDkaltUrJwxh8C2kTcsC/Vy7PXA52HNZX1Cc57fGDBKIUdx7E7dlD/WGfI3sGuAM4MGYuLXhgs13qLG/Bm1c7uYq2tD30vE7oaM2i+Tzmj1dJcXWXvs6BP/RHCCyYeo/CqbNY17ObU6qq+IfiIGiAGodrsl36X6tWyYMlL+IkvGM0QFFmucrX7j2LAhapf2q0L0UDq+ug9jb0HS/mtp0H9KaleTRTIUHFpPMsPV95kK09yO4jaBTxZtevHw2CynZp4pav07C6S2dhWWiEFms5Y59wLsM0+4YFVpnnJEh5idBSmiygSWFXU4p7zmzkR08condrH9s/+U3280UZmamnUY6WFILGRgIR8Q8N659Xe6wKlGLJgxK933yBWSWVvSTZJMaRXoXKZv7nMQaPjOhbq1z+1Bh8G6a4qAU+pNhiQI0Nh1rKmVMvOnn/MdTZIz5ugzPWvvT0IO9qquJjBi6OSMgmXf4o6VbY0MANLFuOFPjHhhTXRc+9AhLZuaggFhORSivw5mMZ3A0M9Rf4q5oEmg+lV7Nqlfj379QFC2u5GWh6cSt7LRw+ZzZP9/vM797Ooo+uYPct8GPHRJKXRGZYhdxaCTo2q7OubWY5ejmQ3jz2LbfrvMFh/lESNNhhCl4VifnV3PS5VfLNV27Qet/wNjfJCn+Egkkxa2SEv73sDn1zW+ZoT5joGBUPMaQdl1dNFpMfOFDnMpgS/u7qFVLcsEm9SltoTDrHdzMFoK0P7c2inxYJtMIrddkR0s4ArZEevVBh6YiyTBK0ELBIoBEh5SRBXfAcMBa8IsMibE0omxsT3DWvmV+5CR675iXSN85+I3xhau/IVOpV5fMkIv19Q3ppXZK/A8xkiW2RTcRGz0wxCNgWSQgYM4Z1iqe30FCT4PPAqSXpp3K9ek6Zp4LSrrDDxdAgXhNgy21O7WNzD/bzUN8BrjxzLt8zhvMjQ3BJcin1d8fuI6ypSVNNOXrkWWPk0DBXNKRlc8dmTWzZQvCBSMJ1qjHRdRJAMvThkLpwAXuNUAxsFO0yTp4QMzbSGCaxsRwDvXlk/XoJ1tyqf+amWBYMURAXt154YucRvrzmRl2aqCExVOAOCXiJCG5xmCCV5PX18K61Iv/W1aWJbBZ/kjeXEHrZJiQcC7S6DDSm+MilS+QuVXXW5rDrKpwqMelMQTQtURh+FuzaVaO2j2yXpl//TW2VIqd6hiX2VtoFzlJhkSoLHY9EaQWrhcCP5FMXXIUFSe7vG2SPb9n0krn85PAIjwFPrV81quZ0damTzSL5PPRl0FyUCpA9cUMc2XFQT29KceNUnixTsbmhb/nrVJLfMmocroxjcZ+BgULAta5wnTE0ASMVHqGSHcqtaO+rP36Mn6uq7Ay9YxMutFr3KLHfzmmgqjYpjx5RXVMF3zZwIeBHxmjHWp58ZogrTmmQR1X1Ysa57H1/wrgsx8JB4L7Q1zM6PgsWSzJQ/qshLXfevUPTvx7GZpfj1A6jqmrW5njyq5fznuokZxIwMBDgb3sG1zgUVi3mmU/9hl9WEPmoUUwxHapmex6z5wA6d+nYFIOSB7Wsuo9LAenMY9avEn9NTldiuToohO+ElIeZV81n79/Lqqoa/tIPsIBn/VHx17fo00N87I036529vWxvyR4z6GEk8PmNKkXPwXcEO1wkKYJ1XZzVS7itPs2Nz2xS7+oe+EDL2PsZk06Etbkwv6S3BZm3FflJIza3NlST1m1Q78Ykcy67WU83DksElhUs57qWJcA8DGkvGbK/DUB9CIoE1scPLK7xcBIeiKWvKUneBPzsT1bwvdOb2CMi/sZRInO6VJ2WsXk8Wn7QZs42Et3so9Sr+nocAx/2oTg0Ui5ahuNAECBBgDgO6oAWLZ6FvU1VcpequhJKFWPsRRbsfAcn6cqt+/r14ZY0N2B4cSSBCOAUAn79xEH+dk4NWlAOz0rz02wXJns2sANYOLG72jpHSWKqSkFVRUT2PvCUXvmi2XybkHiwlt37h1nTWiP3qqopFvE9b2zbZfVqlHHUhIbkXyYcecNUE7vyFBkaYyTuUDfTia0X+T7w/QntLqMpHVqpvohg14dBqJPGiq8fO3xRRdbmkOUtSFsfmu3S9EiRT3pV1BWHKCaSeKdW843793LI9fiXQkBKAzSKMLeRG97YIoGTZkkK/oE23tIXhReME2TUOCDK7mqHK/7zTbJvoj7eNu7v6yu0AUT095Z0ShsI5vNIHujKEpSs69kuTYz4zF6zUZchnLsXzneV5cDp4pB0vCiQK4hIJsD6Plajt4aGN9I1CZwaxaZd7gsCvtNQS9dwMw9/eYUUv4xKtgvTrepu7UHWtVfo8Jn/nSxz9+i77f4IHl0r8vDxtBMFo00Wx6KpNFbDmIx7+/v1dak01zuG1URVJRMO5y6u541f/DUf/MhKGdqsmsjlsQLcDcyfTL0KMDhji7+NFKAuJXr3Dk2fM0f2Pr5Xrzqlle8aWLJ/mMtbqqVHVdMiMlRQnTIQ1Iz+nDM8rGtwcKOgoNCrFZEwYyNplDA85cjrPsvPOoHOqH5SrhdZEgWStkfHr82V44MERRXE+nDAZ9Xlt+iTRkiqYK0ere6qYAOLVLmYNy/nHuDXy1swe7Yi668Wf81GfYvxeJ0/TMEavGaPPe97Gdf+xQ+5pqqRqoGD4CTLrwkjArYI6iP+EEEyyeoHfd6+XuRr/7I18rKV3H7RiK2ltj/gbWs26iELTqVaCCC2HFWtGFQV86pT2fkh+ImEloXfG4LRHEgvSBuhR6lEMu0b1Pt1H7NXd+ly8XnxSMBLEV6kwpmOhydORDA+2ABrfVQEVTCiSEQ2EoaL4iSSkLQMuoZ8Q4KNr2nje5ctkgMl12r7JvWWtqN9uXBTv0z7/+74e6Kf1WODA9VaAp4k0a1azEwR1dzbi7S1oT3hfFqWl704laVAFLD9oHNE7GbVRI3IU3ToFcVP8WnX8InS2vFc3nvN+bxszUF9z+kim76/VZNhVoKWVJnyx4x9qNVUXCuRiAzb+/A3qyZOFXnqyUG9qt6huaVa7t28WRO9vWVPUGkb6fFVACoN1wZQx3Cek+T2o2l68nkO4KN3rZc7e1art20bNpvFZtuOPm55y6h6q04kIRaxYniFk+QVYUjvBPquhMymAnUew43VXCki2rFZzVculcI7vqWtR4p8XAS1ik2lkJoEXz6zQbZd2603FXyqnk7Q4Ai+KhIFTwUHLCvxWEyRoBjgpQ0f/9ideufc+9gbSWAK4UvBBlgRmsXjn2UyndyM9tcGUFUNTVV0AD9+wUckl9P5oy2R10b5U5d0qLvxHOas2ahnqnIOwgUEvEiEM5wkScwoyQSFchSnSBidbsrRl2GOiVULeDgJF5pcts6r5Q5H+E7dAPdc8wYZ+QJh3RzykMlgy2p59nczD+1jH4dS/WcxBmqGsRmmjvlpaxttqz07RlootWki75ZURbk3bRBEeUgqIp/sH9GtaZcvGkMdYVxN22n1/PDIiH6wNinfUFVz/1Nl21G5n74tP8ZO5bUAk4z60d4eBu2pqiMiO4AdGzap19aGX1oG3lHCTMXatpjozpZL0aqO2jxKMpJIRb5a+MIJDDi+5VbPkX/oUnW2gc22H1taVVW56ht8PVHkTaRZNDIUOhXKSs0kZ/sCLSmGLlnMulefKj/s7la3r41A/1ST+wb5fFUdy0b6US9NqsXl57XKdR0daj59qWxSZZOR0bHYUC3VK7r0ErF8L3CpDnww1SzbcZhrt8M14XGYwGACxZTcl9aPuqgTl+OM5kxNGpERfn3jZr76znNEeaGRzhiVKT/qul63Qb2v19B4RZeeYZUXE3CxLXK2whlOknQUzo0tgl8gQLCqGBOKn05klC8luJWiMsPfDW4yAc0em31LbuVibn7Pi+SxkiG4Y7MmMn3YDNgxxUaeGyjhpoKBMSSA4Z2HsZ0gnTNt0VKI3M1FwnUzmK6lWHlEZx6jmzUhSfn6M4P6WEOarxpYCoyo0lyV4BZVXQz8/Q6LvjhMg7BRm07ClD0pJRtSqf1hTR7lZdEK9W9MrMtgkaDKoxAZmK0xGN8Pj7FhiEmpbaeCYMIM9QmUSRFUwiqX9/cN8KGKUIZjEk5nBpsD8+23yv1/dae++7DlM+qx+NBwRfLvuBieUrtz6zm8fBbXvfMzbCxdT0SC7z6k5/9mL+c+NcRjWo9Tl2botHo+sW6F7N+wSb1PZdRU1uHpzSOdediwSeXqFXLXu2/X9c21/LH1KRQV56WnsPgNp3JaDrYuaWB/KsW2PqVqJCBZSbyTPGWhjcpB59ey7VA/H9r4Ztnd0aFmvYh9XmaZd4ZvURnvaqpUmbJdWj8inCUF2jGsRFgOnGFcaowbqUo+qI4+mJEUI+ONoxqGnysaqVVhqJnredDo8mi1x01Lm7jhgy+TnRBGE2dCT4M9meatdx9VrfXMGyjguIbELIf+d32H7VnCoLIZGKftXmhthPkUQoliWBn4UZJt4wtE5XLI8uU4Z58thScP66xZtSwA7BN9OMkEZm4VPPAAD3zkO2juz1nSUkdVAezgAO6wsmtuDU8/2s+s5gQLqsAngRQK+D9/gkdvuG8s8UxS1Eq/s5v0RXWcLgnMQBGZX03wyDNsv7mZ/isOcsrsBLOaqyhQGH22ioSlOooFxAONkj8AKBTAL+Lu7+fJ0+bIXtXphzOUpPC1IsGHf6hN585n9hPPTO3YOa2J4tMpHv/QGRRLZgOAnzxJY2uK9L5DmBEfF5/g7/bxZGsYnDppwa4oXUJ7wd2+lQWeoo0O/lAaCiMcftUSDv/NL2g4o57Zjw/j9h+uoMOKuaAw7n8FSCTgrHr2P3AOu9tA1kZFvJ5vpFOutnZgCaZxG3Zt5GHKdqnjO7TaIuegXKTwSmC541EvUaEBWwxLBkRlAiin6UvlPKAVwXFUSDVWBauCl0jAnARb5tfxn4/1cfu/XyUPEalQmZO47vFE5Tme7X0/3jZ7enCirXqOQoeq6Zykza4udUr3etxJJtuGLM+iW3LhfTtGJb0Jq1BO2vbxG9eP+77n85hLLxVfj+PM0jxNdR8u6Va3dZrlbzuB9Ue1ETo7cs9+bkxlH09K0lmbG+1XV2QAzgKdUXnEEmNmN2ui+CCLFVaocCnK+QJnOSlcbGjEshYrYFVDcpGxRdhHSUXKNUIsGmbQlt7mNrTCO8kkNDk8lnbJndPMV973snC74S5Vp1TOMXsSF1qP3oySB8Z5zORZEKUwcQ2i4z2n8jwzgVqoM7zWZGbO8ecLMy+ON+MXTalcaYbREq5TqGYTXqszT1l9Kq+VUMoZXwr2mKaJCcY15rmZVidLyJRLwupJTzol0bM3H96MTKbkzlZ54800GIczDVxA6Fw+T1xOcbyIZIqjKlOFujTRbGpFNn7l/8sTo4oNBLcqCY0u2xPCbQtq+OpfZiLJplvdfKSjEyNGjGlJxScN6VSWGe0Ni2+HgVKqcuVNtPgpXmIsF1nlYhHOcT0aSi459SPPxThVSY7n7aUlgRIrEFjF8ZKYJpcnm9LcekodN/zp+dJbKdkQbx8TI8bzj3RK0ZSROFaKyGT1LTobOE+E1wqsQljuJPGIvEzWhl4mFCOVIrOMKVEgxyAZPcqWA2oVNQmchGJPbeDmthb+6d3nyr0QFhDffQQdJ7bGiBHjZCedUvLkvK1ID3D91aFh8YobtdkmOc8Ir7aW1wAv8lI4aiEYVZtCu4zMQP+uqN1aJh0tF1oMMKFHam6SPJYvH+7jjhvfK8Oq6vaAtE9RES5GjBgnF+lILlKdOjPYUgded5PWJV1erMKrUV6FcJ6XJDWGaCQKynu2GEc6CjZyYzleEpyApzy47qLZXPeBi+WAqpp8HtMXSzYxYjx/SCcH0jJus63Lb9da7eccMawS4dUKL3VTpMeoThE5yLH3IkfD8GxzPKSjYVBXYBXXSyK1wt6aJN94+hD/9o23yUOoyoYe3MYwlD0mmxgxTmbSyUXu7t4WZE8tsqE9LMf5jq9r9WGXZQivAN4ItLtJ6hEIwvhTX0FERsPQp8cjx0E6IfzAgpPATQl+bZLvL6zj8x2vkHtKdpsxyZcxYsQ4eUmnZKtp60PXrpUg26XOMJxKwOuM8EaUdpOgpZTZWpJoJgrSm+ain65nKqyFolhxcGpctDrB3fUp/um32/jBd6+WwY5udclAJ7H7O0aMk5Z0KsKwJQe8Jaqkt+bb2mCKXBAErEZ4o+OxSCSy0ViCKHcjTOwb50UK+xKlHUzNONNxiVsUawU3lYRq4dEVc/m/yYBv/dFK2d+l6hzowaxrj43EMWKc1KRT2kolExmFL+lWt3Y3pxvDa8VwlVoucJMkbJitHQCBhIl0Zpxb+yiJ5QSRjqJoAMZLQZVyoMbjP09r5F8+flGYkNmt6vblYiNxjBgnLemU7DVRyUwrIvqaLm1KwUVYLgde43gsFAF/JDTWRiQzadvTJZjjIB0FbKCI62LqPfrrknx3dhX/9MlL5FcQRhLHHqkYMU5C0inlY4x3da/boN7eRs4i4A0qXA6c7yZxIjuNLalM0zHwnmDSsTbcUMxUu1DlcveLmvnri5L8aMUKKa7bpN7b2sPCWfEjECPGyUE65aSwHAi50AtFWJvGXnazzvI8VtqAN6nwajfBXAi9T6oEx8p1mpR0JiAAYWoaUqLN5kPSCqxFxMFJe9CQoPe0Bq5zDN/4yErZ39GhJpPBZOIcqRgxTj5JpzMf1lvdsC50dV9yg6bqkywzhtdZeBPKuW4qkmqCyPskODPtyKSkM7WBWFGsBREPkzaQELYtaeArCxNsfP/L5YmSKhWTTYwYJyHpdKk6vXlk/aXio3Dlt7RVC1xklbUiXOokaFFGs7jHEIPMuCTAhOrVpLaaMJtKo8Lnxnjhjm0phy1NKb42r4auj0Vko6rOyV5qIkaM32vSEeBTquY332SZE3ClhSsE2t1UqD7ZINxQtUwIWrGYnwXpTKFBlYpq2UgkMuJiEg54SnFWNffUeNyyuJ7br14he+DkL6QVI0ZMOuH6lov/g/Pq07zHCFc4Lgsh3LtJJLTVlIpgjaOF4yebiaw1o6mXlQXUSkW1DA54HrgBpF0eq/HIL67jW3U+v756lTwdSTalrWJjsokR4yQmHTeSJrz1/03H1gKXjwxFaQkADo6dxF5T0n8UEJ024aDjDi+V/NfIsV66mCkxTkChuYpthYD7MPzwrFnkP/ZydpSaKe2yQOyRihHjeYFSIWh/Tg2f6d/PpseHaWtN4/oBs1VoqUsyEtiy7UbVghG0v0DVkE9KTFjec5r2G+MZ/IYURyyIEXTEx9vdT92sFDsXNbB952GqfItNeOyscbh/sMjjqxbxSLaNXSWmVFWTR51IjToZdlmIESPG8ZBOtJg3RR8g3OXyAy+lKrN44sr6D+7AeXTg+MpNDA0irVXoq5aNVu/ffhD5cDfOogYGPrdKhifatf36kGgk26XO8t6w2BZCcBwyVowYMU42qKp0dKhBVUbLB//Oe1G2MamqdKiaDlWj+lz1J0aMGCca/x/CqMIWOWlbKQAAAABJRU5ErkJggg==" alt="PRIME-CAE">
+    <p class="fg-eyebrow">AI-Native Computer-Aided Engineering</p>
+    <h1 id="fgTitle">PRIME-CAE could not load</h1>
+    <p>Some of this page's files were blocked by the browser. That normally happens
+       when a page is opened straight from disk under stricter privacy settings.
+       Serving the folder locally fixes it.</p>
+    <div class="fg-card">
+      <div class="fg-step">
+        <span class="fg-num">01</span>
+        <div>In this folder, double-click <code>START_PRIME_WEBSITE.command</code>.</div>
+      </div>
+      <div class="fg-step">
+        <span class="fg-num">02</span>
+        <div>A local engineering server starts and your browser opens the full site.
+             The first run may ask you to confirm the file is safe to open.</div>
+      </div>
+      <div class="fg-step">
+        <span class="fg-num">03</span>
+        <div>Prefer a terminal? <code>cd</code> into this folder and run
+             <code>python3 -m http.server 8080</code>, then open
+             <code>http://localhost:8080</code>.</div>
+      </div>
+    </div>
+    <p class="fg-why">This screen only appears when the page genuinely cannot
+       render. It is not a step you normally have to take.</p>
+  </div>
+</div>
+
+<script>
+/* Marks that scripting is available, so CSS may hide content for reveal.
+   Without this the page stays fully legible with JavaScript off. */
+document.documentElement.classList.add('js');
+</script>
+
+<div class="progress" aria-hidden="true"><i id="progressBar"></i></div>
+
+<!-- ============================ PHASE A · WELCOME ========================= -->
+<div class="welcome env" id="welcome" data-env="navy" data-step="0" role="region" aria-label="PRIME-CAE introduction">
+  <canvas class="welcome__grid" id="welcomeGrid" aria-hidden="true"></canvas>
+
+  <div class="welcome__frame" aria-hidden="true">
+    <i class="wf wf--t"></i><i class="wf wf--r"></i><i class="wf wf--b"></i><i class="wf wf--l"></i>
+    <i class="wf wf--corner"></i>
+  </div>
+
+  <div class="welcome__meta welcome__meta--tl">PRIME-CAE<br>SYS: PHYSICS</div>
+  <div class="welcome__meta welcome__meta--tr">ENGINEERING MODEL<br>STATE: READY</div>
+  <div class="welcome__meta welcome__meta--bl">X / Y / Z<br>FRAME 001</div>
+
+  <div class="welcome__stage">
+    <!-- card A: the master lockup -->
+    <div class="wcard wcard--brand">
+      <img class="welcome__logo" id="welcomeLogo" src="assets/prime-cae-lockup.png"
+           alt="PRIME-CAE" width="285" height="62">
+      <p class="wl welcome__sub" id="wlSub">AI-Native Computer-Aided Engineering</p>
+    </div>
+
+    <!-- card B: the statement -->
+    <div class="wcard wcard--stmt">
+      <p class="wl welcome__stmt" id="wlStmt" role="presentation">
+        <span class="grad">Engineering Intelligence.</span>
+        <em>Built on Physics.</em>
+      </p>
+      <p class="wl welcome__words" id="wlWords">
+        <span>Design</span><span>Simulate</span><span>Learn</span><span>Optimize</span><span>Certify</span>
+      </p>
+    </div>
+  </div>
+
+  <div class="welcome__prog">
+    <span class="welcome__bar"><i id="welcomeBar"></i></span>
+    <button class="welcome__skip" id="welcomeSkip" type="button">Skip intro &rarr;</button>
+  </div>
+</div>
+
+<!-- ================================== NAV ================================= -->
+<header class="nav" id="nav" data-env="navy">
+  <div class="shell nav__in">
+    <a class="nav__brand" href="#top" aria-label="PRIME-CAE home">
+      <img class="nav__logo" src="assets/prime-cae-lockup.png" alt="PRIME-CAE" width="285" height="62">
+      <span class="nav__sub">AI-Native<br>Computer-Aided Engineering</span>
+    </a>
+
+    <nav class="nav__links" id="navLinks" aria-label="Primary">
+      <a class="nav__a" href="#about">About</a>
+      <a class="nav__a" href="#layer">Platform</a>
+      <a class="nav__a" href="#products">Products</a>
+      <span class="nav__ind" id="navInd" aria-hidden="true"></span>
+    </nav>
+
+    <div class="nav__act">
+      <button class="btn btn--primary btn--sm nav__cta" type="button" data-open-access>Contact PRIME-CAE</button>
+      <button class="nav__icon nav__burger" id="burger" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="menu">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true">
+          <path d="M3 7h18M3 12h18M3 17h18"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<div class="menu" id="menu" data-env="navy">
+  <a href="#about">About <span>01</span></a>
+  <a href="#layer">Platform <span>02</span></a>
+  <a href="#products">Products <span>03</span></a>
+  <a class="menu__cta" href="#access">Contact PRIME-CAE <span>04</span></a>
+</div>
+
+<main id="top">
+
+<!-- ========================= PHASE B · SIMULATION HERO ==================== -->
+<section class="hero env" id="hero" data-env="navy" data-autoplay="pending">
+  <div class="hero__media">
+    <img class="hero__poster" src="media/hero-field-poster.jpg" alt="" aria-hidden="true">
+    <video class="hero__vid" id="heroVidA" muted playsinline preload="auto" aria-hidden="true"></video>
+    <video class="hero__vid" id="heroVidB" muted playsinline preload="none" aria-hidden="true"></video>
+    <div class="hero__scan" aria-hidden="true"></div>
+    <div class="hero__grade" aria-hidden="true"></div>
+  </div>
+
+  <div class="hero__manual">
+    <button type="button" id="heroPlay" aria-label="Play the simulation view">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+    </button>
+    <span class="t-micro">Play visualization</span>
+  </div>
+
+  <div class="shell hero__ui">
+    <div class="hero__copy">
+      <div class="hero__eyebrow"><i></i><span>PRIME-CAE &nbsp;·&nbsp; AI-Native Engineering</span></div>
+      <h1 class="t-hero">
+        <span class="grad">Engineering Intelligence.</span>
+        <em>Built on Physics.</em>
+      </h1>
+      <p class="t-lede">PRIME-CAE connects simulation, AI and optimization so engineers can explore more possibilities and reach better decisions faster.</p>
+
+      <div class="hero__cta">
+        <a class="btn btn--primary" href="#layer" data-magnetic>
+          Explore PRIME-CAE
+          <svg class="btn__go" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+      </div>
+
+
+    </div>
+  </div>
+
+  <div class="shell hero__rail">
+    <div class="hero__railin">
+      <div class="hero__inst">
+        <span>VIEW<b id="instSolver">SIMULATION VIEW</b></span>
+        <span>FIELD<b>PHYSICS FIELD</b></span>
+        <span>STATE<b id="instState">SOLVED</b></span>
+        <span>FRAME<b id="instFrame">001</b></span>
+      </div>
+      <a class="scroll-cue" href="#layer">Scroll to explore <i></i></a>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== 01 · ABOUT ============================== -->
+<section class="section env about" id="about" data-env="navy">
+  <canvas class="about__field" id="aboutField" aria-hidden="true"></canvas>
+  <div class="about__glow glow" aria-hidden="true"></div>
+
+  <div class="shell">
+    <div class="field about__in">
+      <div class="c-1 sec-mark" data-reveal>
+        <span class="sec-mark__n">01</span>
+        <span class="sec-mark__t">About PRIME-CAE</span>
+        <span class="sec-mark__r"></span>
+      </div>
+
+      <div class="c-l7 about__say" data-reveal>
+        <h2 class="t-h2 about__h">Engineering is<br><span class="grad">becoming intelligent.</span></h2>
+        <p class="t-lede about__lede">PRIME-CAE is an engineering technology company developing an
+          AI-native computer-aided engineering platform for advanced design and simulation.</p>
+        <p class="t-small about__body">We are building a more connected engineering environment where
+          physics, artificial intelligence, data and optimization work together — so engineers can
+          explore more possibilities, understand complex behaviour faster, and make better-informed
+          design decisions.</p>
+        <ul class="about__marks" aria-label="What the platform is built on">
+          <li class="t-micro"><i aria-hidden="true"></i>Physics-grounded</li>
+          <li class="t-micro"><i aria-hidden="true"></i>AI-native</li>
+          <li class="t-micro"><i aria-hidden="true"></i>Design exploration</li>
+          <li class="t-micro"><i aria-hidden="true"></i>Engineering data</li>
+        </ul>
+      </div>
+
+      <figure class="c-r5 about__fig" data-reveal>
+        <canvas id="aboutCanvas" role="img"
+          aria-label="A phase portrait: sparse observations, several unconstrained fits drifting away from the true response, and a physics-guided prediction held on the orbit the governing physics allows."></canvas>
+        <figcaption class="about__cap t-micro">Physics-guided learning <b>·</b> phase portrait</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<div class="seam" data-from="navy" data-to="ice" aria-hidden="true"></div>
+
+<!-- ========================== 02 · WHAT PRIME-CAE IS ====================== -->
+<section class="section env" id="layer" data-env="ice">
+  <div class="grid-bg" aria-hidden="true"></div>
+  <div class="shell">
+    <div class="field sec-head" data-reveal>
+      <div class="c-1 sec-mark">
+        <span class="sec-mark__n">02</span>
+        <span class="sec-mark__t">What PRIME-CAE is</span>
+        <span class="sec-mark__r"></span>
+      </div>
+      <h2 class="c-l7 t-h2 sec-title">One engineering<br><span class="grad">intelligence layer</span></h2>
+      <p class="c-r5 t-lede sec-intro">Six things that normally live in six tools, held in one environment —
+      so a change in any of them is understood by all the others.</p>
+    </div>
+
+    <div class="layer__wrap" data-reveal>
+      <div class="orbit" id="orbit">
+        <canvas class="orbit__canvas" id="orbitCanvas" role="img"
+          aria-label="Generic structural engineering model demonstrating PRIME-CAE geometry, physics, data, AI, optimization and validation."></canvas>
+        <div class="orbit__nodes" id="orbitNodes">
+          <button class="orbit__node" type="button" data-node="geometry"     aria-pressed="true">Geometry</button>
+          <button class="orbit__node" type="button" data-node="physics"      aria-pressed="false">Physics</button>
+          <button class="orbit__node" type="button" data-node="data"         aria-pressed="false">Data</button>
+          <button class="orbit__node" type="button" data-node="ai"           aria-pressed="false">AI</button>
+          <button class="orbit__node" type="button" data-node="validation"   aria-pressed="false">Validation</button>
+          <button class="orbit__node" type="button" data-node="optimization" aria-pressed="false">Optimization</button>
+        </div>
+      </div>
+
+      <p class="layer__line">
+        <span class="t-micro" id="layerTag">GEOMETRY</span>
+        <span class="t-d2" id="layerLine"></span>
+      </p>
+    </div>
+  </div>
+</section>
+
+<div class="seam" data-from="ice" data-to="sky" aria-hidden="true"></div>
+
+<!-- ========================== 04 · PRIME-CAE PRODUCTS ===================== -->
+<section class="section env" id="products" data-env="sky">
+  <div class="shell">
+    <div class="field sec-head" data-reveal>
+      <div class="c-1 sec-mark">
+        <span class="sec-mark__n">03</span>
+        <span class="sec-mark__t">The PRIME-CAE family</span>
+        <span class="sec-mark__r"></span>
+      </div>
+      <h2 class="c-l7 t-h2 sec-title">Four products,<br><span class="grad">one intelligence layer</span></h2>
+      <p class="c-r5 t-lede sec-intro">Each addresses a different part of the engineering problem. All of them
+      share the same model, the same physics and the same intelligence.</p>
+    </div>
+
+    <div class="fam" data-reveal>
+      <article class="fam__i">
+        <div class="fam__vis"><canvas data-product="design" aria-label="A design evolving across its space" role="img"></canvas></div>
+        <img class="fam__logo" src="assets/wm-design-color.png" alt="PRIME-DESIGN" width="900" height="61" loading="lazy">
+        <p class="t-small">Explore engineering possibilities faster through AI-assisted design and optimization.</p>
+      </article>
+
+      <article class="fam__i">
+        <div class="fam__vis"><canvas data-product="joint" aria-label="Load transfer through a structural connection" role="img"></canvas></div>
+        <img class="fam__logo" src="assets/wm-joint-color.png" alt="PRIME-JOINT" width="900" height="68" loading="lazy">
+        <p class="t-small">Bring engineering intelligence to structural connection design.</p>
+      </article>
+
+      <article class="fam__i">
+        <div class="fam__vis"><canvas data-product="life" aria-label="Structural response accumulating over service" role="img"></canvas></div>
+        <img class="fam__logo" src="assets/wm-life-color.png" alt="PRIME-LIFE" width="900" height="76" loading="lazy">
+        <p class="t-small">Extend engineering insight from design into durability and lifecycle performance.</p>
+      </article>
+
+      <article class="fam__i">
+        <div class="fam__vis"><canvas data-product="copilot" aria-label="Engineering context and a line of reasoning through it" role="img"></canvas></div>
+        <img class="fam__logo" src="assets/wm-copilot-color.png" alt="PRIME-COPILOT" width="900" height="59" loading="lazy">
+        <p class="t-small">A context-aware AI engineering partner grounded in the current design and physics.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<div class="seam" data-from="sky" data-to="white" aria-hidden="true"></div>
+
+<!-- ============================== 05 · CONTACT ============================ -->
+<section class="section env contact" id="access" data-env="white">
+  <div class="shell">
+    <div class="contact__in" data-reveal>
+      <span class="t-meta">Contact</span>
+      <h2 class="t-h2" style="margin:var(--s-4) 0 var(--s-5)">Let's build<br>
+        <span class="grad">what's next</span></h2>
+      <p class="t-lede">Interested in PRIME-CAE, a partnership, or early access? We'd like to hear
+      from you.</p>
+      <a class="contact__mail" href="mailto:info@prime-cae.com">info@prime-cae.com</a>
+    </div>
+  </div>
+</section>
+
+<!-- =============================== FOOTER ================================ -->
+<footer class="foot env" id="company" data-env="navy">
+  <div class="shell foot__in">
+    <div>
+      <img class="foot__logo" src="assets/prime-cae-lockup.png" alt="PRIME-CAE" width="285" height="62">
+      <p class="t-micro" style="margin-top:var(--s-4)">AI-Native Computer-Aided Engineering</p>
+    </div>
+    <nav class="foot__links" aria-label="Footer">
+      <a href="#layer">Platform</a>
+      <a href="#products">Products</a>
+      <a href="mailto:info@prime-cae.com">info@prime-cae.com</a>
+    </nav>
+    <span class="t-micro">© <span id="year">2026</span> PRIME-CAE</span>
+  </div>
+</footer>
+</main>
+
+<script src="js/prime.bundle.js" defer></script>
+<script>
+/* Show the launch gate only if the page actually failed: either the stylesheets
+   never applied, or the script never ran. A working page never sees it. */
+(function () {
+  function check() {
+    var probe = document.createElement('div');
+    probe.className = 'shell';
+    probe.style.cssText = 'position:absolute;visibility:hidden;pointer-events:none';
+    document.body.appendChild(probe);
+    var mw = getComputedStyle(probe).maxWidth;
+    probe.parentNode.removeChild(probe);
+    var cssOk = mw && mw !== 'none';
+    var jsOk = document.documentElement.classList.contains('prime-ready');
+    if (!cssOk || !jsOk) document.documentElement.classList.add('is-file');
+  }
+  if (document.readyState === 'complete') setTimeout(check, 400);
+  else window.addEventListener('load', function () { setTimeout(check, 400); });
+})();
+</script>
+
+<noscript>
+  <style>.welcome{display:none!important}.hero__poster{opacity:1!important}</style>
+</noscript>
+</body>
+</html>
