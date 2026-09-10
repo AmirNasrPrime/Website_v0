@@ -96,7 +96,16 @@
 /* =========================================================================
    04 · CONTACT — one address, and nothing standing in front of it
    ========================================================================= */
-.contact{padding-block:clamp(44px,3.6vh + 1.8vw,124px)}
+/* The closing moment gets the screen under the header. That is a composition
+   choice, and it is also what makes the Contact anchor land: the browser cannot
+   scroll past the end of the document, so unless there is a viewport's worth of
+   page below this section's content, "scroll Contact under the header" is a
+   position that does not exist. Trimming the top padding would not help — it
+   shortens the document by exactly as much as it raises the content. */
+.contact{padding-block:clamp(44px,3.6vh + 1.8vw,124px);
+  min-height:calc(100vh - var(--nav-h));
+  min-height:calc(100svh - var(--nav-h));
+  display:grid;align-content:center}
 /* One address, centred, with nothing standing in front of it. The measure and
    the vertical rhythm are the section's own — only the second column is gone. */
 .contact__in{display:grid;justify-items:center;text-align:center}
