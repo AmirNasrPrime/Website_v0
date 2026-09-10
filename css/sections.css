@@ -103,12 +103,15 @@
    position that does not exist. Trimming the top padding would not help — it
    shortens the document by exactly as much as it raises the content.
 
-   A full screen rather than screen-minus-header on purpose: the runway this
-   creates grows with the viewport, so the landing holds at tall sizes too
-   instead of drifting the way a fixed nudge would. */
+   A full screen, with the content anchored to the top rather than centred:
+   everything below it is then scroll runway, which is what lets the heading
+   reach 18px under the header at every viewport height. Centring spends half
+   that runway on space above the content, and on a tall screen there is not
+   enough left — the deficit grows with the viewport. The empty band this
+   leaves below the address is the deliberate price of a consistent landing. */
 .contact{padding-block:clamp(44px,3.6vh + 1.8vw,124px);
   min-height:100vh;min-height:100svh;
-  display:grid;align-content:center}
+  display:grid;align-content:start}
 /* One address, centred, with nothing standing in front of it. The measure and
    the vertical rhythm are the section's own — only the second column is gone. */
 .contact__in{display:grid;justify-items:center;text-align:center}
