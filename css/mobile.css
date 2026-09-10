@@ -113,6 +113,9 @@
   .fam__i p{max-width:100%}
 
   /* ----------------------------------------------------------- contact -- */
+  /* the phone's footer is tall enough to supply most of the runway itself, so
+     the section needs far less empty height than a desktop one */
+  .contact{min-height:calc(100vh - 280px);min-height:calc(100svh - 280px)}
   .contact__in .t-lede{max-width:32ch}
   .contact__mail{min-height:48px;display:inline-flex;align-items:center}
 
@@ -141,6 +144,9 @@
     padding-block:6px calc(8px + env(safe-area-inset-bottom))}
   .hero__railin{padding-top:8px}
   .scroll-cue{min-height:34px}
+  /* belt and braces with the hover:none rule — a landscape phone must get the
+     comfortable target even if touch detection is unavailable */
+  .contact__mail{min-height:48px;display:inline-flex;align-items:center}
 }
 
 /* ------------------------------------------------------------ platform -- */
@@ -178,6 +184,9 @@
 /* --------------------------------------------------------------- touch -- */
 /* Nothing may depend on a pointer that a phone does not have. */
 @media (hover:none){
+  /* the primary action must be a comfortable target on any touch device, not
+     only a portrait-width one — a landscape phone left it at 31px */
+  .contact__mail{min-height:48px;display:inline-flex;align-items:center}
   .fam__i:hover{transform:none;box-shadow:none;border-color:var(--env-line)}
   .play-link:hover i{transform:none;box-shadow:none}
   .hero__manual button:hover{transform:none;box-shadow:none}

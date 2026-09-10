@@ -108,9 +108,11 @@
    reach 18px under the header at every viewport height. Centring spends half
    that runway on space above the content, and on a tall screen there is not
    enough left — the deficit grows with the viewport. The empty band this
-   leaves below the address is the deliberate price of a consistent landing. */
+   leaves below the address is the price of a consistent landing — so it is
+   trimmed to the runway the scroll actually needs and no further. A full
+   screen was more than required; the footer already supplies part of it. */
 .contact{padding-block:clamp(44px,3.6vh + 1.8vw,124px);
-  min-height:100vh;min-height:100svh;
+  min-height:calc(100vh - 140px);min-height:calc(100svh - 140px);
   display:grid;align-content:start}
 /* One address, centred, with nothing standing in front of it. The measure and
    the vertical rhythm are the section's own — only the second column is gone. */
