@@ -101,10 +101,13 @@
    scroll past the end of the document, so unless there is a viewport's worth of
    page below this section's content, "scroll Contact under the header" is a
    position that does not exist. Trimming the top padding would not help — it
-   shortens the document by exactly as much as it raises the content. */
+   shortens the document by exactly as much as it raises the content.
+
+   A full screen rather than screen-minus-header on purpose: the runway this
+   creates grows with the viewport, so the landing holds at tall sizes too
+   instead of drifting the way a fixed nudge would. */
 .contact{padding-block:clamp(44px,3.6vh + 1.8vw,124px);
-  min-height:calc(100vh - var(--nav-h));
-  min-height:calc(100svh - var(--nav-h));
+  min-height:100vh;min-height:100svh;
   display:grid;align-content:center}
 /* One address, centred, with nothing standing in front of it. The measure and
    the vertical rhythm are the section's own — only the second column is gone. */
