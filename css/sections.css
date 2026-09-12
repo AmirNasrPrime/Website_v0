@@ -178,6 +178,16 @@
 .about__marks i{width:5px;height:5px;border-radius:50%;
   background:var(--env-accent);box-shadow:0 0 8px var(--env-accent)}
 
+/* The infrastructure credit. AWS supply this badge as finished artwork and
+   their trademark guidelines require it unaltered, so the only thing set here
+   is its size and the rule that separates it from the marks above — no
+   recolouring, no opacity, no filter. */
+.about__aws{margin:0 0 clamp(12px,1.6vh,var(--s-4));
+  display:flex;align-items:center;justify-content:center;gap:var(--s-4)}
+.about__aws::before,.about__aws::after{content:"";flex:1 1 auto;max-width:72px;
+  height:var(--lw-1);background:var(--env-line-strong)}
+.about__aws img{display:block;flex:none;width:clamp(96px,8.5vw,116px);height:auto}
+
 
 /* =========================================================================
    02 · WHAT PRIME-CAE IS — one statement under the diagram, nothing more

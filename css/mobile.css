@@ -98,6 +98,7 @@
   .about__h{max-width:18ch}
   .about__lede,.about__body{max-width:100%}
   .about__marks{gap:8px}
+  .about__aws img{width:104px}
   .about__marks li{padding:8px 12px}
   .about__glow{width:120vw;height:120vw;right:-30%;top:-12%;opacity:.2}
   .about__fig canvas{width:100%}
