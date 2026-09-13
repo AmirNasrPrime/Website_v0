@@ -100,6 +100,5 @@ export function initNav() {
     if (!t) return;
     e.preventDefault();
     scrollToSection(t);
-    history.replaceState(null, '', id);
   });
 }
