@@ -34,11 +34,12 @@ A local server is still the better way to run it — some browsers restrict othe
 things on `file://` pages, and only a server gives you HTTP range requests for
 the hero video — but nothing is broken without one.
 
-If the page ever genuinely fails to load (stylesheets blocked, script blocked), a
-self-contained launch screen appears with instructions. Its CSS is inline and its
-logo is an embedded data URI, so it holds even when every external file is
-blocked. A working page never shows it — the check is a real capability probe,
-not a guess based on the URL scheme.
+There is deliberately no in-page fallback screen for a failed `file://` load.
+One existed, but its markup sat at the top of the public document, so search
+engines and text extractors read "could not load" and local setup instructions
+before any real content — on a site that is only ever served over HTTPS. If a
+browser blocks the page from disk, use the launcher or the terminal command
+above.
 
 ### Rebuilding after a source change
 
@@ -53,7 +54,7 @@ duplicate top-level names rather than letting one silently clobber another.
 It also refuses when a `'` or `"` string is left open at the end of a line —
 always a syntax error, and usually a pasted value that lost its closing quote.
 The bundle is one script, so a single bad token stops every module and the page
-falls back to the launch gate. On that failure the bundle is **not** rewritten,
+loses all of its behaviour. On that failure the bundle is **not** rewritten,
 so the previous working one stays in place.
 
 ---
@@ -64,7 +65,7 @@ Semantic HTML, design-token CSS and ES modules, flattened to one classic script
 by a 60-line bundler so the page works from disk. No toolchain, no dependencies.
 
 ```
-index.html                  one document · inline critical CSS · file:// gate
+index.html                  one document · inline critical CSS
 START_PRIME_WEBSITE.command macOS launcher (finds Python, picks a free port,
                             serves with Range support, opens the browser)
 
@@ -157,7 +158,7 @@ Adding media is a data change, not a code change: append to `HERO_SEQUENCE` in
 
 | Asset | Treatment |
 |---|---|
-| PRIME-CAE lockup | keyed off its white ground and re-valued for dark backgrounds (navy → white, brand blue kept). Used in the nav, the footer, the favicon and — as an embedded data URI — the `file://` gate. |
+| PRIME-CAE lockup | keyed off its white ground and re-valued for dark backgrounds (navy → white, brand blue kept). Used in the nav, the footer and the favicon. |
 | Compressor recording (`~/Downloads/REC-20260908143853.mov`, HEVC 1732×840, 59 s, supplied second) | **enhanced**: Lanczos scale to 1920×932, unsharp mask `5:5:0.85:5:5:0.15`, H.264 High CRF 21 with `+faststart`. Measured acutance (variance of the Laplacian) rose from 89.6 to 174.8 — roughly +95% — with no visible haloing and no highlight clipping. A 1280-wide variant is served to narrow viewports and to `saveData` clients. |
 | Sub-brand wordmarks | trimmed, used in the platform brand line. |
 
