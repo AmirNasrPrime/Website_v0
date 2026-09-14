@@ -116,10 +116,9 @@
   font-family:var(--font-mono);font-size:var(--fs-micro);font-weight:500;line-height:1.5;
   letter-spacing:.13em;text-transform:uppercase;color:var(--tod-4)}
 @media (min-width:1340px){.nav__sub{display:block}}
-.nav__aws{display:none;flex:none;align-items:center;margin-left:calc(20px - var(--s-5));
-  padding-left:20px;border-left:var(--lw-1) solid var(--env-line-strong)}
-.nav__aws img{display:block;height:51px;width:auto}
-@media (min-width:1340px){.nav__aws{display:flex}}
+.nav__aws{display:flex;flex:none;align-items:center;margin-left:calc(20px - var(--s-5));
+  padding-left:var(--aws-pad);border-left:var(--lw-1) solid var(--env-line-strong)}
+.nav__aws img{display:block;height:var(--aws-h);width:auto}
 
 .nav__links{display:none;align-items:center;gap:4px;margin-inline:auto 0;position:relative}
 @media (min-width:1080px){.nav__links{display:flex}}
@@ -259,7 +258,6 @@
   .nav__a--low{display:none}          /* Technology and Company move to the menu */
 }
 @media (max-width:1160px){
-  .nav__logo{width:clamp(172px,15.5vw,204px)}
   .nav__a{padding-inline:9px;font-size:.9375rem}
 }
 @media (max-width:1079px){
@@ -274,11 +272,21 @@
    anchor offsets rely on stays --nav-h. At 1340px+ the subtitle and the AWS
    badge tuck under the large lockup and slide back beside it on scroll.
    ========================================================================= */
-:root{--logo-w:clamp(196px,15.5vw,264px);--logo-s:1.6;--logo-ar:.2172}
+:root{--logo-w:clamp(196px,15.5vw,264px);--logo-s:1.6;--logo-ar:.2172;
+  --aws-h:51px;--aws-pad:20px}
+@media (max-width:1160px){:root{--logo-w:clamp(172px,15.5vw,204px)}}
+@media (max-width:1339px){:root{--aws-h:44px}}
 .nav__logo,.nav__sub,.nav__aws{
   transition:transform var(--t-large) var(--ease-standard),border-color var(--t-large)}
 .nav__logo{transform-origin:0 0}
+/* once the header is raised the AWS badge settles to 0.9x, anchored at its divider */
+.nav__aws img{transform-origin:0 50%;transition:transform var(--t-large) var(--ease-standard)}
+.nav.stuck .nav__aws img{transform:scale(.9)}
 :root:not(.menu-open) .nav:not(.stuck) .nav__logo{transform:scale(var(--logo-s))}
+/* below 1340px the subtitle is hidden, so the AWS badge tucks under the lockup alone */
+:root:not(.menu-open) .nav:not(.stuck) .nav__aws{
+  transform:translate(calc(-1 * (var(--logo-w) + 20px + var(--aws-pad))),
+    calc(var(--logo-w) * var(--logo-ar) * (var(--logo-s) - .5) + 10px + var(--aws-h) / 2))}
 @media (min-width:1340px){
   :root:not(.menu-open) .nav:not(.stuck) :is(.nav__sub,.nav__aws){
     transform:translate(calc(-1 * (var(--logo-w) + 40px)),
@@ -288,12 +296,12 @@
 /* the hero copy clears the large lockup (and the tucked subtitle row) */
 @media (min-width:720px) and (min-height:541px){
   .hero__ui{padding-top:max(clamp(72px,13vh,180px),
-    calc(44px + var(--logo-w) * var(--logo-ar) * (var(--logo-s) - .5) + 30px))}
+    calc(44px + var(--logo-w) * var(--logo-ar) * (var(--logo-s) - .5) + 10px + var(--aws-h) + 22px))}
 }
 @media (min-width:1340px) and (min-height:541px){
   .hero__ui{padding-top:max(clamp(72px,13vh,180px),
     calc(44px + var(--logo-w) * var(--logo-ar) * (var(--logo-s) - .5) + 78px))}
 }
 @media (prefers-reduced-motion:reduce){
-  .nav__logo,.nav__sub,.nav__aws{transition:none}
+  .nav__logo,.nav__sub,.nav__aws,.nav__aws img{transition:none}
 }

@@ -31,8 +31,8 @@
 
   /* ------------------------------------------------------------ header -- */
   .nav__in{gap:var(--s-4)}
-  .nav__logo{width:clamp(148px,42vw,182px)}
-  :root{--logo-s:1.2}
+  :root{--logo-w:clamp(148px,42vw,182px);--logo-s:1.45;--aws-h:30px;--aws-pad:14px}
+  .nav__aws{margin-left:calc(20px - var(--s-4))}
   .nav__sub{display:none}
   .nav__act{gap:8px}
   .nav__burger{width:44px;height:44px}
@@ -74,7 +74,7 @@
      carries the structure rather than letting the crop take it */
   .hero__vid,.hero__poster{object-position:62% 50%}
   .hero__scan{display:none}            /* costs a repaint, reads as noise    */
-  .hero__ui{padding-block:calc(var(--nav-h) + env(safe-area-inset-top) + 26px) 0}
+  .hero__ui{padding-block:calc(env(safe-area-inset-top) + max(var(--nav-h) + 26px, var(--nav-h) / 2 + var(--logo-w) * var(--logo-ar) * (var(--logo-s) - .5) + 10px + var(--aws-h) + 22px)) 0}
   .hero__copy{max-width:100%}
   .hero__eyebrow{gap:12px}
   .hero__eyebrow i{width:30px}
@@ -89,7 +89,7 @@
   .hero__manual button{width:68px;height:68px}
   /* the small phones, and any phone the address bar has just expanded on */
   @media (max-height:700px){
-    .hero__ui{padding-block:calc(var(--nav-h) + env(safe-area-inset-top) + 14px) 0}
+    .hero__ui{padding-block:calc(env(safe-area-inset-top) + max(var(--nav-h) + 14px, var(--nav-h) / 2 + var(--logo-w) * var(--logo-ar) * (var(--logo-s) - .5) + 10px + var(--aws-h) + 14px)) 0}
     .hero__rail{margin-top:var(--s-4)}
     .hero .t-lede{font-size:var(--fs-small);max-width:32ch}
   }
@@ -133,8 +133,8 @@
 /* width-bounded so a short desktop window is never caught by it */
 @media (max-height:540px) and (max-width:960px){
   :root{--fs-hero:clamp(1.6rem,4.6vw,2.25rem);--nav-h:56px}
-  .nav__logo{width:clamp(150px,20vw,180px)}
-  :root{--logo-s:1}
+  :root{--logo-w:clamp(150px,20vw,180px);--logo-s:1;--aws-h:26px;--aws-pad:14px}
+  :root:not(.menu-open) .nav:not(.stuck) .nav__aws{transform:none}
   .nav__sub{display:none}
   .hero__ui{padding-block:calc(var(--nav-h) + env(safe-area-inset-top) + 10px) 0}
   .hero .t-lede{font-size:var(--fs-small);max-width:52ch}
