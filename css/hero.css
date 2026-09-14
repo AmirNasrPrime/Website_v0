@@ -110,7 +110,7 @@
   backdrop-filter:blur(22px) saturate(1.4);-webkit-backdrop-filter:blur(22px) saturate(1.4)}
 .nav__in{display:flex;align-items:center;gap:var(--s-5);height:var(--nav-h)}
 .nav__brand{display:flex;align-items:center;gap:20px;flex:none;padding-block:10px}
-.nav__logo{width:clamp(176px,13.5vw,232px);height:auto;object-fit:contain;
+.nav__logo{width:var(--logo-w);height:auto;object-fit:contain;
   filter:drop-shadow(0 2px 14px rgba(30,127,228,.30))}
 .nav__sub{display:none;padding-left:20px;border-left:var(--lw-1) solid var(--env-line-strong);
   font-family:var(--font-mono);font-size:var(--fs-micro);font-weight:500;line-height:1.5;
@@ -118,7 +118,7 @@
 @media (min-width:1340px){.nav__sub{display:block}}
 .nav__aws{display:none;flex:none;align-items:center;margin-left:calc(20px - var(--s-5));
   padding-left:20px;border-left:var(--lw-1) solid var(--env-line-strong)}
-.nav__aws img{display:block;height:30px;width:auto}
+.nav__aws img{display:block;height:18px;width:auto}
 @media (min-width:1340px){.nav__aws{display:flex}}
 
 .nav__links{display:none;align-items:center;gap:4px;margin-inline:auto;position:relative}
@@ -255,9 +255,41 @@
   .nav__a--low{display:none}          /* Technology and Company move to the menu */
 }
 @media (max-width:1160px){
-  .nav__logo{width:clamp(160px,14vw,190px)}
+  .nav__logo{width:clamp(172px,15.5vw,204px)}
   .nav__a{padding-inline:9px;font-size:.9375rem}
 }
 @media (max-width:1079px){
   .nav__links{display:none}           /* everything is in the menu below this */
+}
+
+/* =========================================================================
+   HEADER · lockup scale
+   Over the hero the PRIME-CAE lockup is shown large and hangs into the hero;
+   once the header is raised (.stuck) it settles to its compact size. Only
+   transforms move, so the header row never reflows and the nav height the
+   anchor offsets rely on stays --nav-h. At 1340px+ the subtitle and the AWS
+   badge tuck under the large lockup and slide back beside it on scroll.
+   ========================================================================= */
+:root{--logo-w:clamp(196px,15.5vw,264px);--logo-s:1.6;--logo-ar:.2172}
+.nav__logo,.nav__sub,.nav__aws{
+  transition:transform var(--t-large) var(--ease-standard),border-color var(--t-large)}
+.nav__logo{transform-origin:0 0}
+:root:not(.menu-open) .nav:not(.stuck) .nav__logo{transform:scale(var(--logo-s))}
+@media (min-width:1340px){
+  :root:not(.menu-open) .nav:not(.stuck) :is(.nav__sub,.nav__aws){
+    transform:translate(calc(-1 * (var(--logo-w) + 40px)),
+      calc(var(--logo-w) * var(--logo-ar) * (var(--logo-s) - .5) + 28px))}
+  :root:not(.menu-open) .nav:not(.stuck) .nav__sub{border-left-color:transparent}
+}
+/* the hero copy clears the large lockup (and the tucked subtitle row) */
+@media (min-width:720px) and (min-height:541px){
+  .hero__ui{padding-top:max(clamp(72px,13vh,180px),
+    calc(44px + var(--logo-w) * var(--logo-ar) * (var(--logo-s) - .5) + 30px))}
+}
+@media (min-width:1340px) and (min-height:541px){
+  .hero__ui{padding-top:max(clamp(72px,13vh,180px),
+    calc(44px + var(--logo-w) * var(--logo-ar) * (var(--logo-s) - .5) + 78px))}
+}
+@media (prefers-reduced-motion:reduce){
+  .nav__logo,.nav__sub,.nav__aws{transition:none}
 }
