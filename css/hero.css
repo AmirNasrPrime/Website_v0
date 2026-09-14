@@ -144,6 +144,8 @@
 @media (min-width:1080px){.nav__burger{display:none}}
 .nav__cta{display:none}
 @media (min-width:600px){.nav__cta{display:inline-flex}}
+.nav__auth{display:none}
+@media (min-width:600px){.nav__auth{display:inline-flex}}
 
 .menu{position:fixed;inset:var(--nav-h) 0 0;z-index:calc(var(--z-nav) - 1);
   background:var(--navy-950);border-top:var(--lw-hair) solid var(--env-line);
