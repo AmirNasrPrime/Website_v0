@@ -182,11 +182,6 @@
    their trademark guidelines require it unaltered, so the only thing set here
    is its size and the rule that separates it from the marks above — no
    recolouring, no opacity, no filter. */
-.about__aws{margin:0 0 clamp(12px,1.6vh,var(--s-4));
-  display:flex;align-items:center;justify-content:center;gap:var(--s-4)}
-.about__aws::before,.about__aws::after{content:"";flex:1 1 auto;max-width:72px;
-  height:var(--lw-1);background:var(--env-line-strong)}
-.about__aws img{display:block;flex:none;width:clamp(96px,8.5vw,116px);height:auto}
 
 
 /* =========================================================================
