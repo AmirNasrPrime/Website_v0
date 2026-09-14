@@ -18,7 +18,7 @@ function safeInit(name, fn) {
 }
 
 function boot() {
-  safeInit('hero', initHeroSequence);      /* owns the scroll lock, so first */
+  safeInit('hero', initHeroSequence);      /* starts the hero film */
   safeInit('nav', initNav);
   safeInit('reveal', initReveal);
   safeInit('ranges', initRanges);

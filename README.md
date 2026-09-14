@@ -74,7 +74,7 @@ css/
   base.css                  reset, type scale, progressive-enhancement reveal
   layout.css                12-column field, section chrome, spacing
   components.css            buttons, panels, controls, readouts, modal
-  hero.css                  welcome sequence + compressor environment
+  hero.css                  hero environment + header
   sections.css              per-section art direction
   mobile.css                the phone — loaded last, and only phone queries
                             live in it, so the desktop sheets are never edited
@@ -95,9 +95,8 @@ js/
     content.js              the six systems and the one line each of them gets
     motion.js               reveal, magnetic buttons, range painting
   hero/
-    media.js                hero sequence registry — add an entry, it joins
-    sequence.js             the hero state machine
-    welcome.js              coordinate-field ground for the welcome
+    media.js                hero media registry — the looping film and its sources
+    sequence.js             starts the hero film on load
     film.js                 crossfading video loop + autoplay fallbacks
   sections/                 nav, about, layer, products, access
 
@@ -128,29 +127,14 @@ scene, and none of it pays for one.
 
 ## The hero
 
-```
-PHASE A  welcome  ─▶  PHASE B  compressor  ─▶  PHASE C  the site
-             └──────── skip / fallback ────────┘
-```
+The page opens directly on the hero — there is no intro overlay. The compressor
+LES is the environment: two video elements share one source and hand over to
+each other 1.15 s before the end of a pass, so the loop crossfades instead of
+cutting to black. `js/hero/film.js` holds the poster frame when autoplay is
+refused, Data Saver is on, or the visitor prefers reduced motion.
 
-**Phase A (~6 s, once per load).** A graphite field wakes up: a coordinate grid
-resolves, frame linework traces the viewport, the PRIME-CAE lockup is revealed by
-a wipe, the descriptor settles under it, and the statement takes its place.
-Corner instrumentation and a progress rule run throughout.
-
-**Phase B (loops forever).** The compressor LES becomes the environment. Two
-video elements share one source and hand over to each other 1.15 s before the
-end of a pass, so the loop crossfades instead of cutting to black.
-
-The sequence is an explicit state machine (`js/hero/sequence.js`) with one timer
-table and one exit path. Every route out — natural end, **Skip intro**, Escape,
-a wheel or touch gesture, `prefers-reduced-motion`, blocked autoplay, a missing
-asset, a 12 s watchdog — lands in the same terminal state, releases the scroll
-lock exactly once, and removes the overlay from the tree so it can never
-intercept a pointer.
-
-Adding media is a data change, not a code change: append to `HERO_SEQUENCE` in
-`js/hero/media.js`.
+Adding media is a data change, not a code change: edit the video entry in
+`HERO_SEQUENCE` in `js/hero/media.js`.
 
 ---
 

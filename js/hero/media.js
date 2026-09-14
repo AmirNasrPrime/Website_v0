@@ -1,17 +1,9 @@
 /* ============================================================================
    PRIME-CAE · hero media registry
-   The opening is data-driven: append an entry and it joins the sequence.
-   The final entry with loop:true is the resting hero environment.
+   The hero environment is data-driven: the video entry below is what plays
+   behind the headline.
    ========================================================================== */
 export const HERO_SEQUENCE = [
-  {
-    id: 'welcome',
-    kind: 'welcome',
-    /* cue -> ms from sequence start */
-    cues: { 0: 0, 1: 320, 2: 1500, 3: 3200, 4: 4600 },
-    handOver: 4600,          /* the film begins under the welcome here */
-    duration: 6000,
-  },
   {
     id: 'field',
     kind: 'video',
