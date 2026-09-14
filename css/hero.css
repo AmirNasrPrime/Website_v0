@@ -118,7 +118,7 @@
 @media (min-width:1340px){.nav__sub{display:block}}
 .nav__aws{display:none;flex:none;align-items:center;margin-left:calc(20px - var(--s-5));
   padding-left:20px;border-left:var(--lw-1) solid var(--env-line-strong)}
-.nav__aws img{display:block;height:22px;width:auto}
+.nav__aws img{display:block;height:34px;width:auto}
 @media (min-width:1340px){.nav__aws{display:flex}}
 
 .nav__links{display:none;align-items:center;gap:4px;margin-inline:auto 0;position:relative}
@@ -247,9 +247,13 @@
 .nav__brand{min-width:0}
 .nav__links{min-width:0;flex-wrap:nowrap;overflow:hidden}
 .nav__a{flex:0 0 auto}
-@media (max-width:1420px){
-  .nav__links{gap:0}
-  .nav__a{padding-inline:11px}
+/* compact tab spacing everywhere: the badge row needs the room at every desktop width */
+.nav__links{gap:0}
+.nav__a{padding-inline:11px}
+/* the header runs the full window width: the lockup and the account button
+   each sit the same short gutter from their edge of the window */
+@media (min-width:1080px){
+  .nav__in.shell{max-width:none;margin-inline:0;padding-inline:clamp(24px,2.6vw,44px)}
 }
 @media (max-width:1260px){
   .nav__a--low{display:none}          /* Technology and Company move to the menu */
