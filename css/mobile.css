@@ -51,19 +51,16 @@
   .menu a{min-height:66px;font-size:1.35rem}
 }
 
-/* The sheet is the navigation wherever the burger is — tablet included — so its
-   primary action is styled there too, not only on a phone. */
+/* The sheet is the navigation wherever the burger is — tablet included. Contact
+   is a tab like the others; the account button (a placeholder) sits under them. */
 @media (max-width:1079px){
-  .menu a:last-of-type{border-bottom:0}
-  /* `.menu a` is (0,1,1) and would otherwise keep its space-between, which
-     parks the label on the left of the button — match its specificity */
-  .menu a.menu__cta{
-    display:flex;align-items:center;justify-content:center;text-align:center;
+  .menu__auth{
+    display:flex;align-items:center;justify-content:center;width:100%;
     margin-top:var(--s-6);min-height:56px;border-radius:var(--r-2);
-    background:var(--prime-blue);color:#fff;font-family:var(--font-sans);
-    font-size:1.06rem;font-weight:500;letter-spacing:.01em;
-  }
-  .menu a.menu__cta span{display:none}
+    border:var(--lw-1) solid var(--env-line-strong);background:var(--env-surface);
+    color:var(--tod-1);font-family:var(--font-sans);font-size:1.06rem;font-weight:500;
+    letter-spacing:.01em;transition:border-color var(--t-fast),background var(--t-fast)}
+  .menu__auth:hover{border-color:var(--env-line-active);background:var(--env-surface-2)}
 }
 
 @media (max-width:719px){
