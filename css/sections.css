@@ -157,9 +157,32 @@
 .about__fig{position:relative;margin:0;align-self:center}
 /* capped by height as well as width, so the figure cannot push the copy off a
    short screen */
-.about__fig canvas{display:block;margin-inline:auto;aspect-ratio:1/1;
+.about__stage{position:relative;margin-inline:auto;aspect-ratio:1/1;
   width:min(100%,min(54vh,560px));
   width:min(100%,min(54svh,560px))}
+/* the two plots share one frame and cross-fade; only the active one animates */
+.about__stage canvas{position:absolute;inset:0;display:block;width:100%;height:100%;
+  opacity:0;transition:opacity .6s var(--ease-standard)}
+.about__stage canvas.is-active{opacity:1}
+.about__views{display:flex;justify-content:center;gap:8px;margin:0 0 clamp(8px,1.2vh,14px)}
+.about__view{position:relative;display:inline-flex;align-items:center;gap:8px;min-height:34px;
+  padding:0 14px;border:var(--lw-1) solid var(--env-line);border-radius:999px;overflow:hidden;
+  background:transparent;color:var(--env-text-3);cursor:pointer;
+  font-family:var(--font-mono);font-size:var(--fs-micro);font-weight:500;
+  letter-spacing:.16em;text-transform:uppercase;
+  transition:color var(--t-fast),border-color var(--t-fast),background var(--t-fast)}
+.about__view b{font-weight:500;color:var(--env-text-4)}
+.about__view:hover{color:var(--env-text);border-color:var(--env-line-strong)}
+.about__view[aria-selected="true"]{color:var(--env-text);border-color:var(--env-accent-edge);
+  background:var(--env-accent-wash)}
+.about__view[aria-selected="true"] b{color:var(--env-accent)}
+/* dwell progress: how long until the figure hands over to the other plot */
+.about__view i{position:absolute;left:0;right:0;bottom:0;height:var(--lw-2);
+  background:var(--env-accent);opacity:.75;transform:scaleX(0);transform-origin:left}
+html:not(.js) .about__views{display:none}
+@media (prefers-reduced-motion:reduce){
+  .about__stage canvas{transition:none}
+}
 .about__cap{display:block;margin-top:var(--s-3);text-align:center;
   color:var(--env-text-4)}
 .about__cap b{color:var(--env-accent);font-weight:500}

@@ -99,7 +99,8 @@
   .about__marks{gap:8px}
   .about__marks li{padding:8px 12px}
   .about__glow{width:120vw;height:120vw;right:-30%;top:-12%;opacity:.2}
-  .about__fig canvas{width:100%}
+  .about__stage{width:100%}
+  .about__view{min-height:40px}
   .about__cap{margin-top:var(--s-2)}
 
   /* ---------------------------------------------------------- products -- */
