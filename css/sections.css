@@ -157,9 +157,9 @@
 .about__fig{position:relative;margin:0;align-self:center}
 /* capped by height as well as width, so the figure cannot push the copy off a
    short screen */
-.about__fig canvas{display:block;margin-inline:auto;aspect-ratio:5/4;
-  width:min(100%,calc(min(42vh,390px) * 1.25));
-  width:min(100%,calc(min(42svh,390px) * 1.25))}
+.about__fig canvas{display:block;margin-inline:auto;aspect-ratio:1/1;
+  width:min(100%,min(54vh,560px));
+  width:min(100%,min(54svh,560px))}
 .about__cap{display:block;margin-top:var(--s-3);text-align:center;
   color:var(--env-text-4)}
 .about__cap b{color:var(--env-accent);font-weight:500}

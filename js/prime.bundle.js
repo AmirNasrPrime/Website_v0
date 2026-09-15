@@ -707,11 +707,11 @@ function portrait(canvas) {
   /* three fits that agree with the data and then part company with reality —
      one gaining amplitude, one losing it, one running ahead in phase */
   const FITS = [
-    { gain:  0.74, phase:  0.00 },
+    { gain:  0.42, phase:  0.00 },
     { gain: -0.42, phase:  0.18 },
     { gain:  0.26, phase: -0.34 },
   ];
-  const MAXR = 1.74;                       /* the furthest any curve travels */
+  const MAXR = 1.42;                       /* the furthest any curve travels */
   /* the observations: a short arc of the orbit, and nothing else */
   const R = rng(5501);
   const OBS = Array.from({ length: 7 }, (_, i) => {
@@ -726,6 +726,7 @@ function portrait(canvas) {
     ctx.clearRect(0, 0, w, h);
 
     const mono = px => `600 ${px}px ui-monospace, monospace`;
+    const big = w >= 440;                  /* a roomier canvas gets roomier type */
     const KEY = 64;                        /* the band the legend owns       */
     const PAD = 12;
     const plotH = h - KEY - PAD;
@@ -748,7 +749,7 @@ function portrait(canvas) {
       ctx.moveTo(cx - 3.5, cy + B * i * 0.5); ctx.lineTo(cx + 3.5, cy + B * i * 0.5);
       ctx.stroke();
     }
-    ctx.font = mono(9.5);
+    ctx.font = mono(big ? 10.5 : 9.5);
     ctx.fillStyle = withAlpha(T.text3, 0.8);
     const xl = 'DISPLACEMENT';
     ctx.fillText(xl, Math.min(cx + A * MAXR - ctx.measureText(xl).width, w - PAD - ctx.measureText(xl).width), cy - 7);
@@ -790,7 +791,7 @@ function portrait(canvas) {
 
     /* --------------------------------- the prediction held to physics -- */
     ctx.strokeStyle = T.accent;
-    ctx.lineWidth = 2.8;
+    ctx.lineWidth = big ? 3.2 : 2.8;
     ctx.lineCap = 'round';
     ctx.beginPath();
     for (let i = 0; i <= 140; i++) {
@@ -824,7 +825,7 @@ function portrait(canvas) {
 
     /* --------------------------------------------------------- legend -- */
     /* four rows in the reserved band: nothing floats, nothing collides */
-    ctx.font = mono(10);
+    ctx.font = mono(big ? 11 : 10);
     const rows = [
       ['dash', withAlpha(T.text3, 0.7), 'GOVERNING PHYSICS'],
       ['line', withAlpha(T.text3, 0.55), 'UNCONSTRAINED FITS'],
