@@ -172,11 +172,9 @@
   font-family:var(--font-mono);font-size:var(--fs-micro);font-weight:500;
   letter-spacing:.16em;text-transform:uppercase;
   transition:color var(--t-fast),border-color var(--t-fast),background var(--t-fast)}
-.about__view b{font-weight:500;color:var(--env-text-4)}
 .about__view:hover{color:var(--env-text);border-color:var(--env-line-strong)}
 .about__view[aria-selected="true"]{color:var(--env-text);border-color:var(--env-accent-edge);
   background:var(--env-accent-wash)}
-.about__view[aria-selected="true"] b{color:var(--env-accent)}
 /* dwell progress: how long until the figure hands over to the other plot */
 .about__view i{position:absolute;left:0;right:0;bottom:0;height:var(--lw-2);
   background:var(--env-accent);opacity:.75;transform:scaleX(0);transform-origin:left}
