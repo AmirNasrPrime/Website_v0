@@ -6,7 +6,7 @@
 import { $, on, reduced } from '../core/dom.js';
 import { pickSource } from './media.js';
 
-export function mountHeroFilm({ hero, entry, onReady }) {
+export function mountHeroFilm({ hero, entry }) {
   const a = $('#heroVidA'), b = $('#heroVidB');
   const poster = $('.hero__poster', hero);
   if (!a || !b || !entry) {
@@ -34,7 +34,6 @@ export function mountHeroFilm({ hero, entry, onReady }) {
   a.src = src;
   b.src = src;
 
-  on(a, 'loadeddata', () => { onReady && onReady(); });
   on(a, 'error', fallback);
   on(b, 'error', fallback);
 

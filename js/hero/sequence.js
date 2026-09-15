@@ -17,5 +17,4 @@ export function initHeroSequence() {
     entry: HERO_SEQUENCE.find(e => e.kind === 'video'),
   });
   heroFilm.begin();
-  document.documentElement.classList.add('hero-live');
 }

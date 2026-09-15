@@ -172,7 +172,7 @@ function pickSource(entry) {
    ========================================================================== */
 
 
-function mountHeroFilm({ hero, entry, onReady }) {
+function mountHeroFilm({ hero, entry }) {
   const a = $('#heroVidA'), b = $('#heroVidB');
   const poster = $('.hero__poster', hero);
   if (!a || !b || !entry) {
@@ -200,7 +200,6 @@ function mountHeroFilm({ hero, entry, onReady }) {
   a.src = src;
   b.src = src;
 
-  on(a, 'loadeddata', () => { onReady && onReady(); });
   on(a, 'error', fallback);
   on(b, 'error', fallback);
 
@@ -312,7 +311,6 @@ function initHeroSequence() {
     entry: HERO_SEQUENCE.find(e => e.kind === 'video'),
   });
   heroFilm.begin();
-  document.documentElement.classList.add('hero-live');
 }
 
 /* ==== js/sections/nav.js ============================================ */
