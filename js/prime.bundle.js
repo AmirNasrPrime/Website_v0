@@ -1182,9 +1182,11 @@ function domainSearch(canvas) {
 }
 
 /* ---------------------------------------------------------- the pairing -- */
-/* The two plots alternate in one frame. Auto-advance runs only while the
-   figure is on screen and the tab is visible, and stops for good the moment
-   the reader picks a view. Reduced motion never auto-advances. */
+/* A two-slide slideshow in one frame: 01 plays, then 02, then round again.
+   Picking a tab (or an arrow key) jumps to that slide and plays it from the
+   start; the show then carries on from there. It advances only while the
+   figure is on screen and the tab is visible, holds while a tab has keyboard
+   focus, and reduced motion never auto-advances — the reader picks the slide. */
 function pairViews(sec, views) {
   const tabs = $$('.about__view', sec);
   const canvases = [$('#aboutCanvas'), $('#aboutSearch')];
@@ -1194,7 +1196,9 @@ function pairViews(sec, views) {
     'Physics-guided learning <b>·</b> phase portrait',
     'Design optimization <b>·</b> domain search',
   ];
-  let cur = 0, auto = !reduced(), onScreen = false, timer = 0, sleeper = 0;
+  const auto = !reduced();
+  const SHIFT = 22;                                  /* px a slide travels in/out */
+  let cur = 0, onScreen = false, held = false, timer = 0, sleeper = 0;
 
   const progress = () => {
     tabs.forEach((b, k) => {
@@ -1202,7 +1206,7 @@ function pairViews(sec, views) {
       if (!bar) return;
       bar.style.transition = 'none';
       bar.style.transform = 'scaleX(0)';
-      if (k !== cur || !auto || !onScreen || document.hidden) return;
+      if (k !== cur || !auto || !onScreen || held || document.hidden) return;
       void bar.offsetWidth;                       /* restart the transition */
       bar.style.transition = `transform ${views[cur].duration}s linear`;
       bar.style.transform = 'scaleX(1)';
@@ -1211,12 +1215,28 @@ function pairViews(sec, views) {
   const schedule = () => {
     clearTimeout(timer);
     progress();
-    if (!auto || !onScreen || document.hidden) return;
-    timer = setTimeout(() => show(1 - cur), views[cur].duration * 1000);
+    if (!auto || !onScreen || held || document.hidden) return;
+    timer = setTimeout(() => show((cur + 1) % 2, 1), views[cur].duration * 1000);
   };
-  function show(i) {
+  /* dir: +1 slides the new plot in from the right, -1 from the left */
+  function show(i, dir = 1) {
     const prev = cur;
     cur = i;
+    if (prev !== i && auto) {
+      const incoming = canvases[i], outgoing = canvases[prev];
+      /* A slide picked again mid-fade just reverses from where it is. Only a
+         slide fully at rest gets the start offset — and then only transform
+         is held out of the transition, so no running fade is ever cancelled. */
+      const busy = incoming.getAnimations ? incoming.getAnimations().length > 0 : false;
+      if (!busy && getComputedStyle(incoming).opacity === '0') {
+        incoming.style.transitionProperty = 'opacity';
+        incoming.style.transform = `translateX(${dir * SHIFT}px)`;
+        void incoming.offsetWidth;                   /* commit the start position */
+        incoming.style.transitionProperty = '';
+      }
+      incoming.style.transform = '';
+      outgoing.style.transform = `translateX(${-dir * SHIFT}px)`;
+    }
     canvases.forEach((c, k) => {
       c.classList.toggle('is-active', k === i);
       c.setAttribute('aria-hidden', String(k !== i));
@@ -1228,19 +1248,24 @@ function pairViews(sec, views) {
     if (cap) cap.innerHTML = CAPS[i];
     views[i].restart();
     clearTimeout(sleeper);
-    if (prev !== i) sleeper = setTimeout(() => views[prev].sleep(), 700);
+    sleeper = setTimeout(() => views.forEach((v, k) => { if (k !== cur) v.sleep(); }), 700);
     schedule();
   }
 
-  tabs.forEach((b, k) => on(b, 'click', () => { auto = false; show(k); }));
+  tabs.forEach((b, k) => on(b, 'click', () => show(k, k >= cur ? 1 : -1)));
   on(list, 'keydown', e => {
     if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
     e.preventDefault();
-    auto = false;
-    const k = 1 - cur;
-    show(k);
+    held = true;                                   /* arrow keys: a keyboard user is here */
+    const k = (cur + 1) % 2;
+    show(k, e.key === 'ArrowRight' ? 1 : -1);
     tabs[k].focus();
   });
+
+  /* a keyboard user on the tabs holds the show; a mouse click does not */
+  on(list, 'pointerdown', () => { held = false; });
+  on(list, 'focusin', e => { held = !!(e.target.matches && e.target.matches(':focus-visible')); schedule(); });
+  on(list, 'focusout', e => { if (!list.contains(e.relatedTarget)) { held = false; schedule(); } });
 
   views[1].sleep();
   new IntersectionObserver(es => {
