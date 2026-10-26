@@ -76,8 +76,8 @@ css/
   components.css            buttons, panels, controls, readouts, modal
   hero.css                  hero environment + header
   sections.css              per-section art direction
-  depth.css                 the 3D layer: bevels, stacked shadows, tilting cards, hero
-                            parallax — delete the file and its <link> to drop it
+  depth.css                 the 3D styling: bevels, stacked shadows, the angled product
+                            cards, hero parallax, 3D section entrances
   mobile.css                the phone — loaded last, and only phone queries
                             live in it, so the desktop sheets are never edited
                             to serve a handset
@@ -96,10 +96,13 @@ js/
                             field, element mesh, sample population
     content.js              the six systems and the one line each of them gets
     motion.js               reveal, magnetic buttons, range painting
+    scene3d.js              tiny 3D toolkit for canvas figures: camera, key light,
+                            drag-to-orbit (no WebGL, no library)
   hero/
     media.js                hero media registry — the looping film and its sources
     sequence.js             starts the hero film on load
     film.js                 crossfading video loop + autoplay fallbacks
+    ground.js               the rolling perspective floor under the hero film
   sections/                 nav, about, layer, products, access
 
 media/                      compressor films, poster

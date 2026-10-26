@@ -72,15 +72,26 @@
 /* ---- raised cards ---------------------------------------------------------- */
 [data-tilt]{
   position:relative;transform-style:preserve-3d;
-  transform:perspective(1100px) translate3d(0,var(--ty,0px),0)
-            rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));
+  transform:translate3d(0,var(--ty,0px),var(--tz,0px))
+            rotateX(var(--rx,0deg)) rotateY(var(--ry,var(--ry-base,0deg)));
   transition:border-color var(--t-normal),box-shadow var(--t-large) var(--ease-standard)}
 [data-tilt]::after{                         /* light sliding across the face  */
   content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;
   background:radial-gradient(420px 300px at var(--gx,50%) var(--gy,0%),var(--d-glare),transparent 62%);
   opacity:var(--glare,0);transition:opacity var(--t-normal)}
 
-.fam{perspective:none}
+/* the four products stand in a shallow arc around the viewer: one vanishing point
+   for the whole row, so the outer cards really are turned and set back */
+.fam{perspective:1250px;perspective-origin:50% 38%}
+.fam__i:nth-child(1){--ry-base:19deg; --tz:-80px}
+.fam__i:nth-child(2){--ry-base:7deg;  --tz:-14px}
+.fam__i:nth-child(3){--ry-base:-7deg; --tz:-14px}
+.fam__i:nth-child(4){--ry-base:-19deg;--tz:-80px}
+@media (max-width:940px){
+  .fam__i:nth-child(odd){--ry-base:8deg; --tz:-24px}
+  .fam__i:nth-child(even){--ry-base:-8deg;--tz:-24px}
+}
+@media (max-width:600px){.fam__i{--ry-base:0deg;--tz:0px}}
 .fam__i{
   background:linear-gradient(165deg,var(--env-surface-2),var(--env-surface));
   box-shadow:
@@ -90,9 +101,7 @@
     0 14px 26px -16px var(--d-ambient),
     0 34px 44px -34px var(--d-ambient)}
 .fam__i:hover{
-  --ty:-6px;
-  transform:perspective(1100px) translate3d(0,var(--ty,0px),0)
-            rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));
+  --tz:30px;
   box-shadow:
     0 1px 0 var(--d-hi) inset,
     0 -1px 0 var(--d-lo) inset,
@@ -133,9 +142,31 @@
 
 @media (hover:none){
   [data-tilt]::after{display:none}
-  .fam__i:hover{--ty:0px}
+  .fam__i:hover{--tz:0px}
 }
 @media (prefers-reduced-motion:reduce){
   [data-tilt]{transition:none}
-  .fam__i:hover{--ty:0px}
+  .fam__i:hover{--tz:0px}
 }
+
+/* ---- the About figures are 3D scenes you can turn -------------------------- */
+.about__stage canvas{pointer-events:none}
+.about__stage canvas.is-active{pointer-events:auto;cursor:grab}
+.about__stage canvas.is-dragging{cursor:grabbing}
+
+/* ---- the hero floor: a perspective field receding under the film ----------- */
+.hero__ground{position:absolute;left:0;right:0;bottom:0;width:100%;height:70%;pointer-events:none;
+  /* fade in from the top, and out toward the text on the left */
+  -webkit-mask-image:linear-gradient(to bottom,transparent 0,#000 38%),
+                     linear-gradient(to right,transparent 0,rgba(0,0,0,.22) 30%,#000 62%);
+  -webkit-mask-composite:source-in;
+  mask-image:linear-gradient(to bottom,transparent 0,#000 38%),
+             linear-gradient(to right,transparent 0,rgba(0,0,0,.22) 30%,#000 62%);
+  mask-composite:intersect}
+@media (max-width:719px){.hero__ground{display:none}}
+
+/* ---- sections swing in from depth rather than sliding up --------------------- */
+.js [data-reveal]{
+  transform:perspective(1500px) translate3d(0,34px,-90px) rotateX(9deg);
+  transform-origin:50% 100%}
+.js [data-reveal].in{transform:none}

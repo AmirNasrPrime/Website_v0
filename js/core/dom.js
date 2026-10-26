@@ -50,6 +50,10 @@ export function addTicker(fn) {
   if (!running) { running = true; requestAnimationFrame(pump); }
   return () => tickers.delete(fn);
 }
+/** The ticker's clock, in seconds. Anything that needs "now" in the same time base
+    the tickers are called with (restart points, redraws) must use this, never the
+    browser's absolute clock — the two differ by the page's load time. */
+export const tickNow = () => (performance.now() - t0) / 1000;
 
 /**
  * Land a section under the header with its content at the top of the frame.

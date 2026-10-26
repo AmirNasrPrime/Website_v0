@@ -49,24 +49,28 @@ export function initMagnetic() {
   });
 }
 
-/* Raised cards turn a few degrees toward the pointer, with light sliding across
-   the face. The position is eased, the loop sleeps once the card is at rest, and
-   nothing starts on touch screens or for reduced motion. */
+/* Cards rest at an angle (a fan, set in CSS as --ry-base) and, under the pointer,
+   come square, lift, and turn a few degrees toward it with light sliding across
+   the face. Position is eased and the loop sleeps once the card is at rest;
+   nothing starts on touch screens or for reduced motion, where the CSS resting
+   angle simply stands. */
 export function initTilt() {
   if (reduced() || coarse()) return;
   $$('[data-tilt]').forEach(node => {
     const max = parseFloat(node.dataset.tilt) || 6;
-    let raf = 0, tx = 0, ty = 0, cx = 0, cy = 0, glare = 0, tg = 0;
+    const base = () => parseFloat(getComputedStyle(node).getPropertyValue('--ry-base')) || 0;
+    let raf = 0, tx = base(), ty = 0, ly = 0, cx = tx, cy = 0, cl = 0, glare = 0, tg = 0;
     const run = () => {
-      cx = lerp(cx, tx, .16); cy = lerp(cy, ty, .16); glare = lerp(glare, tg, .12);
+      cx = lerp(cx, tx, .13); cy = lerp(cy, ty, .13); cl = lerp(cl, ly, .13); glare = lerp(glare, tg, .12);
       node.style.setProperty('--rx', `${cy.toFixed(2)}deg`);
       node.style.setProperty('--ry', `${cx.toFixed(2)}deg`);
+      node.style.setProperty('--ty', `${cl.toFixed(2)}px`);
       node.style.setProperty('--glare', glare.toFixed(3));
-      const moving = Math.abs(cx - tx) > .02 || Math.abs(cy - ty) > .02 || Math.abs(glare - tg) > .01;
+      const moving = Math.abs(cx - tx) > .03 || Math.abs(cy - ty) > .03 || Math.abs(cl - ly) > .05 || Math.abs(glare - tg) > .01;
       if (moving) raf = requestAnimationFrame(run);
       else {
         raf = 0;
-        if (!tg) ['--rx', '--ry', '--glare'].forEach(k => node.style.removeProperty(k));
+        if (!tg) ['--rx', '--ry', '--ty', '--glare'].forEach(k => node.style.removeProperty(k));
       }
     };
     node.addEventListener('pointermove', e => {
@@ -75,13 +79,13 @@ export function initTilt() {
       const v = clamp((e.clientY - r.top) / r.height, 0, 1);
       tx = (u - .5) * 2 * max;                 /* left/right edge -> rotateY */
       ty = (.5 - v) * 2 * max;                 /* top/bottom edge -> rotateX */
-      tg = 1;
+      ly = -12; tg = 1;
       node.style.setProperty('--gx', `${(u * 100).toFixed(1)}%`);
       node.style.setProperty('--gy', `${(v * 100).toFixed(1)}%`);
       if (!raf) raf = requestAnimationFrame(run);
     });
     node.addEventListener('pointerleave', () => {
-      tx = 0; ty = 0; tg = 0;
+      tx = base(); ty = 0; ly = 0; tg = 0;
       if (!raf) raf = requestAnimationFrame(run);
     });
   });

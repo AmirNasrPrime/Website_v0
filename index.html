@@ -112,6 +112,7 @@ document.documentElement.classList.add('js');
     <video class="hero__vid" id="heroVidB" muted playsinline preload="none" aria-hidden="true"></video>
     <div class="hero__scan" aria-hidden="true"></div>
     <div class="hero__grade" aria-hidden="true"></div>
+    <canvas class="hero__ground" id="heroGround" aria-hidden="true"></canvas>
   </div>
 
   <div class="hero__manual">
@@ -190,13 +191,13 @@ document.documentElement.classList.add('js');
           <button class="about__view" type="button" role="tab" id="aboutTab1" aria-controls="aboutSearch"
             aria-selected="false" tabindex="-1">Optimization<i aria-hidden="true"></i></button>
         </div>
-        <div class="about__stage" data-tilt="3.5">
+        <div class="about__stage">
           <canvas id="aboutCanvas" class="is-active" role="img"
             aria-label="A phase portrait: sparse observations, several unconstrained fits drifting away from the true response, and a physics-guided prediction held on the orbit the governing physics allows."></canvas>
           <canvas id="aboutSearch" role="img" aria-hidden="true"
             aria-label="A design-domain search: candidate designs sampled across an objective landscape, successive generations closing in on the best feasible design on the constraint, and the best-so-far objective converging over the iterations."></canvas>
         </div>
-        <figcaption class="about__cap t-micro" id="aboutCap">Physics-guided learning <b>·</b> phase portrait</figcaption>
+        <figcaption class="about__cap t-micro" id="aboutCap">Physics-guided learning <b>·</b> phase space <b>·</b> drag to rotate</figcaption>
       </figure>
     </div>
   </div>
