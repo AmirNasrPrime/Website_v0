@@ -49,6 +49,71 @@ export function initMagnetic() {
   });
 }
 
+/* Raised cards turn a few degrees toward the pointer, with light sliding across
+   the face. The position is eased, the loop sleeps once the card is at rest, and
+   nothing starts on touch screens or for reduced motion. */
+export function initTilt() {
+  if (reduced() || coarse()) return;
+  $$('[data-tilt]').forEach(node => {
+    const max = parseFloat(node.dataset.tilt) || 6;
+    let raf = 0, tx = 0, ty = 0, cx = 0, cy = 0, glare = 0, tg = 0;
+    const run = () => {
+      cx = lerp(cx, tx, .16); cy = lerp(cy, ty, .16); glare = lerp(glare, tg, .12);
+      node.style.setProperty('--rx', `${cy.toFixed(2)}deg`);
+      node.style.setProperty('--ry', `${cx.toFixed(2)}deg`);
+      node.style.setProperty('--glare', glare.toFixed(3));
+      const moving = Math.abs(cx - tx) > .02 || Math.abs(cy - ty) > .02 || Math.abs(glare - tg) > .01;
+      if (moving) raf = requestAnimationFrame(run);
+      else {
+        raf = 0;
+        if (!tg) ['--rx', '--ry', '--glare'].forEach(k => node.style.removeProperty(k));
+      }
+    };
+    node.addEventListener('pointermove', e => {
+      const r = node.getBoundingClientRect();
+      const u = clamp((e.clientX - r.left) / r.width, 0, 1);
+      const v = clamp((e.clientY - r.top) / r.height, 0, 1);
+      tx = (u - .5) * 2 * max;                 /* left/right edge -> rotateY */
+      ty = (.5 - v) * 2 * max;                 /* top/bottom edge -> rotateX */
+      tg = 1;
+      node.style.setProperty('--gx', `${(u * 100).toFixed(1)}%`);
+      node.style.setProperty('--gy', `${(v * 100).toFixed(1)}%`);
+      if (!raf) raf = requestAnimationFrame(run);
+    });
+    node.addEventListener('pointerleave', () => {
+      tx = 0; ty = 0; tg = 0;
+      if (!raf) raf = requestAnimationFrame(run);
+    });
+  });
+}
+
+/* The film and the headline sit on different planes: as the pointer crosses the
+   hero, one slides slightly past the other. Only runs where there is a pointer
+   to follow. */
+export function initHeroDepth() {
+  const hero = $$('#hero')[0];
+  if (!hero || reduced() || coarse()) return;
+  hero.classList.add('depth-live');
+  let raf = 0, tx = 0, ty = 0, cx = 0, cy = 0;
+  const run = () => {
+    cx = lerp(cx, tx, .07); cy = lerp(cy, ty, .07);
+    hero.style.setProperty('--px', cx.toFixed(3));
+    hero.style.setProperty('--py', cy.toFixed(3));
+    if (Math.abs(cx - tx) > .002 || Math.abs(cy - ty) > .002) raf = requestAnimationFrame(run);
+    else raf = 0;
+  };
+  hero.addEventListener('pointermove', e => {
+    const r = hero.getBoundingClientRect();
+    tx = clamp(((e.clientX - r.left) / r.width - .5) * 2, -1, 1);
+    ty = clamp(((e.clientY - r.top) / r.height - .5) * 2, -1, 1);
+    if (!raf) raf = requestAnimationFrame(run);
+  });
+  hero.addEventListener('pointerleave', () => {
+    tx = 0; ty = 0;
+    if (!raf) raf = requestAnimationFrame(run);
+  });
+}
+
 export function paintRange(input) {
   const pct = ((input.value - input.min) / (input.max - input.min)) * 100;
   input.style.setProperty('--pct', `${pct}%`);

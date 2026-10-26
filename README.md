@@ -76,6 +76,8 @@ css/
   components.css            buttons, panels, controls, readouts, modal
   hero.css                  hero environment + header
   sections.css              per-section art direction
+  depth.css                 the 3D layer: bevels, stacked shadows, tilting cards, hero
+                            parallax — delete the file and its <link> to drop it
   mobile.css                the phone — loaded last, and only phone queries
                             live in it, so the desktop sheets are never edited
                             to serve a handset
