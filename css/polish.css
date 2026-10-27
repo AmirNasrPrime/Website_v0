@@ -1,0 +1,62 @@
+/* ============================================================================
+   PRIME-CAE · finish
+   Typographic refinement, the skip link and the footer. Loaded after depth.css
+   and before mobile.css; everything here resolves through the --env-* contract.
+   ========================================================================== */
+
+/* ------------------------------------------------------------- typography - */
+.t-hero,.t-h2,.t-d2,.t-h3{text-wrap:balance}
+.t-lede,.t-body,.t-small,.fam__i p{text-wrap:pretty}
+.t-value,.t-value-lg,.hero__inst b{font-variant-numeric:tabular-nums}
+html{text-rendering:optimizeLegibility}
+
+/* -------------------------------------------------------------- skip link - */
+.skip{position:fixed;left:var(--s-4);top:var(--s-3);z-index:calc(var(--z-modal) + 10);
+  padding:10px 16px;border-radius:var(--r-2);
+  font-family:var(--font-mono);font-size:var(--fs-meta);font-weight:500;letter-spacing:.08em;
+  background:var(--prime-lift);color:#031425;
+  transform:translateY(-220%);transition:transform var(--t-normal) var(--ease-large)}
+.skip:focus{transform:none;outline:var(--lw-3) solid #fff;outline-offset:2px}
+
+/* ----------------------------------------------------------------- footer - */
+.foot{padding-block:var(--s-8) var(--s-5);border-top:var(--lw-1) solid var(--env-line)}
+.ft{display:grid;gap:var(--s-7) var(--s-8);align-items:start;
+  grid-template-columns:minmax(0,1.7fr) repeat(3,minmax(0,1fr))}
+.ft__line{margin-top:var(--s-5);max-width:36ch;font-size:var(--fs-small);line-height:1.65;
+  color:var(--env-text-3);text-wrap:pretty}
+.ft__col{display:flex;flex-direction:column;align-items:flex-start}
+.ft__col h3{margin-bottom:var(--s-3);color:var(--env-text-4)}
+.ft__col a{display:inline-flex;align-items:center;gap:8px;min-height:36px;
+  font-size:var(--fs-small);color:var(--env-text-2);
+  transition:color var(--t-fast) var(--ease-fast),transform var(--t-fast) var(--ease-fast)}
+.ft__col a:hover{color:var(--env-text)}
+.ft__cta{margin-top:var(--s-3);padding:9px 16px;border-radius:999px;white-space:nowrap;
+  border:var(--lw-1) solid var(--env-accent-edge);background:var(--env-accent-wash);
+  color:var(--env-accent)!important}
+.ft__cta:hover{border-color:var(--env-line-active);transform:translateY(-1px)}
+.ft__cta svg{transition:transform var(--t-fast) var(--ease-fast)}
+.ft__cta:hover svg{transform:translateX(3px)}
+
+.ft__bar{display:flex;flex-wrap:wrap;gap:var(--s-3) var(--s-5);justify-content:space-between;
+  align-items:center;margin-top:var(--s-8);padding-top:var(--s-5);
+  border-top:var(--lw-1) solid var(--env-line)}
+.ft__top{display:inline-flex;align-items:center;min-height:36px;transition:color var(--t-fast)}
+.ft__top:hover{color:var(--env-text)}
+
+@media (max-width:900px){
+  .ft{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .ft__brand{grid-column:1 / -1}
+}
+@media (max-width:520px){
+  .foot{padding-top:var(--s-7);padding-bottom:calc(var(--s-5) + env(safe-area-inset-bottom))}
+  .ft{gap:var(--s-6)}
+  .ft__col a{min-height:44px}
+  .ft__col:last-child{grid-column:1 / -1}
+}
+
+/* ------------------------------------------------------------------ print - */
+@media print{
+  .nav,.menu,.progress,.skip,.hero__media,.hero__manual,.scroll-cue{display:none!important}
+  html,body,.env{background:#fff!important;color:#000!important}
+  [data-reveal]{opacity:1!important;transform:none!important}
+}
