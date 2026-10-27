@@ -78,9 +78,6 @@ css/
   sections.css              per-section art direction
   depth.css                 the 3D styling: bevels, stacked shadows, the angled product
                             cards, hero parallax, 3D section entrances
-  modern.css                flattens depth.css (hairline + glow, no bevels or tilt); the page
-                            is one navy environment, so seams are hairlines
-  polish.css                balanced headings, skip link, the four-column footer, print
   mobile.css                the phone — loaded last, and only phone queries
                             live in it, so the desktop sheets are never edited
                             to serve a handset
