@@ -47,6 +47,7 @@ addEventListener('pageshow', function () { scrollTo({ top: 0, left: 0, behavior:
 <link rel="stylesheet" href="css/components.css">
 <link rel="stylesheet" href="css/hero.css">
 <link rel="stylesheet" href="css/sections.css">
+<link rel="stylesheet" href="css/depth.css">
 <link rel="stylesheet" href="css/mobile.css">
 
 <link rel="preload" as="image" href="media/hero-field-poster.jpg">
@@ -111,6 +112,7 @@ document.documentElement.classList.add('js');
     <video class="hero__vid" id="heroVidB" muted playsinline preload="none" aria-hidden="true"></video>
     <div class="hero__scan" aria-hidden="true"></div>
     <div class="hero__grade" aria-hidden="true"></div>
+    <canvas class="hero__ground" id="heroGround" aria-hidden="true"></canvas>
   </div>
 
   <div class="hero__manual">
@@ -195,7 +197,7 @@ document.documentElement.classList.add('js');
           <canvas id="aboutSearch" role="img" aria-hidden="true"
             aria-label="A design-domain search: candidate designs sampled across an objective landscape, successive generations closing in on the best feasible design on the constraint, and the best-so-far objective converging over the iterations."></canvas>
         </div>
-        <figcaption class="about__cap t-micro" id="aboutCap">Physics-guided learning <b>·</b> phase portrait</figcaption>
+        <figcaption class="about__cap t-micro" id="aboutCap">Physics-guided learning <b>·</b> phase space <b>·</b> drag to rotate</figcaption>
       </figure>
     </div>
   </div>
@@ -257,25 +259,25 @@ document.documentElement.classList.add('js');
     </div>
 
     <div class="fam" data-reveal>
-      <article class="fam__i">
+      <article class="fam__i" data-tilt="7">
         <div class="fam__vis"><canvas data-product="design" aria-label="A design evolving across its space" role="img"></canvas></div>
         <img class="fam__logo" src="assets/wm-design-color.png" alt="PRIME-DESIGN" width="900" height="61" loading="lazy">
         <p class="t-small">Explore engineering possibilities faster through AI-assisted design and optimization.</p>
       </article>
 
-      <article class="fam__i">
+      <article class="fam__i" data-tilt="7">
         <div class="fam__vis"><canvas data-product="joint" aria-label="Load transfer through a structural connection" role="img"></canvas></div>
         <img class="fam__logo" src="assets/wm-joint-color.png" alt="PRIME-JOINT" width="900" height="68" loading="lazy">
         <p class="t-small">Bring engineering intelligence to structural connection design.</p>
       </article>
 
-      <article class="fam__i">
+      <article class="fam__i" data-tilt="7">
         <div class="fam__vis"><canvas data-product="life" aria-label="Structural response accumulating over service" role="img"></canvas></div>
         <img class="fam__logo" src="assets/wm-life-color.png" alt="PRIME-LIFE" width="900" height="76" loading="lazy">
         <p class="t-small">Extend engineering insight from design into durability and lifecycle performance.</p>
       </article>
 
-      <article class="fam__i">
+      <article class="fam__i" data-tilt="7">
         <div class="fam__vis"><canvas data-product="copilot" aria-label="Engineering context and a line of reasoning through it" role="img"></canvas></div>
         <img class="fam__logo" src="assets/wm-copilot-color.png" alt="PRIME-COPILOT" width="900" height="59" loading="lazy">
         <p class="t-small">A context-aware AI engineering partner grounded in the current design and physics.</p>

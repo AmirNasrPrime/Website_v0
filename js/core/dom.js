@@ -50,19 +50,31 @@ export function addTicker(fn) {
   if (!running) { running = true; requestAnimationFrame(pump); }
   return () => tickers.delete(fn);
 }
+/** The ticker's clock, in seconds. Anything that needs "now" in the same time base
+    the tickers are called with (restart points, redraws) must use this, never the
+    browser's absolute clock — the two differ by the page's load time. */
+export const tickNow = () => (performance.now() - t0) / 1000;
 
 /**
  * Land a section under the header with its content at the top of the frame.
  * Anchoring on the section box itself lands on its top padding, which reads as
  * a large empty gap and pushes the actual content out of the window.
  */
+/** Document-relative top of an element from the layout, ignoring transforms — a
+    section that has not entered yet is scaled, tilted and offset, and its
+    on-screen rect would put the landing point in the wrong place. */
+export function docTop(el) {
+  let y = 0;
+  for (let n = el; n; n = n.offsetParent) y += n.offsetTop;
+  return y;
+}
+
 export function scrollToSection(el, extra = 18) {
   if (!el) return;
   const nav = document.getElementById('nav');
   const navH = nav ? nav.getBoundingClientRect().height : 88;
   const head = el.querySelector('.sec-head, .shell') || el;
   const max = Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
-  const top = Math.min(max, Math.max(0,
-    head.getBoundingClientRect().top + window.scrollY - navH - extra));
+  const top = Math.min(max, Math.max(0, docTop(head) - navH - extra));
   window.scrollTo({ top, behavior: reduced() ? 'auto' : 'smooth' });
 }

@@ -3,7 +3,7 @@
    Five moments, five modules. Every one is initialised behind a guard, so one
    failure cannot take the page down with it.
    ========================================================================== */
-import { initReveal, initMagnetic, initRanges } from './core/motion.js';
+import { initReveal, initMagnetic, initRanges, initTilt, initHeroDepth } from './core/motion.js';
 import { initHeroSequence } from './hero/sequence.js';
 import { initNav } from './sections/nav.js';
 import { initAbout } from './sections/about.js';
@@ -23,6 +23,8 @@ function boot() {
   safeInit('reveal', initReveal);
   safeInit('ranges', initRanges);
   safeInit('magnetic', initMagnetic);
+  safeInit('tilt', initTilt);
+  safeInit('depth', initHeroDepth);
 
   safeInit('about', initAbout);
   safeInit('layer', initLayer);
