@@ -20,9 +20,14 @@ import {
 /* The route the systems sit on. A short, wide box would otherwise stretch this
    into a 3:1 slot, so the horizontal radius is capped against the vertical one
    and the ellipse keeps its proportions at every size. */
-function ringOf(w, h) {
-  const ry = h * 0.405;
-  return { rx: Math.min(w * 0.42, ry * 1.62), ry };
+function ringOf(w, h, pad = { hw: 0, hh: 0 }) {
+  /* the ring is kept small enough that every pill sits ON it: a pill is never
+     pushed off the route to stay inside the frame (cos 30° = .866 is how far
+     out the side pills sit). */
+  const cy = h * 0.48;
+  const ry = Math.min(h * 0.405, cy - pad.hh - 6, h - cy - pad.hh - 6);
+  const side = pad.hw ? (w / 2 - pad.hw - 6) / 0.866 : Infinity;
+  return { rx: Math.max(40, Math.min(w * 0.42, ry * 1.62, side)), ry: Math.max(40, ry) };
 }
 
 export function initLayer() {
@@ -40,11 +45,13 @@ export function initLayer() {
   let active = 'geometry', prev = 'geometry';
   let tSel = performance.now() / 1000, optV = 0, tLast = tSel;
   const pos = [];
+  const pad = { hw: 0, hh: 0 };
   let rail = false;
 
   /* -------------------------------------------------- node placement --- */
-  /* Nodes are clamped inside the frame, so nothing can ever leave the
-     viewport at any width — the canvas then draws to where they actually are. */
+  /* Every pill sits on the ring, and the ring is sized to leave room for the
+     widest pill, so nothing leaves the frame at any width and the canvas draws
+     the route through the very points the labels are placed at. */
   function place() {
     rail = !!ring && getComputedStyle(ring).position === 'static';
     if (rail) {
@@ -57,19 +64,25 @@ export function initLayer() {
        pixels that nothing recomputes once it straightens */
     const w = canvas.offsetWidth, h = canvas.offsetHeight;
     const cx = w / 2, cy = h * 0.48;
-    const { rx, ry } = ringOf(w, h);
+    pad.hw = Math.max(0, ...nodes.map(n => n.offsetWidth / 2)) || 60;
+    pad.hh = Math.max(0, ...nodes.map(n => n.offsetHeight / 2)) || 22;
+    const { rx, ry } = ringOf(w, h, pad);
     nodes.forEach((n, i) => {
       const a = (-90 + i * 60) * Math.PI / 180;
       const hw = n.offsetWidth / 2 || 60, hh = n.offsetHeight / 2 || 22;
-      const x = clamp(cx + Math.cos(a) * rx, hw + 6, w - hw - 6);
-      const y = clamp(cy + Math.sin(a) * ry, hh + 6, h - hh - 6);
+      const x = cx + Math.cos(a) * rx;
+      const y = cy + Math.sin(a) * ry;
       n.style.left = `${x}px`;
       n.style.top  = `${y}px`;
       pos[i] = { x, y, hw, hh, a };
     });
   }
   place();
-  new ResizeObserver(place).observe(wrap);
+  /* the pills are placed from their own size, so a web font arriving (or any
+     change to a label) has to place them again, not just a resize of the frame */
+  const ro = new ResizeObserver(place);
+  ro.observe(wrap); nodes.forEach(n => ro.observe(n));
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(place);
 
   /* ------------------------------------------------------- selection --- */
   /* The workflow walks itself: a light travels the dashed ring, and whichever
@@ -150,7 +163,7 @@ export function initLayer() {
     if (!rail && pos.length === 6) drawRoute(ctx, cx, cy, w, h, now, T, idx, phase, tPhase);
 
     /* the structural model — same camera, same centre, in every state */
-    const ring = ringOf(w, h);
+    const ring = ringOf(w, h, pad);
     /* the widest the structure can be and still leave a node pill room to sit
        outside it: clearance = rx - pill half-width - structure half-width */
     const bw = rail ? Math.min(w * 0.94, 620)
@@ -235,7 +248,7 @@ export function initLayer() {
      reached onto the model itself. */
   function drawRoute(ctx, cx, cy, w, h, now, T, idx, phase, tPhase) {
     const n = pos.length;
-    const { rx, ry } = ringOf(w, h);
+    const { rx, ry } = ringOf(w, h, pad);
     const ang = i => (-90 + i * 60) * Math.PI / 180;
     const at = a => [cx + Math.cos(a) * rx, cy + Math.sin(a) * ry];
 
