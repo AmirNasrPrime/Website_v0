@@ -22,7 +22,9 @@ import {
    and the ellipse keeps its proportions at every size. */
 function ringOf(w, h) {
   const ry = h * 0.405;
-  return { rx: Math.min(w * 0.42, ry * 1.62), ry };
+  /* wider than the model's own clearance needs, so the trace from a side node
+     to the part has room to read as a line and not a stub */
+  return { rx: Math.min(w * 0.44, ry * 1.95), ry };
 }
 
 export function initLayer() {
@@ -153,7 +155,7 @@ export function initLayer() {
     /* the widest the structure can be and still leave a node pill room to sit
        outside it: clearance = rx - pill half-width - structure half-width */
     const bw = rail ? Math.min(w * 0.94, 620)
-                    : Math.max(200, Math.min(w * 0.60, 2 * (ring.rx - 113), 640));
+                    : Math.max(200, Math.min(w * 0.60, 2 * (Math.min(w * 0.42, ring.ry * 1.62) - 113), 640));
     const bh = h * (rail ? 0.86 : 0.70);
     const V = bracketView(ctx, { x: cx - bw / 2, y: cy - bh / 2, w: bw, h: bh }, 0.98);
 
