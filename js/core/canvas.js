@@ -1,19 +1,17 @@
 /* ============================================================================
    PRIME-CAE · canvas sizing and on-screen-only draw loops
    ========================================================================== */
-import { addTicker, reduced, tickNow } from './dom.js';
+import { addTicker, reduced } from './dom.js';
 
 /* Keeps the backing store matched to the CSS box at a capped device ratio. */
 export function fitCanvas(canvas, maxDpr = 2) {
   const ctx = canvas.getContext('2d');
   const size = { w: 0, h: 0, dpr: 1 };
   const resize = () => {
-    /* the layout box, not getBoundingClientRect(): a section mid-way through its
-       3D entrance is scaled and rotated, and a transformed rect would size the
-       backing store wrongly for good */
-    const w = canvas.offsetWidth, h = canvas.offsetHeight;
-    if (!w || !h) return false;
+    const r = canvas.getBoundingClientRect();
+    if (!r.width || !r.height) return false;
     const dpr = Math.min(window.devicePixelRatio || 1, maxDpr);
+    const w = Math.round(r.width), h = Math.round(r.height);
     if (w === size.w && h === size.h && dpr === size.dpr) return true;
     size.w = w; size.h = h; size.dpr = dpr;
     canvas.width  = Math.round(w * dpr);
@@ -49,21 +47,21 @@ export function sceneLoop(el, draw, { fps = 30 } = {}) {
 
   /* a resize clears the backing store; if the ticker is halted — a hidden tab,
      reduced motion — nothing would ever repaint it */
-  const ro = new ResizeObserver(() => { if (visible) paint(tickNow()); });
+  const ro = new ResizeObserver(() => { if (visible) paint(performance.now() / 1000); });
   ro.observe(el);
 
   const io = new IntersectionObserver(es => {
     visible = es[0].isIntersecting;
     if (!visible) { halt(); return; }
-    paint(tickNow());
+    paint(performance.now() / 1000);
     if (!document.hidden) start();
   }, { rootMargin: '140px' });
   io.observe(el);
 
   document.addEventListener('visibilitychange', () => {
-    if (visible && !document.hidden) { paint(tickNow()); start(); }
+    if (visible && !document.hidden) { paint(performance.now() / 1000); start(); }
     else halt();
   });
 
-  return { redraw: () => paint(tickNow()), halt, dispose: () => { halt(); io.disconnect(); ro.disconnect(); } };
+  return { redraw: () => paint(performance.now() / 1000), halt, dispose: () => { halt(); io.disconnect(); ro.disconnect(); } };
 }
