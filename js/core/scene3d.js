@@ -56,13 +56,13 @@ export const mix = (a, b, t) => [a[0] + (b[0] - a[0]) * t, a[1] + (b[1] - a[1]) 
 export const rgba = (c, a) => `rgba(${c[0] | 0},${c[1] | 0},${c[2] | 0},${a})`;
 
 /**
- * Drag-to-orbit with a slow idle swing. A reader's drag offsets the view and,
+ * Drag-to-orbit with a slow idle swing (or a steady spin). A reader's drag offsets the view and,
  * once they let go, it drifts back to the swing so the figure never sits at an
  * awkward angle. Vertical scrolling on touch screens is left alone.
  */
-export function orbit(canvas, { yaw = 0.6, pitch = 0.4, swing = 0.4, rate = 0.22,
+export function orbit(canvas, { yaw = 0.6, pitch = 0.4, swing = 0.4, rate = 0.22, spin = 0,
                                 minPitch = 0.08, maxPitch = 1.25, hold = 2.2, onChange } = {}) {
-  let uy = 0, up = 0, dragging = false, released = 0, last = -1, lx = 0, ly = 0;
+  let uy = 0, up = 0, dragging = false, released = 0, last = -1, lx = 0, ly = 0, turn = 0;
   canvas.style.touchAction = 'pan-y';
 
   canvas.addEventListener('pointerdown', e => {
@@ -95,7 +95,10 @@ export function orbit(canvas, { yaw = 0.6, pitch = 0.4, swing = 0.4, rate = 0.22
         const k = Math.exp(-dt * 1.3);
         uy *= k; up *= k;
       }
-      const auto = reduced() ? 0 : Math.sin(now * rate) * swing;
+      /* spin: a steady turn (rad/s) that holds still while the reader has hold of it;
+         otherwise a slow swing back and forth */
+      if (spin && !dragging && !reduced()) turn += dt * spin;
+      const auto = reduced() ? 0 : (spin ? turn : Math.sin(now * rate) * swing);
       return { yaw: yaw + auto + uy, pitch: clamp(pitch + up, minPitch, maxPitch) };
     },
   };

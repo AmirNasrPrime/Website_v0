@@ -80,18 +80,8 @@
   background:radial-gradient(420px 300px at var(--gx,50%) var(--gy,0%),var(--d-glare),transparent 62%);
   opacity:var(--glare,0);transition:opacity var(--t-normal)}
 
-/* the four products stand in a shallow arc around the viewer: one vanishing point
-   for the whole row, so the outer cards really are turned and set back */
+/* the cards rest square; the perspective only gives the hover tilt its depth */
 .fam{perspective:1250px;perspective-origin:50% 38%}
-.fam__i:nth-child(1){--ry-base:19deg; --tz:-80px}
-.fam__i:nth-child(2){--ry-base:7deg;  --tz:-14px}
-.fam__i:nth-child(3){--ry-base:-7deg; --tz:-14px}
-.fam__i:nth-child(4){--ry-base:-19deg;--tz:-80px}
-@media (max-width:940px){
-  .fam__i:nth-child(odd){--ry-base:8deg; --tz:-24px}
-  .fam__i:nth-child(even){--ry-base:-8deg;--tz:-24px}
-}
-@media (max-width:600px){.fam__i{--ry-base:0deg;--tz:0px}}
 .fam__i{
   background:linear-gradient(165deg,var(--env-surface-2),var(--env-surface));
   box-shadow:

@@ -67,14 +67,22 @@ const tickNow = () => (performance.now() - t0) / 1000;
  * Anchoring on the section box itself lands on its top padding, which reads as
  * a large empty gap and pushes the actual content out of the window.
  */
+/** Document-relative top of an element from the layout, ignoring transforms — a
+    section that has not entered yet is scaled, tilted and offset, and its
+    on-screen rect would put the landing point in the wrong place. */
+function docTop(el) {
+  let y = 0;
+  for (let n = el; n; n = n.offsetParent) y += n.offsetTop;
+  return y;
+}
+
 function scrollToSection(el, extra = 18) {
   if (!el) return;
   const nav = document.getElementById('nav');
   const navH = nav ? nav.getBoundingClientRect().height : 88;
   const head = el.querySelector('.sec-head, .shell') || el;
   const max = Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
-  const top = Math.min(max, Math.max(0,
-    head.getBoundingClientRect().top + window.scrollY - navH - extra));
+  const top = Math.min(max, Math.max(0, docTop(head) - navH - extra));
   window.scrollTo({ top, behavior: reduced() ? 'auto' : 'smooth' });
 }
 
@@ -825,13 +833,13 @@ const mix = (a, b, t) => [a[0] + (b[0] - a[0]) * t, a[1] + (b[1] - a[1]) * t, a[
 const rgba = (c, a) => `rgba(${c[0] | 0},${c[1] | 0},${c[2] | 0},${a})`;
 
 /**
- * Drag-to-orbit with a slow idle swing. A reader's drag offsets the view and,
+ * Drag-to-orbit with a slow idle swing (or a steady spin). A reader's drag offsets the view and,
  * once they let go, it drifts back to the swing so the figure never sits at an
  * awkward angle. Vertical scrolling on touch screens is left alone.
  */
-function orbit(canvas, { yaw = 0.6, pitch = 0.4, swing = 0.4, rate = 0.22,
+function orbit(canvas, { yaw = 0.6, pitch = 0.4, swing = 0.4, rate = 0.22, spin = 0,
                                 minPitch = 0.08, maxPitch = 1.25, hold = 2.2, onChange } = {}) {
-  let uy = 0, up = 0, dragging = false, released = 0, last = -1, lx = 0, ly = 0;
+  let uy = 0, up = 0, dragging = false, released = 0, last = -1, lx = 0, ly = 0, turn = 0;
   canvas.style.touchAction = 'pan-y';
 
   canvas.addEventListener('pointerdown', e => {
@@ -864,7 +872,10 @@ function orbit(canvas, { yaw = 0.6, pitch = 0.4, swing = 0.4, rate = 0.22,
         const k = Math.exp(-dt * 1.3);
         uy *= k; up *= k;
       }
-      const auto = reduced() ? 0 : Math.sin(now * rate) * swing;
+      /* spin: a steady turn (rad/s) that holds still while the reader has hold of it;
+         otherwise a slow swing back and forth */
+      if (spin && !dragging && !reduced()) turn += dt * spin;
+      const auto = reduced() ? 0 : (spin ? turn : Math.sin(now * rate) * swing);
       return { yaw: yaw + auto + uy, pitch: clamp(pitch + up, minPitch, maxPitch) };
     },
   };
@@ -1223,7 +1234,9 @@ function domainSearch(canvas) {
   const { ctx, size } = fitCanvas(canvas);
   const T = themeFor(canvas);
   let t0 = tickNow(), idle = false, loop = null;
-  const ctl = orbit(canvas, { yaw: -0.5, pitch: 0.44, swing: 0.5, rate: 0.2, minPitch: 0.16, maxPitch: 1.0,
+  /* a steady turn, a little above the landscape, so the whole search is seen from
+     every side as it converges */
+  const ctl = orbit(canvas, { yaw: -0.5, pitch: 0.56, spin: 0.3, minPitch: 0.2, maxPitch: 1.05,
                               onChange: () => loop && loop.redraw() });
 
   const ACC = [84, 168, 255], HOT = [96, 214, 218], GREY = [150, 172, 198];
@@ -1417,7 +1430,7 @@ function domainSearch(canvas) {
       const a = P(WX(x0), FLOOR, WZ(yb(x0))), b = P(WX(x1), FLOOR, WZ(yb(x1)));
       const c = P(WX(x1), TOP, WZ(yb(x1))), d = P(WX(x0), TOP, WZ(yb(x0)));
       ops.push({ d: (a[2] + b[2] + c[2] + d[2]) / 4, k: 'wall', p: [a, b, c, d] });
-      if (i % 2 === 0) seg(d, c, GREY, 0.7, 1.2);
+      if (i % 2 === 0) ops.push({ d: (d[2] + c[2]) / 2, k: 's', a: d, b: c, col: GREY, al: 0.7, lw: 1.2, base: true });
     }
 
     /* ---- every evaluation, as a sphere resting on the surface under it ------------ */
@@ -1455,9 +1468,14 @@ function domainSearch(canvas) {
     }
 
     /* ---- paint, far to near -------------------------------------------------------- */
+    /* the landscape (and its wall) paint first, far to near; everything the search
+       does is then drawn on top of it, so no evaluation, path or marker can end up
+       hidden behind the terrain whichever way it is turned */
     ops.sort((p, q) => q.d - p.d);
+    const isBase = o => o.k === 'surf' || o.k === 'wall' || o.base;
+    const ordered = ops.filter(isBase).concat(ops.filter(o => !isBase(o)));
     ctx.lineCap = 'round'; ctx.lineJoin = 'round';
-    for (const o of ops) {
+    for (const o of ordered) {
       switch (o.k) {
         case 'surf':
           ctx.fillStyle = rgba(o.c, .94); ctx.strokeStyle = rgba(o.c, .94); ctx.lineWidth = .7;
@@ -1484,6 +1502,7 @@ function domainSearch(canvas) {
           ctx.beginPath(); ctx.moveTo(o.a[0], o.a[1]); ctx.lineTo(o.b[0], o.b[1]); ctx.stroke();
           break;
         case 'pt': {
+          o.a *= Math.min(1, cue(o.d) + 0.08);                /* the far side recedes a little */
           const r = (o.cur ? 4.6 : 3.8) * sc(o.p[3]) * (big ? 1.1 : 1);
           if (o.ok) {
             const g = ctx.createRadialGradient(o.p[0] - r * .35, o.p[1] - r * .4, 0, o.p[0], o.p[1], r);
@@ -2251,15 +2270,16 @@ function initLayer() {
   /* Nodes are clamped inside the frame, so nothing can ever leave the
      viewport at any width — the canvas then draws to where they actually are. */
   function place() {
-    const r = wrap.getBoundingClientRect();
     rail = !!ring && getComputedStyle(ring).position === 'static';
     if (rail) {
       nodes.forEach(n => { n.style.left = ''; n.style.top = ''; });
       pos.length = 0;
       return;
     }
-    const cr = canvas.getBoundingClientRect();
-    const w = cr.width, h = cr.height;
+    /* layout size, not getBoundingClientRect(): this runs while the section is
+       still mid-entrance (scaled and tilted), and the labels are placed in
+       pixels that nothing recomputes once it straightens */
+    const w = canvas.offsetWidth, h = canvas.offsetHeight;
     const cx = w / 2, cy = h * 0.48;
     const { rx, ry } = ringOf(w, h);
     nodes.forEach((n, i) => {

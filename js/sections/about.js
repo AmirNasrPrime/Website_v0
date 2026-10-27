@@ -351,7 +351,9 @@ function domainSearch(canvas) {
   const { ctx, size } = fitCanvas(canvas);
   const T = themeFor(canvas);
   let t0 = tickNow(), idle = false, loop = null;
-  const ctl = orbit(canvas, { yaw: -0.5, pitch: 0.44, swing: 0.5, rate: 0.2, minPitch: 0.16, maxPitch: 1.0,
+  /* a steady turn, a little above the landscape, so the whole search is seen from
+     every side as it converges */
+  const ctl = orbit(canvas, { yaw: -0.5, pitch: 0.56, spin: 0.3, minPitch: 0.2, maxPitch: 1.05,
                               onChange: () => loop && loop.redraw() });
 
   const ACC = [84, 168, 255], HOT = [96, 214, 218], GREY = [150, 172, 198];
@@ -545,7 +547,7 @@ function domainSearch(canvas) {
       const a = P(WX(x0), FLOOR, WZ(yb(x0))), b = P(WX(x1), FLOOR, WZ(yb(x1)));
       const c = P(WX(x1), TOP, WZ(yb(x1))), d = P(WX(x0), TOP, WZ(yb(x0)));
       ops.push({ d: (a[2] + b[2] + c[2] + d[2]) / 4, k: 'wall', p: [a, b, c, d] });
-      if (i % 2 === 0) seg(d, c, GREY, 0.7, 1.2);
+      if (i % 2 === 0) ops.push({ d: (d[2] + c[2]) / 2, k: 's', a: d, b: c, col: GREY, al: 0.7, lw: 1.2, base: true });
     }
 
     /* ---- every evaluation, as a sphere resting on the surface under it ------------ */
@@ -583,9 +585,14 @@ function domainSearch(canvas) {
     }
 
     /* ---- paint, far to near -------------------------------------------------------- */
+    /* the landscape (and its wall) paint first, far to near; everything the search
+       does is then drawn on top of it, so no evaluation, path or marker can end up
+       hidden behind the terrain whichever way it is turned */
     ops.sort((p, q) => q.d - p.d);
+    const isBase = o => o.k === 'surf' || o.k === 'wall' || o.base;
+    const ordered = ops.filter(isBase).concat(ops.filter(o => !isBase(o)));
     ctx.lineCap = 'round'; ctx.lineJoin = 'round';
-    for (const o of ops) {
+    for (const o of ordered) {
       switch (o.k) {
         case 'surf':
           ctx.fillStyle = rgba(o.c, .94); ctx.strokeStyle = rgba(o.c, .94); ctx.lineWidth = .7;
@@ -612,6 +619,7 @@ function domainSearch(canvas) {
           ctx.beginPath(); ctx.moveTo(o.a[0], o.a[1]); ctx.lineTo(o.b[0], o.b[1]); ctx.stroke();
           break;
         case 'pt': {
+          o.a *= Math.min(1, cue(o.d) + 0.08);                /* the far side recedes a little */
           const r = (o.cur ? 4.6 : 3.8) * sc(o.p[3]) * (big ? 1.1 : 1);
           if (o.ok) {
             const g = ctx.createRadialGradient(o.p[0] - r * .35, o.p[1] - r * .4, 0, o.p[0], o.p[1], r);
