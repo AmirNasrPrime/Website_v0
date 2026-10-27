@@ -46,16 +46,15 @@ export function initLayer() {
   /* Nodes are clamped inside the frame, so nothing can ever leave the
      viewport at any width — the canvas then draws to where they actually are. */
   function place() {
+    const r = wrap.getBoundingClientRect();
     rail = !!ring && getComputedStyle(ring).position === 'static';
     if (rail) {
       nodes.forEach(n => { n.style.left = ''; n.style.top = ''; });
       pos.length = 0;
       return;
     }
-    /* layout size, not getBoundingClientRect(): this runs while the section is
-       still mid-entrance (scaled and tilted), and the labels are placed in
-       pixels that nothing recomputes once it straightens */
-    const w = canvas.offsetWidth, h = canvas.offsetHeight;
+    const cr = canvas.getBoundingClientRect();
+    const w = cr.width, h = cr.height;
     const cx = w / 2, cy = h * 0.48;
     const { rx, ry } = ringOf(w, h);
     nodes.forEach((n, i) => {
