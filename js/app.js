@@ -3,9 +3,10 @@
    Five moments, five modules. Every one is initialised behind a guard, so one
    failure cannot take the page down with it.
    ========================================================================== */
-import { initReveal, initRanges } from './core/motion.js';
+import { initRanges } from './core/motion.js';
 import { initHeroSequence } from './hero/sequence.js';
 import { initNav } from './sections/nav.js';
+import { initStory } from './sections/story.js';
 import { initAbout } from './sections/about.js';
 import { initLayer } from './sections/layer.js';
 import { initProducts } from './sections/products.js';
@@ -20,7 +21,7 @@ function safeInit(name, fn) {
 function boot() {
   safeInit('hero', initHeroSequence);      /* starts the hero film */
   safeInit('nav', initNav);
-  safeInit('reveal', initReveal);
+  safeInit('story', initStory);
   safeInit('ranges', initRanges);
 
   safeInit('about', initAbout);

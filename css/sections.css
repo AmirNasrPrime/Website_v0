@@ -27,16 +27,42 @@
 .instr__v--pass{color:var(--env-pass)}
 
 /* =========================================================== 01 · LAYER = */
-/* Diagram left, the line it is describing right — so the two are read together
-   instead of the caption being pushed below the fold. Below the breakpoint they
-   stack and the line centres under the figure. */
-.layer__wrap{position:relative;margin-top:clamp(18px,2.4vh,var(--s-7));
-  display:grid;grid-template-columns:minmax(0,1fr);
-  gap:clamp(18px,2.6vh,32px);align-items:center}
-@media (min-width:1000px){
-  .layer__wrap{grid-template-columns:minmax(0,1fr) minmax(0,.5fr);
-    gap:clamp(24px,2.6vw,56px)}
+/* Chapters hold while the scene fits. The document still owns scrolling. */
+:root{--story-inset:calc(var(--nav-h) + env(safe-area-inset-top))}
+.story-active body{overflow-x:clip}
+.story-track{--story-runway:clamp(100px,18svh,185px)}
+.story-track--pinned{min-block-size:calc(var(--story-height) + var(--story-runway))}
+.story-track--pinned>[data-story]{position:sticky;top:0}
+.section[data-story]{
+  display:grid;align-items:center;
+  padding-block:clamp(24px,4svh,54px)
 }
+.story-layout{display:grid;align-items:center;gap:clamp(24px,4vw,70px)}
+.story-copy,.story-visual{min-width:0}
+.story-label{
+  font-size:clamp(1rem,1.5vw,1.375rem);
+  margin-bottom:clamp(8px,1.8svh,18px);color:var(--env-accent)
+}
+.story-copy h2{max-width:18ch}
+.story-copy .t-lede{margin-top:clamp(12px,2.5svh,30px)}
+@media (min-width:1000px){
+  .section[data-story]{min-block-size:100svh;padding-block-start:var(--story-inset)}
+  .story-layout{grid-template-columns:minmax(0,1.24fr) minmax(0,1fr);grid-template-areas:"visual copy"}
+  .story-copy{grid-area:copy}
+  .story-visual{grid-area:visual}
+}
+@media (prefers-reduced-motion:no-preference){
+  .story-active [data-story-copy="lead"]{opacity:var(--story-lead,1)}
+  .story-active [data-story-copy="detail"]{opacity:var(--story-detail,1)}
+  .story-active [data-story-note],.story-active [data-story-visual]{opacity:var(--story-item,1)}
+  .story-active [data-story-copy]:focus-within,.story-active [data-story-visual]:focus-within{opacity:1}
+  .story-active [data-story-visual].story-visual-hidden:not(:focus-within){pointer-events:none}
+}
+@media (prefers-reduced-motion:reduce){
+  .story-track--pinned{min-block-size:0}
+  .story-track--pinned>[data-story]{position:relative;top:auto}
+}
+
 /* The diagram is sized from the height left after the header, the section's
    own padding, its heading and the line underneath — so the whole section is
    readable in one screen instead of being scrolled through in pieces. */
@@ -158,15 +184,14 @@
 /* capped by height as well as width, so the figure cannot push the copy off a
    short screen */
 .about__stage{position:relative;margin-inline:auto;aspect-ratio:1/1;
-  width:min(100%,min(54vh,560px));
-  width:min(100%,min(54svh,560px))}
+  width:min(100%,clamp(174px,48svh,525px))}
 /* the two plots are slides in one frame: the active one fades and slides in,
    the other fades out; only the active one animates */
 .about__stage canvas{position:absolute;inset:0;display:block;width:100%;height:100%;
   opacity:0;transition:opacity .6s var(--ease-standard),transform .6s var(--ease-standard)}
 .about__stage canvas.is-active{opacity:1;transform:none}
 .about__views{display:flex;justify-content:center;gap:8px;margin:0 0 clamp(8px,1.2vh,14px)}
-.about__view{position:relative;display:inline-flex;align-items:center;gap:8px;min-height:34px;
+.about__view{position:relative;display:inline-flex;align-items:center;gap:8px;min-height:44px;
   padding:0 14px;border:var(--lw-1) solid var(--env-line);border-radius:999px;overflow:hidden;
   background:transparent;color:var(--env-text-3);cursor:pointer;
   font-family:var(--font-mono);font-size:var(--fs-micro);font-weight:500;
@@ -185,9 +210,6 @@ html:not(.js) .about__views{display:none}
 .about__cap{display:block;margin-top:var(--s-3);text-align:center;
   color:var(--env-text-4)}
 .about__cap b{color:var(--env-accent);font-weight:500}
-.about__in{align-items:center;row-gap:clamp(28px,3.4vh,var(--s-7))}
-
-.about__h{max-width:15ch;margin:clamp(14px,1.8vh,var(--s-5)) 0 clamp(18px,2.4vh,var(--s-6))}
 .about__lede{max-width:46ch}
 .about__body{margin-top:clamp(14px,1.8vh,var(--s-5));max-width:52ch;color:var(--env-text-3)}
 
@@ -207,39 +229,34 @@ html:not(.js) .about__views{display:none}
 
 
 /* =========================================================================
-   02 · WHAT PRIME-CAE IS — one statement under the diagram, nothing more
+   02 · WHAT PRIME-CAE IS — the selected system's explanation
    ========================================================================= */
-/* The line under the diagram has to be readable while the diagram is running,
-   which means it has to be on the same screen as it: set wide enough to land in
-   one or two lines rather than four, at a size that does not compete with the
-   section title. */
-.layer__line{display:grid;gap:var(--s-3);margin:0;max-width:30ch}
-.layer__line .t-d2{color:var(--env-text);transition:opacity var(--t-normal);
-  font-size:min(clamp(1.18rem,.9vw + .9rem,1.85rem),4vh);line-height:1.32}
-@media (max-width:999px){
-  .layer__line{justify-items:center;text-align:center;
-    max-width:min(60ch,94%);margin-inline:auto}
+.layer__line{
+  display:grid;justify-items:start;gap:6px;max-width:45ch;
+  padding-top:14px;
+  border-top:var(--lw-1) solid var(--env-line-strong)
+}
+.layer__line .t-small{min-block-size:3.2em;color:var(--env-text);transition:opacity var(--t-normal)}
+@media (min-width:1000px){
+  #layer .story-layout{grid-template-areas:"visual copy" "visual readout";row-gap:clamp(14px,3svh,30px)}
+  #layer .story-copy{align-self:end}
+  .layer__line{grid-area:readout;align-self:start}
 }
 
 /* =========================================================================
    03 · PRIME-CAE PRODUCTS — the supplied wordmarks carry the identity
    ========================================================================= */
-.fam{display:grid;gap:var(--s-5);margin-top:clamp(22px,3vh,var(--s-7));
-  grid-template-columns:repeat(4,minmax(0,1fr))}
-/* four across as long as the cards stay legible — dropping to two rows makes
-   the section twice as tall as the screen it has to fit in */
-@media (max-width:940px){.fam{grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--s-6)}}
-@media (max-width:600px){.fam{grid-template-columns:1fr}}
-.fam__i{display:grid;gap:var(--s-4);align-content:start;
-  padding:var(--s-5);border:var(--lw-1) solid var(--env-line);border-radius:var(--r-3);
+.fam{display:grid;gap:clamp(12px,1.35vw,22px);grid-template-columns:repeat(2,minmax(0,1fr))}
+.fam__i{display:grid;gap:10px;align-content:start;
+  padding:clamp(12px,1.1vw,20px);border:var(--lw-1) solid var(--env-line);border-radius:var(--r-3);
   background:var(--env-surface-2);
   transition:border-color var(--t-normal),transform var(--t-normal) var(--ease-standard),
              box-shadow var(--t-large)}
 .fam__i:hover{border-color:var(--env-accent-edge);transform:translateY(-4px);
   box-shadow:var(--env-shadow)}
-.fam__vis{border-radius:var(--r-2);overflow:hidden;background:var(--env-panel-solid);
+.fam__vis{width:100%;border-radius:var(--r-2);overflow:hidden;background:var(--env-panel-solid);
   border:var(--lw-1) solid var(--env-line);aspect-ratio:4/3;
-  max-height:min(26vh,240px);max-height:min(26svh,240px)}
+  max-height:min(18svh,175px)}
 .fam__vis canvas{width:100%;height:100%}
 .fam__logo{width:min(190px,88%);height:auto;max-width:100%}
 .fam__i p{max-width:34ch}

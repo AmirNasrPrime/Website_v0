@@ -59,11 +59,18 @@ export function addTicker(fn) {
 export function scrollToSection(el, extra = 18) {
   if (!el) return;
   const nav = document.getElementById('nav');
+  const track = el.matches('[data-story]') && el.closest('.story-track--pinned');
   const head = el.querySelector('.sec-head, .shell') || el;
   const from = window.scrollY;
   const max = Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
   let destination = 0;
-  if (el.id !== 'top') {
+  if (track) {
+    // Jump directly to the fully revealed frame when a chapter is selected.
+    const bounds = track.getBoundingClientRect();
+    const inset = parseFloat(getComputedStyle(el).top) || 0;
+    const travel = bounds.height - el.getBoundingClientRect().height;
+    destination = bounds.top + from - inset + travel;
+  } else if (el.id !== 'top') {
     destination = head.getBoundingClientRect().top + from - extra;
     if (destination < from || nav?.querySelector(':focus-visible')) {
       destination -= nav?.offsetHeight ?? 0;
