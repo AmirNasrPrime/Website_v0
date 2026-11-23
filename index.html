@@ -45,9 +45,9 @@ addEventListener('pageshow', function () { scrollTo({ top: 0, left: 0, behavior:
 <link rel="stylesheet" href="css/base.css?v=section-stories-1">
 <link rel="stylesheet" href="css/layout.css">
 <link rel="stylesheet" href="css/components.css">
-<link rel="stylesheet" href="css/hero.css?v=full-hero-1">
+<link rel="stylesheet" href="css/hero.css?v=header-no-auth-1">
 <link rel="stylesheet" href="css/sections.css?v=text-first-1">
-<link rel="stylesheet" href="css/mobile.css?v=mobile-logo-125-1">
+<link rel="stylesheet" href="css/mobile.css?v=header-no-auth-1">
 
 <link rel="preload" as="image" href="media/hero-field-poster.jpg">
 </head>
@@ -87,8 +87,6 @@ document.documentElement.classList.add('js');
     </nav>
 
     <div class="nav__act">
-      <!-- Sign in / sign out: placeholder until the account flow is defined -->
-      <button class="btn btn--ghost btn--sm nav__auth" id="navAuth" type="button" data-auth-state="signed-out">Sign in/up</button>
       <button class="nav__icon nav__burger" id="burger" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="menu">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true">
           <path d="M3 7h18M3 12h18M3 17h18"/></svg>
@@ -102,8 +100,6 @@ document.documentElement.classList.add('js');
   <a href="#layer">Platform <span>02</span></a>
   <a href="#products">Products <span>03</span></a>
   <a href="#access">Contact Us <span>04</span></a>
-  <!-- Sign in / sign up: placeholder until the account flow is defined -->
-  <button class="menu__auth" type="button" data-auth-state="signed-out">Sign in/up</button>
 </div>
 
 <main id="top">
