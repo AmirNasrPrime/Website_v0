@@ -47,7 +47,7 @@ addEventListener('pageshow', function () { scrollTo({ top: 0, left: 0, behavior:
 <link rel="stylesheet" href="css/components.css">
 <link rel="stylesheet" href="css/hero.css?v=full-hero-1">
 <link rel="stylesheet" href="css/sections.css?v=mobile-story-1">
-<link rel="stylesheet" href="css/mobile.css?v=mobile-story-1">
+<link rel="stylesheet" href="css/mobile.css?v=mobile-story-2">
 
 <link rel="preload" as="image" href="media/hero-field-poster.jpg">
 </head>
@@ -204,7 +204,7 @@ document.documentElement.classList.add('js');
 <div class="seam" data-from="navy" data-to="ice" aria-hidden="true"></div>
 
 <!-- ========================== 02 · WHAT PRIME-CAE IS ====================== -->
-<section class="section env" id="layer" data-env="ice" data-story>
+<section class="section env" id="layer" data-env="ice" data-story="flow">
   <div class="grid-bg" aria-hidden="true"></div>
   <div class="shell story-layout">
     <div class="story-copy">
@@ -253,25 +253,25 @@ document.documentElement.classList.add('js');
     </div>
 
     <div class="fam story-visual">
-      <article class="fam__i">
+      <article class="fam__i" data-story-card>
         <div class="fam__vis"><canvas data-product="design" aria-label="A design evolving across its space" role="img"></canvas></div>
         <img class="fam__logo" src="assets/wm-design-color.png" alt="PRIME-DESIGN" width="900" height="61" loading="lazy">
         <p class="t-small" data-story-note>Explore engineering possibilities faster through AI-assisted design and optimization.</p>
       </article>
 
-      <article class="fam__i">
+      <article class="fam__i" data-story-card>
         <div class="fam__vis"><canvas data-product="joint" aria-label="Load transfer through a structural connection" role="img"></canvas></div>
         <img class="fam__logo" src="assets/wm-joint-color.png" alt="PRIME-JOINT" width="900" height="68" loading="lazy">
         <p class="t-small" data-story-note>Bring engineering intelligence to structural connection design.</p>
       </article>
 
-      <article class="fam__i">
+      <article class="fam__i" data-story-card>
         <div class="fam__vis"><canvas data-product="life" aria-label="Structural response accumulating over service" role="img"></canvas></div>
         <img class="fam__logo" src="assets/wm-life-color.png" alt="PRIME-LIFE" width="900" height="76" loading="lazy">
         <p class="t-small" data-story-note>Extend engineering insight from design into durability and lifecycle performance.</p>
       </article>
 
-      <article class="fam__i">
+      <article class="fam__i" data-story-card>
         <div class="fam__vis"><canvas data-product="copilot" aria-label="Engineering context and a line of reasoning through it" role="img"></canvas></div>
         <img class="fam__logo" src="assets/wm-copilot-color.png" alt="PRIME-COPILOT" width="900" height="59" loading="lazy">
         <p class="t-small" data-story-note>A context-aware AI engineering partner grounded in the current design and physics.</p>
@@ -313,7 +313,7 @@ document.documentElement.classList.add('js');
 </footer>
 </main>
 
-<script src="js/prime.bundle.js?v=mobile-story-1" defer></script>
+<script src="js/prime.bundle.js?v=mobile-story-2" defer></script>
 <noscript>
   <style>.hero__poster{opacity:1!important}</style>
 </noscript>

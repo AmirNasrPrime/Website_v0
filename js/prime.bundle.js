@@ -386,6 +386,7 @@ function initStory() {
   const header = document.querySelector('#nav');
   const motion = matchMedia('(prefers-reduced-motion: reduce)');
   const stacked = matchMedia('(max-width: 999px)');
+  const singleColumnCards = matchMedia('(max-width: 719px), (max-width: 960px) and (max-height: 520px)');
   const canPin = CSS.supports('overflow', 'clip');
   const chapters = $$('[data-story]').map(scene => {
     const track = document.createElement('div');
@@ -402,6 +403,7 @@ function initStory() {
       detail: copy.querySelector('[data-story-copy="detail"]'),
       visual: scene.querySelector('[data-story-visual]'),
       notes: $$('[data-story-note]', scene),
+      cards: $$('[data-story-card]', scene),
     };
   });
   if (!chapters.length) return;
@@ -415,13 +417,14 @@ function initStory() {
     const introInset = (header?.offsetHeight ?? 0) + 14;
     const inFlow = stacked.matches;
     const still = motion.matches;
+    const revealCards = singleColumnCards.matches && !still;
 
     // Measure every scene before writing reveal state or changing track height.
-    const measurements = chapters.map(({ scene, track, copy, intro, detail, visual, notes }) => {
+    const measurements = chapters.map(({ scene, track, copy, intro, detail, visual, notes, cards }) => {
       const sceneHeight = scene.offsetHeight;
       const copyHeight = copy.offsetHeight;
       return {
-        scene, track, sceneHeight, visual, notes, intro, copyHeight,
+        scene, track, sceneHeight, visual, notes, cards, intro, copyHeight,
         top: track.getBoundingClientRect().top,
         travel: track.offsetHeight - sceneHeight,
         copyTop: copy.getBoundingClientRect().top,
@@ -430,8 +433,10 @@ function initStory() {
         introTravel: inFlow ? intro.offsetHeight - copyHeight : 0,
         visualTop: inFlow && visual ? visual.getBoundingClientRect().top : null,
         noteTops: notes.map(note => note.getBoundingClientRect().top),
+        cardTops: revealCards ? cards.map(card => card.getBoundingClientRect().top) : [],
         fits: canPin && !inFlow && height >= sceneHeight - 2,
-        fitsIntro: canPin && inFlow && copyHeight + introInset + 14 <= height,
+        fitsIntro: canPin && inFlow && scene.dataset.story !== 'flow'
+          && copyHeight + introInset + 14 <= height,
       };
     });
     if (needsMeasure) {
@@ -447,7 +452,7 @@ function initStory() {
       return;
     }
     for (const { scene, top, travel, copyTop, detailTop, introTop, introTravel,
-      visual, visualTop, notes, noteTops } of measurements) {
+      visual, visualTop, notes, noteTops, cards, cardTops } of measurements) {
       const pinned = travel > 0;
       const entered = pinned
         ? clamp(-top / travel, 0, 1)
@@ -472,6 +477,13 @@ function initStory() {
         const opacity = still || pinned ? detail : smooth(0, height * .22, height * .97 - noteTops[index]);
         note.style.setProperty('--story-item', String(opacity));
       });
+      if (revealCards) {
+        const fadeDistance = Math.min(height * .22, 160);
+        cards.forEach((card, index) => {
+          const opacity = smooth(0, fadeDistance, height * .94 - cardTops[index]);
+          card.style.setProperty('--story-item', String(opacity));
+        });
+      }
     }
     root.classList.add('story-active');
   }
