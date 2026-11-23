@@ -1,7 +1,7 @@
 /* ============================================================================
    PRIME-CAE · motion primitives
    ========================================================================== */
-import { $$, clamp, lerp, reduced, coarse } from './dom.js';
+import { $$, reduced } from './dom.js';
 
 export function initReveal() {
   const items = $$('[data-reveal]');
@@ -20,32 +20,6 @@ export function initReveal() {
   items.forEach((n, i) => {
     n.style.transitionDelay = `${(i % 3) * 60}ms`;
     io.observe(n);
-  });
-}
-
-/* softly reactive buttons — a small pull, never a bouncing toy */
-export function initMagnetic() {
-  if (reduced() || coarse()) return;
-  $$('[data-magnetic]').forEach(node => {
-    let raf = 0, tx = 0, ty = 0, cx = 0, cy = 0;
-    const run = () => {
-      cx = lerp(cx, tx, .18); cy = lerp(cy, ty, .18);
-      node.style.transform = `translate3d(${cx.toFixed(2)}px,${cy.toFixed(2)}px,0)`;
-      if (Math.abs(cx - tx) > .05 || Math.abs(cy - ty) > .05) raf = requestAnimationFrame(run);
-      else { raf = 0; if (!tx && !ty) node.style.transform = ''; }
-    };
-    node.addEventListener('pointermove', e => {
-      const r = node.getBoundingClientRect();
-      tx = clamp((e.clientX - (r.left + r.width / 2)) * .20, -12, 12);
-      ty = clamp((e.clientY - (r.top + r.height / 2)) * .28, -8, 8);
-      node.style.setProperty('--mx', `${e.clientX - r.left}px`);
-      node.style.setProperty('--my', `${e.clientY - r.top}px`);
-      if (!raf) raf = requestAnimationFrame(run);
-    });
-    node.addEventListener('pointerleave', () => {
-      tx = 0; ty = 0;
-      if (!raf) raf = requestAnimationFrame(run);
-    });
   });
 }
 

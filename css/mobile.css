@@ -32,7 +32,7 @@
 
   /* ------------------------------------------------------------ header -- */
   .nav__in{--nav-gap:var(--s-2)}
-  :root{--logo-w:clamp(148px,42vw,182px);--logo-s:1.45;--aws-h:24px;--aws-pad:12px}
+  :root{--logo-w:clamp(148px,42vw,182px);--aws-h:22px;--aws-pad:12px}
   .nav__inception{gap:1px}
   .nav__sub{display:none}
   .nav__act{gap:8px}
@@ -72,12 +72,8 @@
      carries the structure rather than letting the crop take it */
   .hero__vid,.hero__poster{object-position:62% 50%}
   .hero__scan{display:none}            /* costs a repaint, reads as noise    */
-  .hero__ui{padding-block:calc(env(safe-area-inset-top) + max(var(--nav-h) + 26px, var(--nav-main-h) / 2 + var(--logo-w) * var(--logo-ar) * (var(--logo-s) - .5) + 10px + var(--aws-h) + 22px)) 0}
+  .hero__ui{padding-block:calc(env(safe-area-inset-top) + var(--nav-h) + 26px) 0}
   .hero__copy{max-width:100%}
-  .hero__eyebrow{gap:10px}
-  .hero__eyebrow i{width:24px;flex:none}
-  /* sized to hold "PRIME-CAE · AI-NATIVE ENGINEERING" on one line from 360px up */
-  .hero__eyebrow span{font-size:clamp(.625rem,2.9vw,.75rem);letter-spacing:.12em}
   .hero .t-lede{max-width:34ch}
   .hero__cta{margin-top:var(--s-5)}
   .hero__cta .btn{width:100%;max-width:340px;min-height:49px;justify-content:center}
@@ -88,7 +84,7 @@
   .hero__manual button{width:68px;height:68px}
   /* the small phones, and any phone the address bar has just expanded on */
   @media (max-height:700px){
-    .hero__ui{padding-block:calc(env(safe-area-inset-top) + max(var(--nav-h) + 14px, var(--nav-main-h) / 2 + var(--logo-w) * var(--logo-ar) * (var(--logo-s) - .5) + 10px + var(--aws-h) + 14px)) 0}
+    .hero__ui{padding-block:calc(env(safe-area-inset-top) + var(--nav-h) + 14px) 0}
     .hero__rail{margin-top:var(--s-4)}
     .hero .t-lede{font-size:var(--fs-small);max-width:32ch}
   }
@@ -131,15 +127,10 @@
   :root{--nav-partner-h:36px}
   .nav{padding-bottom:var(--nav-partner-h)}
   .nav__in{position:relative;height:var(--nav-main-h)}
-  .nav__inception{width:104px;font-size:9px}
+  .nav__inception{width:96px;font-size:8.5px}
   .nav__partners{
     position:absolute;top:calc(100% + (var(--nav-partner-h) - var(--aws-h)) / 2);
     left:max(var(--gutter),env(safe-area-inset-left));margin:0;padding:0;border:0
-  }
-  :root:not(.menu-open) .nav:not(.stuck) .nav__partners{
-    transform:translate(
-      calc(var(--logo-w) * var(--logo-s) * var(--logo-word)),
-      calc(var(--logo-w) * var(--logo-ar) * (var(--logo-s) - .5) + 10px + var(--aws-h) / 2 - var(--nav-h) / 2))
   }
 }
 
@@ -150,12 +141,10 @@
 @media (max-height:540px) and (max-width:960px){
   :root{--fs-hero:clamp(1.6rem,4.6vw,2.25rem);--nav-main-h:56px;
     --nav-h:calc(var(--nav-main-h) + var(--nav-partner-h,0px))}
-  :root{--logo-w:clamp(150px,20vw,180px);--logo-s:1;--aws-h:20.8px;--aws-pad:14px}
-  :root:not(.menu-open) .nav:not(.stuck) .nav__partners{transform:none;border-left-color:var(--env-line-strong)}
+  :root{--logo-w:clamp(150px,20vw,180px);--aws-h:19px;--aws-pad:14px}
   .nav__sub{display:none}
   .hero__ui{padding-block:calc(var(--nav-h) + env(safe-area-inset-top) + 10px) 0}
   .hero .t-lede{font-size:var(--fs-small);max-width:52ch}
-  .hero__eyebrow{margin-bottom:8px}
   .hero h1{margin-bottom:8px}
   .hero__cta{margin-top:var(--s-4)}
   .hero__cta .btn{min-height:42px;width:auto}
@@ -207,8 +196,7 @@
      only a portrait-width one — a landscape phone left it at 31px */
   .contact__mail{min-height:48px;display:inline-flex;align-items:center}
   .fam__i:hover{transform:none;box-shadow:none;border-color:var(--env-line)}
-  .play-link:hover i{transform:none;box-shadow:none}
-  .hero__manual button:hover{transform:none;box-shadow:none}
+  .hero__manual button:hover{box-shadow:none}
   .btn:hover{transform:none}
   a,button{-webkit-tap-highlight-color:rgba(74,169,255,.14)}
 }

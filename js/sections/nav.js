@@ -4,7 +4,7 @@
 import { $, $$, on, clamp, scrollToSection } from '../core/dom.js';
 
 export function initNav() {
-  const nav = $('#nav'), bar = $('#progressBar'), ind = $('#navInd');
+  const bar = $('#progressBar'), ind = $('#navInd');
   const links = $$('#navLinks .nav__a');
   const burger = $('#burger'), menu = $('#menu');
 
@@ -19,7 +19,6 @@ export function initNav() {
       /* the page must not scroll behind an open sheet, and must not lose its
          place when the sheet closes */
       document.body.style.overflow = open ? 'hidden' : '';
-      document.documentElement.classList.toggle('menu-open', open);
       if (open) menu.scrollTop = 0;
     };
     on(burger, 'click', () => set(!menu.classList.contains('open')));
@@ -59,17 +58,6 @@ export function initNav() {
       const sy = window.scrollY;
       const max = document.documentElement.scrollHeight - window.innerHeight;
       if (bar) bar.style.width = `${clamp(sy / Math.max(max, 1), 0, 1) * 100}%`;
-      /* The header carries one controlled dark surface so the light lockup is
-         always valid. It is raised as soon as anything but the hero is under
-         it — a scroll threshold alone left it transparent over a light
-         environment, with pale text on ice. */
-      if (nav) {
-        const probe = document.elementFromPoint(window.innerWidth / 2, nav.offsetHeight + 6);
-        const host = probe && probe.closest ? probe.closest('[data-env]') : null;
-        const under = host ? host.dataset.env : 'navy';
-        nav.dataset.under = under;
-        nav.classList.toggle('stuck', sy > 60 || under !== 'navy');
-      }
 
       let current = null;
       for (const t of targets) {

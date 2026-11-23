@@ -6,12 +6,8 @@
    NAVIGATION — one controlled dark surface, so the lockup never has to change
    ========================================================================== */
 .nav{position:fixed;top:0;left:0;right:0;z-index:var(--z-nav);
-  border-bottom:var(--lw-hair) solid transparent;
-  transition:background var(--t-normal) var(--ease-standard),
-             border-color var(--t-normal),backdrop-filter var(--t-normal)}
-.nav.stuck{
+  border-bottom:var(--lw-hair) solid var(--env-line);
   background:linear-gradient(180deg,rgba(3,10,20,.92),rgba(3,10,20,.80));
-  border-bottom-color:var(--env-line);
   backdrop-filter:blur(22px) saturate(1.4);-webkit-backdrop-filter:blur(22px) saturate(1.4)}
 .nav__in{--nav-gap:var(--s-5);display:flex;align-items:center;gap:var(--nav-gap);height:var(--nav-h)}
 .nav__brand{display:flex;align-items:center;gap:20px;flex:none;padding-block:10px}
@@ -23,13 +19,13 @@
 @media (min-width:1400px){.nav__sub{display:block}}
 .nav__partners{flex:none;margin-left:calc(20px - var(--nav-gap));
   padding-left:var(--aws-pad);border-left:var(--lw-1) solid var(--env-line-strong)}
-.nav__partner-logos{display:flex;align-items:center;gap:clamp(15px,1.65vw,26px)}
+.nav__partner-logos{display:flex;align-items:center;gap:clamp(14px,1.5vw,24px)}
 .nav__aws{display:block;height:var(--aws-h);width:auto}
 .nav__inception{
   display:grid;justify-items:center;gap:calc(var(--aws-h) * .075);
-  width:max(92px,calc(var(--aws-h) * 3.32));
+  width:max(84px,calc(var(--aws-h) * 3.32));
   color:#fff;white-space:nowrap;text-transform:uppercase;
-  font:500 max(8px,calc(var(--aws-h) * .28))/1.1 var(--font-sans);letter-spacing:.07em
+  font:500 max(7.5px,calc(var(--aws-h) * .28))/1.1 var(--font-sans);letter-spacing:.07em
 }
 .nav__inception img{display:block;width:100%;height:auto}
 
@@ -41,8 +37,7 @@
 .nav__a:hover,.nav__a.active{color:var(--tod-1)}
 /* an illuminated baseline plus a small engineering marker */
 .nav__ind{position:absolute;bottom:4px;height:var(--lw-2);border-radius:2px;
-  background:var(--prime-lift);box-shadow:0 0 12px var(--prime-lift);opacity:0;
-  transition:transform .42s var(--ease-standard),width .42s var(--ease-standard),opacity var(--t-normal)}
+  background:var(--prime-lift);box-shadow:0 0 12px var(--prime-lift);opacity:0}
 .nav__ind::before{content:"";position:absolute;left:50%;top:-7px;width:3px;height:3px;
   margin-left:-1.5px;border-radius:50%;background:var(--prime-lift)}
 
@@ -73,7 +68,8 @@
    ========================================================================== */
 .hero{position:relative;min-height:100svh;display:flex;flex-direction:column;
   justify-content:flex-end;overflow:hidden;isolation:isolate}
-.hero__media{position:absolute;inset:0;z-index:0;background:var(--navy-990)}
+@media (min-width:901px){.hero{min-height:76svh}}
+.hero__media{position:absolute;inset:auto 0 0;height:100%;min-height:100svh;z-index:0;background:var(--navy-990)}
 .hero__vid{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
   opacity:0;transition:opacity .9s linear;
   filter:saturate(.56) contrast(1.12) brightness(.66)}
@@ -92,29 +88,17 @@
   background:repeating-linear-gradient(0deg,rgba(255,255,255,.02) 0 1px,transparent 1px 3px)}
 
 .hero__ui{position:relative;z-index:var(--z-hero-ui);width:100%;
-  padding-block:clamp(72px,13vh,180px) 0}
-.hero__copy{max-width:min(760px,92%)}
-.hero__eyebrow{display:flex;align-items:center;gap:16px;
-  margin-bottom:clamp(14px,2.2vh,var(--s-5))}
-.hero__eyebrow span{font-family:var(--font-mono);font-size:var(--fs-eyebrow);font-weight:500;
-  letter-spacing:.26em;text-transform:uppercase;color:var(--tod-2)}
-.hero__eyebrow i{display:block;width:46px;height:var(--lw-2);background:var(--prime-lift);
-  box-shadow:0 0 10px rgba(74,169,255,.7)}
+  padding-block:calc(var(--nav-h) + clamp(16px,2.7svh,28px)) 0}
+.hero__copy{max-width:1100px}
 .hero h1{margin-bottom:clamp(10px,1.6vh,20px)}
 .hero h1 em{font-style:normal;display:block}
 .hero__cta{display:flex;flex-wrap:wrap;gap:var(--s-3);
   margin-top:clamp(18px,2.8vh,var(--s-6))}
 /* the hero action keeps its blue and weight, with a little less bulk */
-.hero__cta .btn{min-height:46px;padding-inline:24px;gap:11px;letter-spacing:.004em}
+.hero__cta .btn{min-height:46px;padding-inline:24px;gap:11px;letter-spacing:.004em;transition:none}
+.hero__cta .btn::after{transition:none}
+.hero__cta .btn:active{transform:none}
 .hero__cta .btn__go{width:14px;height:14px}
-.hero__tertiary{margin-top:var(--s-4)}
-.play-link{display:inline-flex;align-items:center;gap:14px;color:var(--tod-2);
-  font-size:var(--fs-body);min-height:44px;transition:color var(--t-fast)}
-.play-link:hover{color:var(--tod-1)}
-.play-link i{width:38px;height:38px;border-radius:50%;display:grid;place-items:center;flex:none;
-  border:var(--lw-2) solid var(--env-accent-edge);background:var(--env-accent-wash);
-  color:var(--prime-lift);transition:transform var(--t-normal) var(--ease-standard),box-shadow var(--t-normal)}
-.play-link:hover i{transform:scale(1.08);box-shadow:0 0 0 8px rgba(74,169,255,.09)}
 
 /* bottom rail: an instrument strip, readable at a glance ------------------ */
 .hero__rail{position:relative;z-index:var(--z-hero-ui);width:100%;
@@ -131,26 +115,22 @@
   letter-spacing:.22em;text-transform:uppercase;color:var(--tod-3);flex:none;
   transition:color var(--t-fast)}
 .scroll-cue:hover{color:var(--tod-1)}
-.scroll-cue i{display:block;width:54px;height:var(--lw-2);transform-origin:left;
-  background:linear-gradient(90deg,var(--prime-lift),transparent);
-  animation:cue 2.8s var(--ease-standard) infinite}
-@keyframes cue{0%,100%{transform:scaleX(.35);opacity:.4}50%{transform:scaleX(1);opacity:1}}
+.scroll-cue i{display:block;width:54px;height:var(--lw-2);
+  background:linear-gradient(90deg,var(--prime-lift),transparent)}
 
 .hero__manual{position:absolute;z-index:calc(var(--z-hero-ui) + 1);left:50%;top:44%;
   transform:translate(-50%,-50%);display:none;flex-direction:column;align-items:center;gap:16px}
 .hero[data-autoplay="blocked"] .hero__manual{display:flex}
 .hero__manual button{width:84px;height:84px;border-radius:50%;
   border:var(--lw-2) solid var(--env-accent-edge);background:rgba(6,17,32,.66);
-  backdrop-filter:blur(8px);color:var(--prime-lift);display:grid;place-items:center;
-  transition:transform var(--t-normal) var(--ease-standard),box-shadow var(--t-normal)}
-.hero__manual button:hover{transform:scale(1.06);box-shadow:0 0 0 12px rgba(74,169,255,.08)}
+  backdrop-filter:blur(8px);color:var(--prime-lift);display:grid;place-items:center}
+.hero__manual button:hover{box-shadow:0 0 0 12px rgba(74,169,255,.08)}
 
 @media (max-width:900px){
   .hero__grade{background:
     linear-gradient(0deg,rgba(3,10,20,.96) 0%,rgba(3,10,20,.74) 38%,rgba(3,10,20,.34) 62%,rgba(3,10,20,.08) 80%),
     linear-gradient(180deg,rgba(3,10,20,.86) 0%,rgba(3,10,20,0) 28%)}
   .hero__inst{display:none}
-  .hero__ui{padding-block:clamp(104px,14vh,150px) 0}
 }
 
 /* =========================================================================
@@ -185,52 +165,7 @@
   .nav__links{display:none}           /* everything is in the menu below this */
 }
 
-/* =========================================================================
-   HEADER · lockup scale
-   Over the hero the PRIME-CAE lockup is shown large and hangs into the hero;
-   once the header is raised (.stuck) it settles to its compact size. Only
-   transforms move, so the header row never reflows and the nav height the
-   anchor offsets rely on stays --nav-h. Over the hero the partner badges take a
-   second line under the wordmark (at 1400px+ the subtitle stays beside the
-   lockup) and both slide back into the row on scroll.
-   ========================================================================= */
-:root{--logo-w:clamp(196px,15.5vw,264px);--logo-s:1.6;--logo-ar:.2172;
-  --aws-h:40.8px;--aws-pad:20px;--logo-word:.4331;--sub-w:252px}
+:root{--logo-w:clamp(196px,15.5vw,264px);--sub-w:252px;--aws-h:37px;--aws-pad:20px}
 @media (max-width:1160px){:root{--logo-w:clamp(172px,15.5vw,204px)}}
-@media (max-width:1339px){:root{--aws-h:35.2px}}
-.nav__logo,.nav__sub,.nav__partners{
-  transition:transform var(--t-large) var(--ease-standard),border-color var(--t-large)}
-.nav__logo{transform-origin:0 0}
-/* Scale both badges together from the AWS edge of the row. */
-.nav__partner-logos{transform-origin:0 50%;transition:transform var(--t-large) var(--ease-standard)}
-.nav.stuck .nav__partner-logos{transform:scale(.9)}
-:root:not(.menu-open) .nav:not(.stuck) .nav__logo{transform:scale(var(--logo-s))}
-/* over the hero the badges drop to a second line, left-aligned with the
-   spelled-out PRIME-CAE wordmark (--logo-word: where the wordmark starts in the
-   lockup), never under the icon */
-:root:not(.menu-open) .nav:not(.stuck) .nav__partners{
-  transform:translate(calc(var(--logo-w) * var(--logo-s) * var(--logo-word)
-      - var(--logo-w) - 20px - var(--lw-1) - var(--aws-pad)),
-    calc(var(--logo-w) * var(--logo-ar) * (var(--logo-s) - .5) + 10px + var(--aws-h) / 2))}
-/* on its own line the badge has nothing to divide from, so its rule fades out */
-:root:not(.menu-open) .nav:not(.stuck) .nav__partners{border-left-color:transparent}
-@media (min-width:1400px){
-  .nav__sub{width:var(--sub-w)}
-  /* the subtitle stays beside the enlarged lockup, centred on it */
-  :root:not(.menu-open) .nav:not(.stuck) .nav__sub{
-    transform:translate(calc(var(--logo-w) * (var(--logo-s) - 1)),
-      calc(var(--logo-w) * var(--logo-ar) * (var(--logo-s) - 1) / 2))}
-  /* the badge passes the subtitle to reach the wordmark's second line */
-  :root:not(.menu-open) .nav:not(.stuck) .nav__partners{
-    transform:translate(calc(var(--logo-w) * var(--logo-s) * var(--logo-word)
-        - var(--logo-w) - 20px - var(--sub-w) - 20px - var(--lw-1) - var(--aws-pad)),
-      calc(var(--logo-w) * var(--logo-ar) * (var(--logo-s) - .5) + 10px + var(--aws-h) / 2))}
-}
-/* the hero copy clears the large lockup and the badge's second line */
-@media (min-width:720px) and (min-height:541px){
-  .hero__ui{padding-top:max(clamp(72px,13vh,180px),
-    calc(44px + var(--logo-w) * var(--logo-ar) * (var(--logo-s) - .5) + 10px + var(--aws-h) + 22px))}
-}
-@media (prefers-reduced-motion:reduce){
-  .nav__logo,.nav__sub,.nav__partners,.nav__partner-logos{transition:none}
-}
+@media (max-width:1339px){:root{--aws-h:32px}}
+@media (min-width:1400px){.nav__sub{width:var(--sub-w)}}

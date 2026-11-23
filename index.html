@@ -45,9 +45,9 @@ addEventListener('pageshow', function () { scrollTo({ top: 0, left: 0, behavior:
 <link rel="stylesheet" href="css/base.css">
 <link rel="stylesheet" href="css/layout.css">
 <link rel="stylesheet" href="css/components.css">
-<link rel="stylesheet" href="css/hero.css?v=inception-header-2">
+<link rel="stylesheet" href="css/hero.css?v=static-hero-1">
 <link rel="stylesheet" href="css/sections.css">
-<link rel="stylesheet" href="css/mobile.css?v=inception-header-2">
+<link rel="stylesheet" href="css/mobile.css?v=static-hero-1">
 
 <link rel="preload" as="image" href="media/hero-field-poster.jpg">
 </head>
@@ -128,7 +128,6 @@ document.documentElement.classList.add('js');
 
   <div class="shell hero__ui">
     <div class="hero__copy">
-      <div class="hero__eyebrow"><i></i><span>PRIME-CAE &nbsp;·&nbsp; AI-Native Engineering</span></div>
       <h1 class="t-hero">
         <span class="grad">Engineering Intelligence.</span>
         <em>Built on Physics.</em>
@@ -136,7 +135,7 @@ document.documentElement.classList.add('js');
       <p class="t-lede">PRIME-CAE unifies engineering workflows, simulation, AI and optimization to accelerate complex mechanical design from concept to verified decision.</p>
 
       <div class="hero__cta">
-        <a class="btn btn--primary" href="#about" data-magnetic>
+        <a class="btn btn--primary" href="#about">
           Explore PRIME-CAE
           <svg class="btn__go" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
         </a>
@@ -149,10 +148,9 @@ document.documentElement.classList.add('js');
   <div class="shell hero__rail">
     <div class="hero__railin">
       <div class="hero__inst">
-        <span>VIEW<b id="instSolver">SIMULATION VIEW</b></span>
+        <span>VIEW<b>SIMULATION VIEW</b></span>
         <span>FIELD<b>PHYSICS FIELD</b></span>
-        <span>STATE<b id="instState">SOLVED</b></span>
-        <span>FRAME<b id="instFrame">001</b></span>
+        <span>STATE<b>SOLVED</b></span>
       </div>
       <a class="scroll-cue" href="#about">Scroll to explore <i></i></a>
     </div>
@@ -323,7 +321,7 @@ document.documentElement.classList.add('js');
 </footer>
 </main>
 
-<script src="js/prime.bundle.js" defer></script>
+<script src="js/prime.bundle.js?v=static-hero-1" defer></script>
 <noscript>
   <style>.hero__poster{opacity:1!important}</style>
 </noscript>

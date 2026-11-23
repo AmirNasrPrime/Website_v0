@@ -99,32 +99,6 @@ function initReveal() {
   });
 }
 
-/* softly reactive buttons — a small pull, never a bouncing toy */
-function initMagnetic() {
-  if (reduced() || coarse()) return;
-  $$('[data-magnetic]').forEach(node => {
-    let raf = 0, tx = 0, ty = 0, cx = 0, cy = 0;
-    const run = () => {
-      cx = lerp(cx, tx, .18); cy = lerp(cy, ty, .18);
-      node.style.transform = `translate3d(${cx.toFixed(2)}px,${cy.toFixed(2)}px,0)`;
-      if (Math.abs(cx - tx) > .05 || Math.abs(cy - ty) > .05) raf = requestAnimationFrame(run);
-      else { raf = 0; if (!tx && !ty) node.style.transform = ''; }
-    };
-    node.addEventListener('pointermove', e => {
-      const r = node.getBoundingClientRect();
-      tx = clamp((e.clientX - (r.left + r.width / 2)) * .20, -12, 12);
-      ty = clamp((e.clientY - (r.top + r.height / 2)) * .28, -8, 8);
-      node.style.setProperty('--mx', `${e.clientX - r.left}px`);
-      node.style.setProperty('--my', `${e.clientY - r.top}px`);
-      if (!raf) raf = requestAnimationFrame(run);
-    });
-    node.addEventListener('pointerleave', () => {
-      tx = 0; ty = 0;
-      if (!raf) raf = requestAnimationFrame(run);
-    });
-  });
-}
-
 function paintRange(input) {
   const pct = ((input.value - input.min) / (input.max - input.min)) * 100;
   input.style.setProperty('--pct', `${pct}%`);
@@ -279,16 +253,6 @@ function mountHeroFilm({ hero, entry }) {
     else front.play().catch(() => {});
   });
 
-  /* frame counter in the instrument rail */
-  const frameEl = $('#instFrame');
-  if (frameEl) {
-    setInterval(() => {
-      if (!started || document.hidden) return;
-      const n = Math.floor((front.currentTime || 0) * 24) % 999 + 1;
-      frameEl.textContent = String(n).padStart(3, '0');
-    }, 250);
-  }
-
   return { begin };
 }
 
@@ -319,7 +283,7 @@ function initHeroSequence() {
    ========================================================================== */
 
 function initNav() {
-  const nav = $('#nav'), bar = $('#progressBar'), ind = $('#navInd');
+  const bar = $('#progressBar'), ind = $('#navInd');
   const links = $$('#navLinks .nav__a');
   const burger = $('#burger'), menu = $('#menu');
 
@@ -334,7 +298,6 @@ function initNav() {
       /* the page must not scroll behind an open sheet, and must not lose its
          place when the sheet closes */
       document.body.style.overflow = open ? 'hidden' : '';
-      document.documentElement.classList.toggle('menu-open', open);
       if (open) menu.scrollTop = 0;
     };
     on(burger, 'click', () => set(!menu.classList.contains('open')));
@@ -374,17 +337,6 @@ function initNav() {
       const sy = window.scrollY;
       const max = document.documentElement.scrollHeight - window.innerHeight;
       if (bar) bar.style.width = `${clamp(sy / Math.max(max, 1), 0, 1) * 100}%`;
-      /* The header carries one controlled dark surface so the light lockup is
-         always valid. It is raised as soon as anything but the hero is under
-         it — a scroll threshold alone left it transparent over a light
-         environment, with pale text on ice. */
-      if (nav) {
-        const probe = document.elementFromPoint(window.innerWidth / 2, nav.offsetHeight + 6);
-        const host = probe && probe.closest ? probe.closest('[data-env]') : null;
-        const under = host ? host.dataset.env : 'navy';
-        nav.dataset.under = under;
-        nav.classList.toggle('stuck', sy > 60 || under !== 'navy');
-      }
 
       let current = null;
       for (const t of targets) {
@@ -2553,7 +2505,6 @@ function boot() {
   safeInit('nav', initNav);
   safeInit('reveal', initReveal);
   safeInit('ranges', initRanges);
-  safeInit('magnetic', initMagnetic);
 
   safeInit('about', initAbout);
   safeInit('layer', initLayer);

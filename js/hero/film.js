@@ -113,15 +113,5 @@ export function mountHeroFilm({ hero, entry }) {
     else front.play().catch(() => {});
   });
 
-  /* frame counter in the instrument rail */
-  const frameEl = $('#instFrame');
-  if (frameEl) {
-    setInterval(() => {
-      if (!started || document.hidden) return;
-      const n = Math.floor((front.currentTime || 0) * 24) % 999 + 1;
-      frameEl.textContent = String(n).padStart(3, '0');
-    }, 250);
-  }
-
   return { begin };
 }
