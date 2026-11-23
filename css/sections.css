@@ -4,7 +4,7 @@
    ========================================================================== */
 
 /* ---------------------------------------------------------- scroll line - */
-.progress{position:fixed;top:0;left:0;right:0;height:3px;
+.progress{position:absolute;top:0;left:0;right:0;height:3px;
   z-index:calc(var(--z-nav) + 5);pointer-events:none}
 .progress i{display:block;height:100%;width:0;
   background:linear-gradient(90deg,var(--navy-600),var(--prime-blue),var(--prime-cyan));

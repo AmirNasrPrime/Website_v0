@@ -4,7 +4,7 @@
 import { $, $$, on, clamp, scrollToSection } from '../core/dom.js';
 
 export function initNav() {
-  const bar = $('#progressBar'), ind = $('#navInd');
+  const nav = $('#nav'), bar = $('#progressBar'), ind = $('#navInd');
   const links = $$('#navLinks .nav__a');
   const burger = $('#burger'), menu = $('#menu');
 
@@ -19,7 +19,10 @@ export function initNav() {
       /* the page must not scroll behind an open sheet, and must not lose its
          place when the sheet closes */
       document.body.style.overflow = open ? 'hidden' : '';
-      if (open) menu.scrollTop = 0;
+      if (open) {
+        nav?.classList.remove('nav--hidden');
+        menu.scrollTop = 0;
+      }
     };
     on(burger, 'click', () => set(!menu.classList.contains('open')));
     /* close first, then let the anchor handler scroll — the lock has to be off
@@ -50,14 +53,22 @@ export function initNav() {
     .filter(t => t.el);
 
   let queued = false;
+  let previousY = Math.max(0, window.scrollY);
   const onScroll = () => {
     if (queued) return;
     queued = true;
     requestAnimationFrame(() => {
       queued = false;
-      const sy = window.scrollY;
-      const max = document.documentElement.scrollHeight - window.innerHeight;
+      const max = Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
+      // Ignore elastic scrolling past either end of the page.
+      const sy = clamp(window.scrollY, 0, max);
       if (bar) bar.style.width = `${clamp(sy / Math.max(max, 1), 0, 1) * 100}%`;
+      if (sy === 0 || sy < previousY || menu?.classList.contains('open')) {
+        nav?.classList.remove('nav--hidden');
+      } else if (sy > previousY) {
+        nav?.classList.add('nav--hidden');
+      }
+      previousY = sy;
 
       let current = null;
       for (const t of targets) {

@@ -8,7 +8,10 @@
 .nav{position:fixed;top:0;left:0;right:0;z-index:var(--z-nav);
   border-bottom:var(--lw-hair) solid var(--env-line);
   background:linear-gradient(180deg,rgba(3,10,20,.92),rgba(3,10,20,.80));
-  backdrop-filter:blur(22px) saturate(1.4);-webkit-backdrop-filter:blur(22px) saturate(1.4)}
+  backdrop-filter:blur(22px) saturate(1.4);-webkit-backdrop-filter:blur(22px) saturate(1.4);
+  transition:transform var(--t-fast) var(--ease-standard)}
+.nav.nav--hidden{transform:translateY(-100%);pointer-events:none}
+.nav.nav--hidden:has(:focus-visible){transform:none;pointer-events:auto}
 .nav__in{--nav-gap:var(--s-5);display:flex;align-items:center;gap:var(--nav-gap);height:var(--nav-h)}
 .nav__brand{display:flex;align-items:center;gap:20px;flex:none;padding-block:10px}
 .nav__logo{width:var(--logo-w);height:auto;object-fit:contain;
