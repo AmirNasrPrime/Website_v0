@@ -150,6 +150,7 @@
    each sit the same short gutter from their edge of the window */
 @media (min-width:1080px){
   .nav__in.shell{max-width:none;margin-inline:0;padding-inline:clamp(24px,2.6vw,44px)}
+  .nav__logo{width:calc(var(--logo-w) * 1.25)}
 }
 @media (max-width:1260px){
   .nav__a--low{display:none}          /* Technology and Company move to the menu */
