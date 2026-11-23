@@ -45,9 +45,9 @@ addEventListener('pageshow', function () { scrollTo({ top: 0, left: 0, behavior:
 <link rel="stylesheet" href="css/base.css">
 <link rel="stylesheet" href="css/layout.css">
 <link rel="stylesheet" href="css/components.css">
-<link rel="stylesheet" href="css/hero.css">
+<link rel="stylesheet" href="css/hero.css?v=inception-header-2">
 <link rel="stylesheet" href="css/sections.css">
-<link rel="stylesheet" href="css/mobile.css">
+<link rel="stylesheet" href="css/mobile.css?v=inception-header-2">
 
 <link rel="preload" as="image" href="media/hero-field-poster.jpg">
 </head>
@@ -69,9 +69,15 @@ document.documentElement.classList.add('js');
       <img class="nav__logo" src="assets/prime-cae-lockup.png" alt="PRIME-CAE" width="285" height="62">
       <span class="nav__sub">AI-Native<br>Computer-Aided Engineering</span>
     </a>
-    <span class="nav__aws">
-      <img src="assets/powered-by-aws.png" alt="Powered by AWS" width="200" height="72" decoding="async">
-    </span>
+    <div class="nav__partners">
+      <div class="nav__partner-logos">
+        <img class="nav__aws" src="assets/powered-by-aws.png" alt="Powered by AWS" width="200" height="72" decoding="async">
+        <div class="nav__inception">
+          <img src="assets/nvidia-wordmark-white.svg" alt="NVIDIA" width="164" height="30">
+          <span>Inception Program</span>
+        </div>
+      </div>
+    </div>
 
     <nav class="nav__links" id="navLinks" aria-label="Primary">
       <a class="nav__a" href="#about">About</a>

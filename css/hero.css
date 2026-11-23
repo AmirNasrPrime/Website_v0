@@ -13,17 +13,25 @@
   background:linear-gradient(180deg,rgba(3,10,20,.92),rgba(3,10,20,.80));
   border-bottom-color:var(--env-line);
   backdrop-filter:blur(22px) saturate(1.4);-webkit-backdrop-filter:blur(22px) saturate(1.4)}
-.nav__in{display:flex;align-items:center;gap:var(--s-5);height:var(--nav-h)}
+.nav__in{--nav-gap:var(--s-5);display:flex;align-items:center;gap:var(--nav-gap);height:var(--nav-h)}
 .nav__brand{display:flex;align-items:center;gap:20px;flex:none;padding-block:10px}
 .nav__logo{width:var(--logo-w);height:auto;object-fit:contain;
   filter:drop-shadow(0 2px 14px rgba(30,127,228,.30))}
 .nav__sub{display:none;padding-left:20px;border-left:var(--lw-1) solid var(--env-line-strong);
   font-family:var(--font-mono);font-size:var(--fs-micro);font-weight:500;line-height:1.5;
   letter-spacing:.13em;text-transform:uppercase;color:var(--tod-4)}
-@media (min-width:1340px){.nav__sub{display:block}}
-.nav__aws{display:flex;flex:none;align-items:center;margin-left:calc(20px - var(--s-5));
+@media (min-width:1400px){.nav__sub{display:block}}
+.nav__partners{flex:none;margin-left:calc(20px - var(--nav-gap));
   padding-left:var(--aws-pad);border-left:var(--lw-1) solid var(--env-line-strong)}
-.nav__aws img{display:block;height:var(--aws-h);width:auto}
+.nav__partner-logos{display:flex;align-items:center;gap:clamp(15px,1.65vw,26px)}
+.nav__aws{display:block;height:var(--aws-h);width:auto}
+.nav__inception{
+  display:grid;justify-items:center;gap:calc(var(--aws-h) * .075);
+  width:max(92px,calc(var(--aws-h) * 3.32));
+  color:#fff;white-space:nowrap;text-transform:uppercase;
+  font:500 max(8px,calc(var(--aws-h) * .28))/1.1 var(--font-sans);letter-spacing:.07em
+}
+.nav__inception img{display:block;width:100%;height:auto}
 
 .nav__links{display:none;align-items:center;gap:4px;margin-inline:auto 0;position:relative}
 @media (min-width:1080px){.nav__links{display:flex}}
@@ -169,6 +177,10 @@
 @media (max-width:1160px){
   .nav__a{padding-inline:9px;font-size:.9375rem}
 }
+@media (min-width:1400px) and (max-width:1519px){
+  .nav__in{--nav-gap:8px}
+  .nav__a{padding-inline:7px}
+}
 @media (max-width:1079px){
   .nav__links{display:none}           /* everything is in the menu below this */
 }
@@ -178,38 +190,38 @@
    Over the hero the PRIME-CAE lockup is shown large and hangs into the hero;
    once the header is raised (.stuck) it settles to its compact size. Only
    transforms move, so the header row never reflows and the nav height the
-   anchor offsets rely on stays --nav-h. Over the hero the AWS badge takes a
-   second line under the wordmark (at 1340px+ the subtitle stays beside the
+   anchor offsets rely on stays --nav-h. Over the hero the partner badges take a
+   second line under the wordmark (at 1400px+ the subtitle stays beside the
    lockup) and both slide back into the row on scroll.
    ========================================================================= */
 :root{--logo-w:clamp(196px,15.5vw,264px);--logo-s:1.6;--logo-ar:.2172;
   --aws-h:40.8px;--aws-pad:20px;--logo-word:.4331;--sub-w:252px}
 @media (max-width:1160px){:root{--logo-w:clamp(172px,15.5vw,204px)}}
 @media (max-width:1339px){:root{--aws-h:35.2px}}
-.nav__logo,.nav__sub,.nav__aws{
+.nav__logo,.nav__sub,.nav__partners{
   transition:transform var(--t-large) var(--ease-standard),border-color var(--t-large)}
 .nav__logo{transform-origin:0 0}
-/* once the header is raised the AWS badge settles to 0.9x, anchored at its divider */
-.nav__aws img{transform-origin:0 50%;transition:transform var(--t-large) var(--ease-standard)}
-.nav.stuck .nav__aws img{transform:scale(.9)}
+/* Scale both badges together from the AWS edge of the row. */
+.nav__partner-logos{transform-origin:0 50%;transition:transform var(--t-large) var(--ease-standard)}
+.nav.stuck .nav__partner-logos{transform:scale(.9)}
 :root:not(.menu-open) .nav:not(.stuck) .nav__logo{transform:scale(var(--logo-s))}
-/* over the hero the AWS badge drops to a second line, left-aligned with the
+/* over the hero the badges drop to a second line, left-aligned with the
    spelled-out PRIME-CAE wordmark (--logo-word: where the wordmark starts in the
    lockup), never under the icon */
-:root:not(.menu-open) .nav:not(.stuck) .nav__aws{
+:root:not(.menu-open) .nav:not(.stuck) .nav__partners{
   transform:translate(calc(var(--logo-w) * var(--logo-s) * var(--logo-word)
       - var(--logo-w) - 20px - var(--lw-1) - var(--aws-pad)),
     calc(var(--logo-w) * var(--logo-ar) * (var(--logo-s) - .5) + 10px + var(--aws-h) / 2))}
 /* on its own line the badge has nothing to divide from, so its rule fades out */
-:root:not(.menu-open) .nav:not(.stuck) .nav__aws{border-left-color:transparent}
-@media (min-width:1340px){
+:root:not(.menu-open) .nav:not(.stuck) .nav__partners{border-left-color:transparent}
+@media (min-width:1400px){
   .nav__sub{width:var(--sub-w)}
   /* the subtitle stays beside the enlarged lockup, centred on it */
   :root:not(.menu-open) .nav:not(.stuck) .nav__sub{
     transform:translate(calc(var(--logo-w) * (var(--logo-s) - 1)),
       calc(var(--logo-w) * var(--logo-ar) * (var(--logo-s) - 1) / 2))}
   /* the badge passes the subtitle to reach the wordmark's second line */
-  :root:not(.menu-open) .nav:not(.stuck) .nav__aws{
+  :root:not(.menu-open) .nav:not(.stuck) .nav__partners{
     transform:translate(calc(var(--logo-w) * var(--logo-s) * var(--logo-word)
         - var(--logo-w) - 20px - var(--sub-w) - 20px - var(--lw-1) - var(--aws-pad)),
       calc(var(--logo-w) * var(--logo-ar) * (var(--logo-s) - .5) + 10px + var(--aws-h) / 2))}
@@ -220,5 +232,5 @@
     calc(44px + var(--logo-w) * var(--logo-ar) * (var(--logo-s) - .5) + 10px + var(--aws-h) + 22px))}
 }
 @media (prefers-reduced-motion:reduce){
-  .nav__logo,.nav__sub,.nav__aws,.nav__aws img{transition:none}
+  .nav__logo,.nav__sub,.nav__partners,.nav__partner-logos{transition:none}
 }
