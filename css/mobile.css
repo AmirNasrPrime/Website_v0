@@ -187,14 +187,7 @@
   }
 }
 @media (max-width:999px){
-  .story-active .about[data-story]{overflow:clip}
-  .story-intro{display:block}
-  @media (prefers-reduced-motion:no-preference){
-    .story-intro--pinned{min-block-size:calc(var(--story-copy-height) + clamp(104px,17svh,152px))}
-    .story-intro--pinned>.story-copy{position:sticky;top:var(--story-intro-inset)}
-  }
   #layer .story-layout{row-gap:var(--s-4)}
-  #layer .layer__line{opacity:1}
   /* Reserve three lines for the longest workflow explanations on small screens. */
   #layer .layer__line .t-small{min-block-size:3lh}
   .seam[data-from="navy"][data-to="ice"]{
@@ -204,15 +197,10 @@
 }
 @media (max-width:960px) and (max-height:520px){
   .orbit__canvas{height:clamp(155px,46svh,215px);min-height:0}
-  .fam{width:100%;max-width:460px;margin-inline:auto}
+  .fam{max-width:460px}
 }
 @media (max-width:719px),(max-width:960px) and (max-height:520px){
   .fam{grid-template-columns:minmax(0,1fr)}
-  @media (prefers-reduced-motion:no-preference){
-    .story-active [data-story-card]{opacity:var(--story-item,1)}
-    .story-active [data-story-card]:focus-within,
-    .story-active [data-story-card] [data-story-note]{opacity:1}
-  }
 }
 
 /* --------------------------------------------------------------- touch -- */

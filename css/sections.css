@@ -27,19 +27,9 @@
 .instr__v--pass{color:var(--env-pass)}
 
 /* =========================================================== 01 · LAYER = */
-/* Chapters hold while the scene fits. The document still owns scrolling. */
-:root{--story-inset:calc(var(--nav-h) + env(safe-area-inset-top))}
-.story-active body{overflow-x:clip}
-.story-track{--story-runway:clamp(100px,18svh,185px)}
-.story-track--pinned{min-block-size:calc(var(--story-height) + var(--story-runway))}
-.story-track--pinned>[data-story]{position:sticky;top:0}
-.section[data-story]{
-  display:grid;align-items:center;
-  padding-block:clamp(24px,4svh,54px)
-}
-.story-layout{display:grid;align-items:center;gap:clamp(24px,4vw,70px)}
-.story-intro{display:contents}
-.story-copy,.story-visual{min-width:0}
+.section[data-story]{padding-block:clamp(28px,5svh,72px)}
+.story-layout{display:grid;grid-template-columns:minmax(0,1fr);gap:clamp(24px,4vw,52px)}
+.story-visual{width:min(100%,60rem);min-width:0;justify-self:center}
 .story-label{
   font-size:clamp(1rem,1.5vw,1.375rem);
   margin-bottom:clamp(8px,1.8svh,18px);color:var(--env-accent)
@@ -47,26 +37,18 @@
 .story-copy h2{max-width:18ch}
 .story-copy .t-lede{margin-top:clamp(12px,2.5svh,30px)}
 @media (min-width:1000px){
-  .section[data-story]{min-block-size:100svh;padding-block-start:var(--story-inset)}
-  .story-layout{grid-template-columns:minmax(0,1.24fr) minmax(0,1fr);grid-template-areas:"visual copy"}
-  .story-copy{grid-area:copy}
-  .story-visual{grid-area:visual}
+  .story-copy{text-align:center}
+  .story-copy :is(h2,.t-lede,.about__body){margin-inline:auto}
+  .story-copy h2{max-width:25ch}
+  .story-copy .about__marks{justify-content:center}
 }
 @media (prefers-reduced-motion:no-preference){
-  .story-active [data-story-copy="lead"]{opacity:var(--story-lead,1)}
-  .story-active [data-story-copy="detail"]{opacity:var(--story-detail,1)}
-  .story-active [data-story-note],.story-active [data-story-visual]{opacity:var(--story-item,1)}
-  .story-active [data-story-copy]:focus-within,.story-active [data-story-visual]:focus-within{opacity:1}
+  .story-active :is(.story-copy,[data-story-visual],[data-story-card]){opacity:var(--story-opacity,1)}
+  .story-active :is(.story-copy,[data-story-visual],[data-story-card]):focus-within{opacity:1}
   .story-active [data-story-visual].story-visual-hidden:not(:focus-within){pointer-events:none}
 }
-@media (prefers-reduced-motion:reduce){
-  .story-track--pinned,.story-intro--pinned{min-block-size:0}
-  .story-track--pinned>[data-story],.story-intro--pinned>.story-copy{position:relative;top:auto}
-}
 
-/* The diagram is sized from the height left after the header, the section's
-   own padding, its heading and the line underneath — so the whole section is
-   readable in one screen instead of being scrolled through in pieces. */
+/* Keep the diagram readable within the available viewport height. */
 .orbit{position:relative;width:100%;min-width:0;
   height:clamp(300px,min(56vh,42vw),580px);
   height:clamp(300px,min(56svh,42vw),580px)}
@@ -182,8 +164,7 @@
 /* the figure sits in the field rather than in a box — the graphic carries its
    own frame in the axes it draws */
 .about__fig{position:relative;margin:0;align-self:center}
-/* capped by height as well as width, so the figure cannot push the copy off a
-   short screen */
+/* Keep the plot and its controls together on short screens. */
 .about__stage{position:relative;margin-inline:auto;aspect-ratio:1/1;
   width:min(100%,clamp(174px,48svh,525px))}
 /* the two plots are slides in one frame: the active one fades and slides in,
@@ -232,6 +213,7 @@ html:not(.js) .about__views{display:none}
 /* =========================================================================
    02 · WHAT PRIME-CAE IS — the selected system's explanation
    ========================================================================= */
+.layer__visual{display:grid;gap:var(--s-4)}
 .layer__line{
   display:grid;justify-items:start;gap:6px;max-width:45ch;
   padding-top:14px;
@@ -239,9 +221,7 @@ html:not(.js) .about__views{display:none}
 }
 .layer__line .t-small{min-block-size:3.2em;color:var(--env-text);transition:opacity var(--t-normal)}
 @media (min-width:1000px){
-  #layer .story-layout{grid-template-areas:"visual copy" "visual readout";row-gap:clamp(14px,3svh,30px)}
-  #layer .story-copy{align-self:end}
-  .layer__line{grid-area:readout;align-self:start}
+  .layer__line{width:min(100%,55ch);max-width:none;justify-self:center}
 }
 
 /* =========================================================================
