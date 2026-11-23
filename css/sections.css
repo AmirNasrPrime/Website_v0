@@ -38,6 +38,7 @@
   padding-block:clamp(24px,4svh,54px)
 }
 .story-layout{display:grid;align-items:center;gap:clamp(24px,4vw,70px)}
+.story-intro{display:contents}
 .story-copy,.story-visual{min-width:0}
 .story-label{
   font-size:clamp(1rem,1.5vw,1.375rem);
@@ -59,8 +60,8 @@
   .story-active [data-story-visual].story-visual-hidden:not(:focus-within){pointer-events:none}
 }
 @media (prefers-reduced-motion:reduce){
-  .story-track--pinned{min-block-size:0}
-  .story-track--pinned>[data-story]{position:relative;top:auto}
+  .story-track--pinned,.story-intro--pinned{min-block-size:0}
+  .story-track--pinned>[data-story],.story-intro--pinned>.story-copy{position:relative;top:auto}
 }
 
 /* The diagram is sized from the height left after the header, the section's

@@ -2,16 +2,23 @@ import { $$, clamp, on, smooth } from '../core/dom.js';
 
 export function initStory() {
   const root = document.documentElement;
+  const header = document.querySelector('#nav');
   const motion = matchMedia('(prefers-reduced-motion: reduce)');
   const stacked = matchMedia('(max-width: 999px)');
+  const canPin = CSS.supports('overflow', 'clip');
   const chapters = $$('[data-story]').map(scene => {
     const track = document.createElement('div');
     track.className = 'story-track';
     scene.before(track);
     track.append(scene);
+    const copy = scene.querySelector('.story-copy');
+    const intro = document.createElement('div');
+    intro.className = 'story-intro';
+    copy.before(intro);
+    intro.append(copy);
     return {
-      scene, track,
-      copy: scene.querySelector('.story-copy'),
+      scene, track, copy, intro,
+      detail: copy.querySelector('[data-story-copy="detail"]'),
       visual: scene.querySelector('[data-story-visual]'),
       notes: $$('[data-story-note]', scene),
     };
@@ -24,38 +31,55 @@ export function initStory() {
   function update() {
     frame = 0;
     const height = window.innerHeight;
+    const introInset = (header?.offsetHeight ?? 0) + 14;
     const inFlow = stacked.matches;
     const still = motion.matches;
 
     // Measure every scene before writing reveal state or changing track height.
-    const measurements = chapters.map(({ scene, track, copy, visual, notes }) => {
+    const measurements = chapters.map(({ scene, track, copy, intro, detail, visual, notes }) => {
       const sceneHeight = scene.offsetHeight;
+      const copyHeight = copy.offsetHeight;
       return {
-        scene, track, sceneHeight, visual, notes,
+        scene, track, sceneHeight, visual, notes, intro, copyHeight,
         top: track.getBoundingClientRect().top,
         travel: track.offsetHeight - sceneHeight,
         copyTop: copy.getBoundingClientRect().top,
+        detailTop: inFlow ? detail.getBoundingClientRect().top : 0,
+        introTop: inFlow ? intro.getBoundingClientRect().top : 0,
+        introTravel: inFlow ? intro.offsetHeight - copyHeight : 0,
         visualTop: inFlow && visual ? visual.getBoundingClientRect().top : null,
         noteTops: notes.map(note => note.getBoundingClientRect().top),
-        fits: !inFlow && height >= sceneHeight - 2,
+        fits: canPin && !inFlow && height >= sceneHeight - 2,
+        fitsIntro: canPin && inFlow && copyHeight + introInset + 14 <= height,
       };
     });
     if (needsMeasure) {
       needsMeasure = false;
-      for (const { sceneHeight, track, fits } of measurements) {
+      root.style.setProperty('--story-intro-inset', introInset + 'px');
+      for (const { sceneHeight, track, fits, intro, copyHeight, fitsIntro } of measurements) {
         track.style.setProperty('--story-height', sceneHeight + 'px');
         track.classList.toggle('story-track--pinned', fits && !still);
+        intro.style.setProperty('--story-copy-height', copyHeight + 'px');
+        intro.classList.toggle('story-intro--pinned', fitsIntro && !still);
       }
       schedule();
       return;
     }
-    for (const { scene, top, travel, copyTop, visual, visualTop, notes, noteTops } of measurements) {
+    for (const { scene, top, travel, copyTop, detailTop, introTop, introTravel,
+      visual, visualTop, notes, noteTops } of measurements) {
       const pinned = travel > 0;
       const entered = pinned
         ? clamp(-top / travel, 0, 1)
         : clamp((height * .95 - copyTop) / (height * .36), 0, 1);
-      const lead = still ? 1 : smooth(.08, .46, entered);
-      const detail = still ? 1 : smooth(.26, pinned ? 1 : .67, entered);
+      let lead = still ? 1 : smooth(.08, .46, entered);
+      let detail = still ? 1 : smooth(.26, pinned ? 1 : .67, entered);
+      if (inFlow && !still) {
+        lead = smooth(height * .04, height * .28, height - copyTop);
+        // Hold the copy while its paragraph comes in, then release into the plots.
+        detail = introTravel > 0
+          ? smooth(.04, 1, (introInset - introTop) / introTravel)
+          : smooth(height * .1, height * .42, height - detailTop);
+      }
       scene.style.setProperty('--story-lead', String(lead));
       scene.style.setProperty('--story-detail', String(detail));
       if (visual) {

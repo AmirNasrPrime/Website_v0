@@ -89,7 +89,6 @@
 
   /* ------------------------------------------------------------- about -- */
   .section[data-story]{padding-block:24px}
-  .story-track{--story-runway:clamp(76px,13svh,125px)}
   .story-layout{gap:22px}
   .story-copy h2{font-size:clamp(27px,7.7vw,42px)}
   .story-copy .t-lede{font-size:16px;line-height:1.55;margin-top:12px}
@@ -188,6 +187,12 @@
   }
 }
 @media (max-width:999px){
+  .story-active .about[data-story]{overflow:clip}
+  .story-intro{display:block}
+  @media (prefers-reduced-motion:no-preference){
+    .story-intro--pinned{min-block-size:calc(var(--story-copy-height) + clamp(104px,17svh,152px))}
+    .story-intro--pinned>.story-copy{position:sticky;top:var(--story-intro-inset)}
+  }
   #layer .story-layout{row-gap:var(--s-4)}
 }
 @media (max-width:960px) and (max-height:520px){
