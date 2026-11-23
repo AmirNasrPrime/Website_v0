@@ -66,8 +66,6 @@
 
 @media (max-width:719px){
   /* -------------------------------------------------------------- hero -- */
-  /* svh, not vh: the frame must not jump when the address bar retracts */
-  .hero{min-height:100svh}
   /* the film is a landscape plate in a portrait frame — hold the region that
      carries the structure rather than letting the crop take it */
   .hero__vid,.hero__poster{object-position:62% 50%}
