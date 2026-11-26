@@ -37,22 +37,23 @@ window.addEventListener('message', event => {
   fitViewer(frame);
 });
 
-const filters = document.querySelectorAll('[data-news-filter]');
-const entries = [...document.querySelectorAll('.news-entry[data-news-category]')];
-filters.forEach(button => {
-  button.addEventListener('click', () => {
-    const category = button.dataset.newsFilter;
-    filters.forEach(filter => filter.setAttribute('aria-pressed', String(filter === button)));
-    entries.forEach(entry => {
-      entry.hidden = category !== 'all' && entry.dataset.newsCategory !== category;
-    });
-    document.querySelectorAll('.news-wave-feature[data-news-category]').forEach(feature => {
-      feature.hidden = category === 'news';
-    });
-    const visible = entries.filter(entry => !entry.hidden);
-    const empty = document.querySelector('[data-news-empty]');
-    if (empty) empty.hidden = visible.length !== 0;
-    document.querySelector('[data-news-status]').textContent = `${visible.length} ${category === 'news' ? 'news updates' : category === 'publication' ? 'publications' : 'updates'}`;
-    (visible[0] || empty)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  });
+const filters = [...document.querySelectorAll('[data-news-filter]')];
+const groups = [...document.querySelectorAll('.news-category[data-news-category]')];
+const status = document.querySelector('[data-news-status]');
+
+function showCategory(category, scroll = false) {
+  filters.forEach(button => button.setAttribute('aria-pressed', String(button.dataset.newsFilter === category)));
+  groups.forEach(group => { group.hidden = category !== 'all' && group.dataset.newsCategory !== category; });
+  status.textContent = category === 'news' ? '2 news updates' : category === 'publication' ? '4 publications' : '6 updates';
+  if (scroll) {
+    const target = category === 'news' ? document.querySelector('#news-updates') : document.querySelector('#publications');
+    target?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+}
+
+filters.forEach(button => button.addEventListener('click', () => showCategory(button.dataset.newsFilter, true)));
+showCategory(location.hash === '#news-updates' ? 'news' : 'publication');
+if (location.hash === '#news-updates') requestAnimationFrame(() => document.querySelector('#news-updates')?.scrollIntoView({ block: 'start' }));
+window.addEventListener('hashchange', () => {
+  if (location.hash === '#news-updates') showCategory('news', true);
 });

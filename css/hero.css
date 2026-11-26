@@ -182,3 +182,13 @@
 @media (max-width:1160px){:root{--logo-w:clamp(172px,15.5vw,204px)}}
 @media (max-width:1339px){:root{--aws-h:32px}}
 @media (min-width:1400px){.nav__sub{width:var(--sub-w)}}
+
+/* Text-only latest news at the right center of the hero. */
+.hero__news{position:absolute;right:var(--gutter);top:50%;transform:translateY(-18%);width:min(310px,26vw);padding:18px 0 18px 22px;border-left:2px solid var(--prime-lift);color:#fff;background:rgba(3,10,20,.58)}
+.hero__news-label{font-family:var(--font-mono);font-size:.75rem;letter-spacing:.16em;text-transform:uppercase;color:#76cafa;margin-bottom:10px}
+.hero__news-title{font-family:var(--font-sans);font-size:clamp(1rem,1.35vw,1.3rem);font-weight:500;line-height:1.35}
+.hero__news a{display:inline-block;margin-top:12px;color:#76cafa;font-weight:600;text-decoration:underline;text-underline-offset:4px}
+.hero__news a:hover{color:#fff}
+@media(min-width:901px){.hero__copy{max-width:calc(100% - 340px)}}
+@media(max-width:900px){.hero__news{position:relative;right:auto;top:auto;transform:none;width:min(100%,400px);margin:32px 0 0 auto;padding:12px 0 12px 16px}.hero__news-title{font-size:1rem}}
+@media(max-width:600px){.hero__news{margin-top:24px;padding-block:8px}.hero__news-label{margin-bottom:6px}.hero__news a{margin-top:8px}}

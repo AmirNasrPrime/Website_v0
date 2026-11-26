@@ -137,3 +137,6 @@
 
 /* Match News section titles to the masthead's display face and tracking. */
 .news-content h2,.news-content h3,.news-article h2,.news-article h3{font-family:var(--font-sans);font-weight:500;font-style:normal;letter-spacing:-.045em;line-height:1.06;color:#176B9B}
+
+.news-category[hidden]{display:none!important}
+.news-category{scroll-margin-top:calc(var(--nav-h) + env(safe-area-inset-top) + 20px)}
