@@ -1,13 +1,40 @@
 import { initNav } from './sections/nav.js';
 initNav();
-// Size each embedded dispersion viewer to its full document height.
+// Fit the complete interactive document inside its full-width media canvas.
+const viewerHeights = new WeakMap();
+function fitViewer(frame) {
+  const canvas = frame.parentElement;
+  const height = viewerHeights.get(frame) || 1600;
+  if (!canvas.clientWidth) return;
+  if (window.matchMedia('(max-width: 600px)').matches) {
+    frame.style.width = '100%';
+    frame.style.height = `${height}px`;
+    frame.style.transform = '';
+    frame.style.left = '';
+    frame.style.top = '';
+    return;
+  }
+  const width = Math.max(canvas.clientWidth, 1000);
+  frame.style.width = `${width}px`;
+  frame.style.height = `${height}px`;
+  const scale = Math.min(canvas.clientWidth / width, canvas.clientHeight / height);
+  frame.style.transform = `scale(${scale})`;
+  frame.style.left = `${(canvas.clientWidth - width * scale) / 2}px`;
+  frame.style.top = `${(canvas.clientHeight - height * scale) / 2}px`;
+}
+const mediaObserver = new ResizeObserver(entries => {
+  entries.forEach(entry => fitViewer(entry.target.querySelector('iframe')));
+});
+document.querySelectorAll('.news-html-canvas').forEach(canvas => mediaObserver.observe(canvas));
 window.addEventListener('message', event => {
   if (event.data?.type !== 'prime-dispersion-height') return;
   const height = event.data.height;
   if (!Number.isFinite(height) || height < 100 || height > 20000) return;
   const frame = Array.from(document.querySelectorAll('.news-dispersion iframe'))
     .find(candidate => candidate.contentWindow === event.source);
-  if (frame) frame.style.height = `${Math.ceil(height) + 2}px`;
+  if (!frame) return;
+  viewerHeights.set(frame, Math.ceil(height) + 2);
+  fitViewer(frame);
 });
 
 const filters = document.querySelectorAll('[data-news-filter]');
