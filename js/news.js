@@ -1,5 +1,15 @@
 import { initNav } from './sections/nav.js';
 initNav();
+// Size each embedded dispersion viewer to its full document height.
+window.addEventListener('message', event => {
+  if (event.data?.type !== 'prime-dispersion-height') return;
+  const height = event.data.height;
+  if (!Number.isFinite(height) || height < 100 || height > 20000) return;
+  const frame = Array.from(document.querySelectorAll('.news-dispersion iframe'))
+    .find(candidate => candidate.contentWindow === event.source);
+  if (frame) frame.style.height = `${Math.ceil(height) + 2}px`;
+});
+
 const filters = document.querySelectorAll('[data-news-filter]');
 filters.forEach(button => {
   button.addEventListener('click', () => {
