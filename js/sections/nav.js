@@ -49,6 +49,7 @@ export function initNav() {
 
   /* ------------------------------------------------------------ scroll --- */
   const targets = links
+    .filter(a => a.getAttribute('href')?.startsWith('#'))
     .map(a => ({ a, el: document.querySelector(a.getAttribute('href')) }))
     .filter(t => t.el);
 
