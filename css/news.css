@@ -126,3 +126,6 @@
 .news-dispersion .news-html-canvas iframe{position:absolute;inset:0}
 .news-dispersion>.news-html-canvas--mobile{height:auto}
 .news-dispersion .news-html-canvas--mobile iframe{position:static;inset:auto}
+
+/* Dark navy titles throughout the light News content. */
+.news-content h2,.news-content h3,.news-article h2,.news-article h3{color:var(--prime-navy,#0F204B)}
