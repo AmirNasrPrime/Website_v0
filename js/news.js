@@ -38,15 +38,21 @@ window.addEventListener('message', event => {
 });
 
 const filters = document.querySelectorAll('[data-news-filter]');
+const entries = [...document.querySelectorAll('.news-entry[data-news-category]')];
 filters.forEach(button => {
   button.addEventListener('click', () => {
     const category = button.dataset.newsFilter;
     filters.forEach(filter => filter.setAttribute('aria-pressed', String(filter === button)));
-    document.querySelectorAll('[data-news-category]').forEach(entry => {
+    entries.forEach(entry => {
       entry.hidden = category !== 'all' && entry.dataset.newsCategory !== category;
     });
+    document.querySelectorAll('.news-wave-feature[data-news-category]').forEach(feature => {
+      feature.hidden = category === 'news';
+    });
+    const visible = entries.filter(entry => !entry.hidden);
     const empty = document.querySelector('[data-news-empty]');
-    if (empty) empty.hidden = category !== 'news';
-    document.querySelector('[data-news-status]').textContent = category === 'news' ? 'No news announcements published yet.' : `${document.querySelectorAll('.news-entry[data-news-category]').length} publications`;
+    if (empty) empty.hidden = visible.length !== 0;
+    document.querySelector('[data-news-status]').textContent = `${visible.length} ${category === 'news' ? 'news updates' : category === 'publication' ? 'publications' : 'updates'}`;
+    (visible[0] || empty)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   });
 });

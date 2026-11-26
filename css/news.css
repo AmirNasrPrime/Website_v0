@@ -20,6 +20,11 @@
 .news-filters button{padding:10px 20px;border:1px solid #b5c5d3;border-radius:30px;color:#29445f;min-height:44px}
 .news-filters button[aria-pressed="true"]{background:#0f204b;border-color:#0f204b;color:white}
 .news-entry{display:grid;grid-template-columns:180px 1fr auto;gap:24px;align-items:center;padding:30px 0;border-top:1px solid #cbd7e1}
+.news-entry,.news-empty{scroll-margin-top:calc(var(--nav-h) + env(safe-area-inset-top) + 20px)}
+.news-entry__badge{display:flex;align-items:center;justify-content:center;min-height:108px;padding:18px;background:#071322;border:1px solid #d5dfe8;border-radius:6px}
+.news-entry__badge img{display:block;max-width:100%;height:auto}
+.news-entry__badge--nvidia{flex-direction:column;gap:5px;color:#fff;font-size:.75rem;letter-spacing:.05em;text-align:center;text-transform:uppercase}
+.news-entry__badge--nvidia img{width:145px}
 .news-entry h3{font-family:var(--font-sans);font-size:1.5rem;font-weight:500;margin-bottom:8px}
 .news-entry p{color:#435b70;max-width:650px}
 .news-entry .news-meta{margin:0}
