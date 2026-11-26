@@ -113,3 +113,6 @@
 .news-media-row .news-html-canvas{border:0;border-radius:0}
 .news-media-row video{height:min(60svh,600px);max-height:600px}
 @media(max-width:700px){.news-media-row{grid-template-columns:minmax(0,1fr)}.news-demo figcaption.news-media-copy{border-left:0;border-top:1px solid #e0e8ef;padding:22px}.news-media-copy{padding:22px}.news-media-copy h3{font-size:1.4rem}.news-media-row video{height:auto;max-height:60svh}}
+
+/* Match the homepage hero's display typography at article-title sizes. */
+.news-media-copy h3{font-family:var(--font-sans);font-weight:500;font-style:normal;letter-spacing:-.036em;line-height:var(--lh-title)}
