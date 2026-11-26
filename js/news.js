@@ -6,7 +6,9 @@ function fitViewer(frame) {
   const canvas = frame.parentElement;
   const height = viewerHeights.get(frame) || 1600;
   if (!canvas.clientWidth) return;
-  if (window.matchMedia('(max-width: 600px)').matches) {
+  const mobile = canvas.clientWidth - 2 <= 600;
+  canvas.classList.toggle('news-html-canvas--mobile', mobile);
+  if (mobile) {
     frame.style.width = '100%';
     frame.style.height = `${height}px`;
     frame.style.transform = '';
@@ -14,13 +16,11 @@ function fitViewer(frame) {
     frame.style.top = '';
     return;
   }
-  const width = Math.max(canvas.clientWidth, 1000);
-  frame.style.width = `${width}px`;
-  frame.style.height = `${height}px`;
-  const scale = Math.min(canvas.clientWidth / width, canvas.clientHeight / height);
-  frame.style.transform = `scale(${scale})`;
-  frame.style.left = `${(canvas.clientWidth - width * scale) / 2}px`;
-  frame.style.top = `${(canvas.clientHeight - height * scale) / 2}px`;
+  frame.style.width = '100%';
+  frame.style.height = '100%';
+  frame.style.transform = '';
+  frame.style.left = '0';
+  frame.style.top = '0';
 }
 const mediaObserver = new ResizeObserver(entries => {
   entries.forEach(entry => fitViewer(entry.target.querySelector('iframe')));
