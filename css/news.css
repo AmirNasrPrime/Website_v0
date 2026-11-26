@@ -60,7 +60,7 @@
 .news-index .news-hero{padding-top:calc(var(--nav-h) + 32px);padding-bottom:32px}
 .news-index .news-hero .news-kicker{margin-bottom:12px}
 .news-index .news-hero h1{font-size:clamp(2.2rem,4vw,3.6rem)}
-.news-index .news-hero p:last-child{margin-top:14px;font-size:1rem;max-width:760px}
+.news-index .news-hero p:last-child{margin-top:14px;font-size:1rem;max-width:none}
 @media(max-width:760px){.news-index .news-hero{padding-top:calc(var(--nav-h) + 22px);padding-bottom:24px}.news-index .news-hero h1{font-size:clamp(2rem,7vw,2.8rem)}}
 
 /* Keep publication media and long titles within narrow viewports. */
