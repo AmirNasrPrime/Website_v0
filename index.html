@@ -65,7 +65,7 @@ addEventListener('pageshow', function () { scrollTo({ top: 0, left: 0, behavior:
 <link rel="stylesheet" href="css/layout.css">
 <link rel="stylesheet" href="css/components.css">
 <link rel="stylesheet" href="css/hero.css?v=hero-news-1">
-<link rel="stylesheet" href="css/sections.css?v=contact-channels-1">
+<link rel="stylesheet" href="css/sections.css?v=contact-animation-1">
 <link rel="stylesheet" href="css/mobile.css?v=mobile-menu-right-1">
 
 <link rel="preload" as="image" href="media/hero-field-poster.jpg">
@@ -298,11 +298,16 @@ document.documentElement.classList.add('js');
 
 <!-- ============================== 05 · CONTACT ============================ -->
 <section class="section env contact" id="access" data-env="white">
-  <div class="shell">
-    <div class="contact__in">
+  <div class="shell contact__layout">
+    <div class="contact__visual">
+      <img class="contact__welcome-poster" src="assets/contact-welcome-poster.png" alt="PRIME-CAE logo" width="1920" height="1080" loading="lazy">
+      <video class="contact__welcome-video" muted playsinline preload="none" aria-hidden="true" disablepictureinpicture>
+        <source src="assets/contact-welcome.mp4" type="video/mp4">
+      </video>
+    </div>
+    <div class="contact__copy">
       <span class="t-meta">Contact</span>
-      <h2 class="t-h2" style="margin:var(--s-4) 0 var(--s-5)">Let's build<br>
-        <span class="grad">what's next</span></h2>
+      <h2 class="t-h2">Let's build <span class="grad">what's next</span></h2>
       <div class="contact__channels">
         <div class="contact__channel">
           <h3>Technical &amp; Product Inquiries</h3>
@@ -335,6 +340,7 @@ document.documentElement.classList.add('js');
 </main>
 
 <script src="js/prime.bundle.js?v=mobile-menu-right-1" defer></script>
+<script src="js/contact-welcome.js?v=1" defer></script>
 <noscript>
   <style>.hero__poster{opacity:1!important}</style>
 </noscript>
