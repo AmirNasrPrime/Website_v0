@@ -123,8 +123,7 @@
 .contact{padding-block:clamp(44px,3.6vh + 1.8vw,124px);
   min-height:calc(100vh - 140px);min-height:calc(100svh - 140px);
   display:grid;align-content:start}
-/* One address, centred, with nothing standing in front of it. The measure and
-   the vertical rhythm are the section's own — only the second column is gone. */
+/* Contact headings and inquiry routes stay centered within the section. */
 .contact__in{display:grid;justify-items:center;text-align:center}
 /* the eyebrow carries the section on its own here, so it is set well above the
    13px instrumentation size the mark uses elsewhere — scoped, so every other
@@ -251,3 +250,10 @@ html:not(.js) .about__views{display:none}
 .foot__links a{min-height:40px;display:inline-flex;align-items:center;
   font-size:var(--fs-small);color:var(--env-text-2);transition:color var(--t-fast)}
 .foot__links a:hover{color:var(--env-text)}
+
+.contact__channels{display:grid;gap:clamp(24px,3vw,48px);width:100%;max-width:920px;margin-top:clamp(26px,4vw,50px);text-align:left}
+.contact__channel{min-width:0;padding-top:18px;border-top:1px solid var(--env-line)}
+.contact__channel h3{font-family:var(--font-sans);font-size:clamp(1.2rem,1.65vw,1.55rem);font-weight:600;line-height:1.3;color:var(--env-text)}
+.contact__channel p{margin-top:12px;max-width:40ch;color:var(--env-text-2);line-height:1.6}
+.contact__channel .contact__mail{margin-top:10px;overflow-wrap:anywhere}
+@media(min-width:760px){.contact:not(.story-section) .contact__channels{grid-template-columns:repeat(2,minmax(0,1fr))}}
