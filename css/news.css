@@ -71,3 +71,26 @@
 @media(max-width:480px){.news-page .nav__brand{min-width:0}.news-page .nav__logo{max-width:100%}.news-article{padding-inline:18px}.news-content{padding-inline:18px}.news-page .news-hero .shell{padding-inline:18px}.news-dispersion iframe{height:900px}.news-demo figcaption{padding:16px}.news-feature__copy{padding:24px}}
 
 .news-cube-video{margin-bottom:56px}.news-cube-video>h2{font-family:var(--font-sans);font-size:clamp(1.8rem,3vw,2.7rem);line-height:1.2;font-weight:500;margin-bottom:24px}.news-cube-video video{display:block;width:100%;max-width:100%;height:auto;aspect-ratio:16/9;object-fit:contain;background:#fff}
+
+/* Phone layout for the News index and publication pages. */
+@media(max-width:600px){
+ .news-content{padding-top:24px;padding-bottom:48px}
+ .news-index .news-hero{padding-top:calc(var(--nav-h) + 16px);padding-bottom:24px}
+ .news-index .news-hero p:last-child{line-height:1.6}
+ .news-feature{margin-bottom:32px}
+ .news-feature__copy{padding:22px}
+ .news-feature__copy p:not(.news-meta){margin:16px 0}
+ .news-cube-video,.news-wave-feature{margin-bottom:36px}
+ .news-cube-video>h2,.news-wave-feature>h2{font-size:clamp(1.45rem,5.5vw,1.85rem);line-height:1.3;margin-bottom:20px}
+ .news-dispersion{margin:20px 0 28px}
+ .news-dispersion h3{font-size:1.2rem}
+ .news-demo{margin:22px 0}
+ .news-demo figcaption{padding:14px;overflow-wrap:anywhere}
+ .news-link{min-height:44px;display:inline-flex;align-items:center;line-height:1.5}
+ .news-meta{line-height:1.6;overflow-wrap:anywhere}
+ .news-filters{gap:6px}
+ .news-filters button{flex:1 1 auto;min-width:0;padding:10px 6px;font-size:.875rem}
+ .news-entry{padding:24px 0}
+ .news-entry__thumbnail{max-width:none}
+ .news-article{padding-top:32px;padding-bottom:48px}
+}
