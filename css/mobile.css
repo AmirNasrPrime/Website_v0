@@ -40,14 +40,6 @@
   .nav{padding-top:env(safe-area-inset-top)}
 
   /* -------------------------------------------------------------- menu -- */
-  .menu{
-    inset:calc(var(--nav-h) + env(safe-area-inset-top)) 0 0;
-    padding:var(--s-5)
-            max(var(--gutter),env(safe-area-inset-right))
-            calc(var(--s-8) + env(safe-area-inset-bottom))
-            max(var(--gutter),env(safe-area-inset-left));
-    overscroll-behavior:contain;
-  }
   /* one thumb, one row, nothing to aim at */
   .menu a{min-height:66px;font-size:1.35rem}
 }

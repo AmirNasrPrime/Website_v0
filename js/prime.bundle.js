@@ -59,7 +59,7 @@ function addTicker(fn) {
 }
 
 /**
- * Land on the section content, with room for the header on upward jumps.
+ * Land on the section content with room for a visible header.
  * Anchoring on the section box itself lands on its top padding, which reads as
  * a large empty gap and pushes the actual content out of the window.
  */
@@ -72,7 +72,7 @@ function scrollToSection(el, extra = 18) {
   let destination = 0;
   if (el.id !== 'top') {
     destination = head.getBoundingClientRect().top + from - extra;
-    if (destination < from || nav?.querySelector(':focus-visible')) {
+    if (window.innerWidth < 1080 || destination < from || nav?.querySelector(':focus-visible')) {
       destination -= nav?.offsetHeight ?? 0;
     }
   }
