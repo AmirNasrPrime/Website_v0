@@ -65,8 +65,8 @@ addEventListener('pageshow', function () { scrollTo({ top: 0, left: 0, behavior:
 <link rel="stylesheet" href="css/layout.css">
 <link rel="stylesheet" href="css/components.css">
 <link rel="stylesheet" href="css/hero.css?v=menu-full-width-1">
-<link rel="stylesheet" href="css/sections.css?v=static-contact-1">
-<link rel="stylesheet" href="css/mobile.css?v=mobile-menu-right-1">
+<link rel="stylesheet" href="css/sections.css?v=four-missions-1">
+<link rel="stylesheet" href="css/mobile.css?v=four-missions-1">
 
 <link rel="preload" as="image" href="media/hero-field-poster.jpg">
 <link rel="stylesheet" href="css/contact-form.css?v=7">
@@ -101,7 +101,7 @@ document.documentElement.classList.add('js');
     <nav class="nav__links" id="navLinks" aria-label="Primary">
       <a class="nav__a" href="#about">About</a>
       <a class="nav__a" href="#layer">Platform</a>
-      <a class="nav__a" href="#products">Products</a>
+      <a class="nav__a" href="#products">Missions</a>
       <a class="nav__a" href="news.html">News</a>
       <a class="nav__a" href="#access">Contact Us</a>
       <span class="nav__ind" id="navInd" aria-hidden="true"></span>
@@ -119,7 +119,7 @@ document.documentElement.classList.add('js');
 <div class="menu" id="menu" data-env="navy">
   <a href="#about">About</a>
   <a href="#layer">Platform</a>
-  <a href="#products">Products</a>
+  <a href="#products">Missions</a>
   <a href="news.html">News</a>
   <a href="#access">Contact Us</a>
 </div>
@@ -261,35 +261,35 @@ document.documentElement.classList.add('js');
 <section class="section env" id="products" data-env="sky" data-story>
   <div class="shell story-layout">
     <div class="story-copy">
-      <p class="story-label t-meta">The PRIME-CAE family</p>
-      <h2 class="t-h2">Four products, <span class="grad">one intelligence layer</span></h2>
-      <p class="t-lede">Each addresses a different part of the engineering problem. All of them
-        share the same model, the same physics and the same intelligence.</p>
+      <p class="story-label t-meta">Our four missions</p>
+      <h2 class="t-h2">Optimizing <span class="grad">what matters in engineering.</span></h2>
+      <p class="t-lede">We are building PRIME-CAE to improve how engineers use computing resources,
+        run their workflows, manage computation time and cost, and explore better designs.</p>
     </div>
 
     <div class="fam story-visual">
       <article class="fam__i" data-story-card>
-        <div class="fam__vis"><canvas data-product="design" aria-label="A design evolving across its space" role="img"></canvas></div>
-        <img class="fam__logo" src="assets/wm-design-color.png" alt="PRIME-DESIGN" width="900" height="61" loading="lazy">
-        <p class="t-small">Explore engineering possibilities faster through AI-assisted design and optimization.</p>
+        <div class="fam__vis mission-art mission-art--resources" aria-hidden="true"><img src="assets/missions/resources.jpg" alt="" width="1672" height="941" loading="lazy"></div>
+        <h3 class="fam__title">Computational<br>resources</h3>
+        <p class="t-small">Share and govern computing capacity so engineering teams can use it more efficiently.</p>
       </article>
 
       <article class="fam__i" data-story-card>
-        <div class="fam__vis"><canvas data-product="joint" aria-label="Load transfer through a structural connection" role="img"></canvas></div>
-        <img class="fam__logo" src="assets/wm-joint-color.png" alt="PRIME-JOINT" width="900" height="68" loading="lazy">
-        <p class="t-small">Bring engineering intelligence to structural connection design.</p>
+        <div class="fam__vis mission-art mission-art--workflows" aria-hidden="true"><img src="assets/missions/workflows.jpg" alt="" width="1672" height="941" loading="lazy"></div>
+        <h3 class="fam__title">Engineering<br>workflows</h3>
+        <p class="t-small">Reduce repetitive setup, execution and documentation work under engineer oversight.</p>
       </article>
 
       <article class="fam__i" data-story-card>
-        <div class="fam__vis"><canvas data-product="life" aria-label="Structural response accumulating over service" role="img"></canvas></div>
-        <img class="fam__logo" src="assets/wm-life-color.png" alt="PRIME-LIFE" width="900" height="76" loading="lazy">
-        <p class="t-small">Extend engineering insight from design into durability and lifecycle performance.</p>
+        <div class="fam__vis mission-art mission-art--time-cost" aria-hidden="true"><img src="assets/missions/time-cost.jpg" alt="" width="1672" height="941" loading="lazy"></div>
+        <h3 class="fam__title">Computational<br>time &amp; cost</h3>
+        <p class="t-small">Pursue faster, more economical verified simulations and Physics AI data generation.</p>
       </article>
 
       <article class="fam__i" data-story-card>
-        <div class="fam__vis"><canvas data-product="copilot" aria-label="Engineering context and a line of reasoning through it" role="img"></canvas></div>
-        <img class="fam__logo" src="assets/wm-copilot-color.png" alt="PRIME-COPILOT" width="900" height="59" loading="lazy">
-        <p class="t-small">A context-aware AI engineering partner grounded in the current design and physics.</p>
+        <div class="fam__vis mission-art mission-art--design" aria-hidden="true"><img src="assets/missions/design.jpg" alt="" width="1672" height="941" loading="lazy"></div>
+        <h3 class="fam__title">Design</h3>
+        <p class="t-small">Explore broader design spaces and evaluate better performing structures and systems.</p>
       </article>
     </div>
   </div>
@@ -330,7 +330,7 @@ document.documentElement.classList.add('js');
     </div>
     <nav class="foot__links" aria-label="Footer">
       <a href="#layer">Platform</a>
-      <a href="#products">Products</a>
+      <a href="#products">Missions</a>
       <a href="#access">Contact Us</a>
     </nav>
     <span class="t-micro">© <span id="year">2026</span> PRIME-CAE</span>

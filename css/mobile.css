@@ -87,6 +87,7 @@
   .fam{gap:var(--s-5)}
   .fam__i{padding:var(--s-5) var(--s-5) var(--s-6)}
   .fam__vis{aspect-ratio:3/2;max-height:none}
+  .mission-art{aspect-ratio:1672/941}
   .fam__logo{width:min(200px,72%)}
   .fam__i p{max-width:100%}
 
