@@ -56,14 +56,13 @@
 @media (min-width:1080px){.nav__burger{display:none}}
 
 .menu{
-  --menu-panel-width:clamp(12.5rem, 56vw, 14rem);
   position:fixed;inset:calc(var(--nav-h) + env(safe-area-inset-top)) 0 0;
   z-index:calc(var(--z-nav) - 1);
-  background:linear-gradient(to left,var(--navy-950) var(--menu-panel-width),rgba(3,10,20,.64) 0);
+  background:var(--navy-950);
   border-top:var(--lw-hair) solid var(--env-line);
   padding:var(--s-5) max(var(--gutter),env(safe-area-inset-right))
           calc(var(--s-8) + env(safe-area-inset-bottom))
-          calc(max(0px,100% - var(--menu-panel-width)) + max(var(--gutter),env(safe-area-inset-left)));
+          max(var(--gutter),env(safe-area-inset-left));
   overflow:auto;overscroll-behavior:contain;
   opacity:0;visibility:hidden;transform:translateY(-10px);
   transition:opacity var(--t-normal),transform var(--t-normal) var(--ease-standard),visibility var(--t-normal)}
