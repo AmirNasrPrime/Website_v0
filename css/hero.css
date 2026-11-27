@@ -56,7 +56,7 @@
 @media (min-width:1080px){.nav__burger{display:none}}
 
 .menu{
-  --menu-panel-width:22rem;
+  --menu-panel-width:clamp(12.5rem, 56vw, 14rem);
   position:fixed;inset:calc(var(--nav-h) + env(safe-area-inset-top)) 0 0;
   z-index:calc(var(--z-nav) - 1);
   background:linear-gradient(to left,var(--navy-950) var(--menu-panel-width),rgba(3,10,20,.64) 0);
