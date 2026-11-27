@@ -175,17 +175,16 @@ contact — and one engineering object runs through all of them.
   variants of the same bracket, a lug and clevis carrying load in double shear,
   damage accumulating against a limit, and a question answered against the
   structure it is about.
-- **Contact** — an address, stated plainly. See below.
+- **Contact** — a form for technical and corporate inquiries. See below.
 
 ## Contact
 
-The section is an address and nothing else: an eyebrow, a heading, one line,
-and `info@prime-cae.com` as a `mailto:` link. There is no form, no endpoint, no
-submission and no state.
+The section collects a sender's name, email address, optional organization,
+inquiry type, and message. A server endpoint routes technical inquiries to
+PRIME-CAE and corporate inquiries to AXIOPHYS. Recipient addresses stay in
+the server configuration and are absent from the public site source.
 
-The only behaviour left is the affordance that reaches it: every
-`[data-open-access]` control (the header's **Contact PRIME-CAE** button) scrolls
-the section under the header with its content at the top of the frame.
+The header's **Contact Us** link scrolls to the section under the header.
 
 ## Conventions
 

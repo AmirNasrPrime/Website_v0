@@ -69,6 +69,7 @@ addEventListener('pageshow', function () { scrollTo({ top: 0, left: 0, behavior:
 <link rel="stylesheet" href="css/mobile.css?v=mobile-menu-right-1">
 
 <link rel="preload" as="image" href="media/hero-field-poster.jpg">
+<link rel="stylesheet" href="css/contact-form.css?v=1">
 </head>
 
 <body>
@@ -299,22 +300,20 @@ document.documentElement.classList.add('js');
 <!-- ============================== 05 · CONTACT ============================ -->
 <section class="section env contact" id="access" data-env="white">
   <div class="shell contact__layout">
-    <div class="contact__visual">
-      <img class="contact__logo" src="assets/contact-welcome-alpha.png" alt="PRIME-CAE logo" width="1920" height="1080" loading="lazy">
-    </div>
     <div class="contact__copy">
       <span class="t-meta">Contact</span>
       <h2 class="t-h2">Let's build <span class="grad">what's next</span></h2>
-      <div class="contact__channels">
-        <div class="contact__channel">
-          <h3>Technical &amp; Product Inquiries</h3>
-          <a class="contact__mail" href="mailto:info@prime-cae.com">info@prime-cae.com</a>
+      <form class="contact-form" data-contact-form>
+        <div class="contact-form__row">
+          <label>Full name <input name="name" autocomplete="name" maxlength="120" required></label>
+          <label>Email address <input name="email" type="email" autocomplete="email" maxlength="254" required></label>
         </div>
-        <div class="contact__channel">
-          <h3>Corporate &amp; Business Inquiries</h3>
-          <a class="contact__mail" href="mailto:info@axiophys.com">info@axiophys.com</a>
-        </div>
-      </div>
+        <label>Organization <span class="contact-form__optional">(optional)</span><input name="organization" autocomplete="organization" maxlength="120"></label>
+        <label>Inquiry type <select name="inquiry" required><option value="technical">Technical &amp; Product Inquiries</option><option value="corporate">Corporate &amp; Business Inquiries</option></select></label>
+        <label>Message <textarea name="message" rows="5" minlength="10" maxlength="5000" required></textarea></label>
+        <div class="contact-form__trap" aria-hidden="true"><label>Leave this field empty <input name="website" tabindex="-1" autocomplete="off"></label></div>
+        <div class="contact-form__actions"><button type="submit">Send message</button><p class="contact-form__status" role="status" aria-live="polite"></p></div>
+      </form>
     </div>
   </div>
 </section>
@@ -329,11 +328,12 @@ document.documentElement.classList.add('js');
     <nav class="foot__links" aria-label="Footer">
       <a href="#layer">Platform</a>
       <a href="#products">Products</a>
-      <a href="mailto:info@prime-cae.com">info@prime-cae.com</a>
+      <a href="#access">Contact Us</a>
     </nav>
     <span class="t-micro">© <span id="year">2026</span> PRIME-CAE</span>
   </div>
 </footer>
+<script src="js/contact.js?v=1" defer></script>
 </main>
 
 <script src="js/prime.bundle.js?v=mobile-menu-right-1" defer></script>
