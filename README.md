@@ -179,7 +179,7 @@ contact — and one engineering object runs through all of them.
 
 ## Contact
 
-The section collects a sender's name, email address, optional organization,
+The section collects a sender's name, email address, organization,
 inquiry type, and message. A server endpoint routes technical inquiries to
 PRIME-CAE and corporate inquiries to AXIOPHYS. Recipient addresses stay in
 the server configuration and are absent from the public site source.

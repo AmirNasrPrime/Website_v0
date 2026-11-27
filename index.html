@@ -69,7 +69,7 @@ addEventListener('pageshow', function () { scrollTo({ top: 0, left: 0, behavior:
 <link rel="stylesheet" href="css/mobile.css?v=mobile-menu-right-1">
 
 <link rel="preload" as="image" href="media/hero-field-poster.jpg">
-<link rel="stylesheet" href="css/contact-form.css?v=1">
+<link rel="stylesheet" href="css/contact-form.css?v=2">
 </head>
 
 <body>
@@ -308,9 +308,11 @@ document.documentElement.classList.add('js');
           <label>Full name <input name="name" autocomplete="name" maxlength="120" required></label>
           <label>Email address <input name="email" type="email" autocomplete="email" maxlength="254" required></label>
         </div>
-        <label>Organization <span class="contact-form__optional">(optional)</span><input name="organization" autocomplete="organization" maxlength="120"></label>
-        <label>Inquiry type <select name="inquiry" required><option value="technical">Technical &amp; Product Inquiries</option><option value="corporate">Corporate &amp; Business Inquiries</option></select></label>
-        <label>Message <textarea name="message" rows="5" minlength="10" maxlength="5000" required></textarea></label>
+        <div class="contact-form__row">
+          <label>Organization <input name="organization" autocomplete="organization" maxlength="120" required></label>
+          <label>Inquiry type <select name="inquiry" required><option value="technical">Technical &amp; Product Inquiries</option><option value="corporate">Corporate &amp; Business Inquiries</option></select></label>
+        </div>
+        <label>Message <textarea name="message" rows="12" minlength="10" maxlength="5000" required></textarea></label>
         <div class="contact-form__trap" aria-hidden="true"><label>Leave this field empty <input name="website" tabindex="-1" autocomplete="off"></label></div>
         <div class="contact-form__actions"><button type="submit">Send message</button><p class="contact-form__status" role="status" aria-live="polite"></p></div>
       </form>
