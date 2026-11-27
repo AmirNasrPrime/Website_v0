@@ -5,6 +5,7 @@
 .contact-form :is(input,select){min-height:clamp(36px,5svh,46px)}
 .contact-form textarea{height:clamp(70px,calc(100dvh - var(--nav-h) - 310px),520px);min-height:70px;resize:vertical}
 .contact-form :is(input,select,textarea):focus-visible{outline:2px solid #368ad1;outline-offset:2px;border-color:#368ad1}
+.contact-form select:invalid{color:#65788a}
 .contact-form__trap{position:absolute!important;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
 .contact-form__actions{display:flex;align-items:center;flex-wrap:wrap;gap:6px 12px}
 .contact-form button{min-height:clamp(38px,5svh,46px);padding:8px 18px;border:0;border-radius:8px;background:#12325b;color:#fff;font:600 .9rem/1.2 var(--font-sans);cursor:pointer}
@@ -15,11 +16,13 @@
 .contact-form__status--error{color:#a72c36}
 .contact-form__status:empty{display:none}
 #access.contact{block-size:auto;min-block-size:calc(100svh - var(--nav-h));min-block-size:calc(100dvh - var(--nav-h));padding-block:clamp(10px,2.5svh,28px);overflow:visible;display:block}
-.contact .contact__layout,#access .story-layout{display:block;width:100%;height:auto;margin-inline:auto}
-.contact .contact__copy,#access .story-copy{width:100%;height:auto;text-align:left}
-#access .story-copy>div:last-child{display:block}
+.contact .contact__layout,#access .story-layout{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2fr);grid-template-areas:none;align-items:start;gap:clamp(24px,3vw,58px);width:100%;height:auto;margin-inline:auto}
+#access .contact__copy{width:100%;height:auto;text-align:left;order:0}
+#access .contact__guidance{margin:clamp(12px,2svh,22px) 0 0;max-width:34ch;color:var(--env-text-2);font:400 clamp(13px,1.3vw,17px)/1.55 var(--font-sans)}
+#access .contact__guidance strong{color:var(--env-text);font-weight:600}
+#access .contact-form{margin-top:0}
 #access .t-meta{margin-bottom:3px}
 #access .t-h2{font-size:clamp(27px,min(4vw,6svh),62px);line-height:1.08;margin:0}
 .contact-form :is(input,select,textarea){margin-top:4px;padding:7px 11px;font-size:clamp(13px,1.8svh,16px)}
-@media(max-width:760px){.contact-form__row{gap:8px}.contact-form :is(input,select){min-height:38px}}
-@media(max-height:540px){#access.contact{padding-block:8px}.contact-form{gap:4px;margin-top:6px}.contact-form :is(input,select){min-height:32px}.contact-form button{min-height:34px}#access .t-h2{font-size:clamp(22px,5svh,32px)}}
+@media(max-width:760px){.contact .contact__layout,#access .story-layout{grid-template-columns:minmax(0,1fr);gap:clamp(8px,1.4svh,16px)}.contact-form__row{gap:8px}.contact-form :is(input,select){min-height:38px}#access .contact-form textarea{height:clamp(70px,calc(100dvh - var(--nav-h) - 410px),480px)}}
+@media(max-height:540px){#access.contact{padding-block:6px}.contact-form{gap:3px;margin-top:0}.contact-form :is(input,select){min-height:30px}.contact-form button{min-height:32px}#access .t-h2{font-size:clamp(22px,5svh,30px)}#access .contact__guidance{font-size:11px;line-height:1.3;margin-top:5px}#access .contact-form textarea{height:60px;min-height:60px}}
