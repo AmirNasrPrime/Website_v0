@@ -65,7 +65,7 @@ addEventListener('pageshow', function () { scrollTo({ top: 0, left: 0, behavior:
 <link rel="stylesheet" href="css/layout.css">
 <link rel="stylesheet" href="css/components.css">
 <link rel="stylesheet" href="css/hero.css?v=menu-full-width-1">
-<link rel="stylesheet" href="css/sections.css?v=mission-titles-1">
+<link rel="stylesheet" href="css/sections.css?v=mission-story-1">
 <link rel="stylesheet" href="css/mobile.css?v=four-missions-1">
 
 <link rel="preload" as="image" href="media/hero-field-poster.jpg">
@@ -258,40 +258,33 @@ document.documentElement.classList.add('js');
 <div class="seam" data-from="ice" data-to="sky" aria-hidden="true"></div>
 
 <!-- ========================== 04 · PRIME-CAE PRODUCTS ===================== -->
-<section class="section env" id="products" data-env="sky" data-story>
-  <div class="shell story-layout">
-    <div class="story-copy">
+<section class="section env mission-section" id="products" data-env="sky" data-story>
+  <div class="shell mission-stage">
+    <div class="story-copy mission-intro">
       <p class="story-label t-meta">Our four missions</p>
       <h2 class="t-h2">Optimizing <span class="grad">what matters in engineering.</span></h2>
       <p class="t-lede">We are building PRIME-CAE to improve how engineers use computing resources,
         run their workflows, manage computation time and cost, and explore better designs.</p>
     </div>
-
-    <div class="fam story-visual">
-      <article class="fam__i" data-story-card>
-        <div class="fam__vis mission-art mission-art--resources" aria-hidden="true"><img src="assets/missions/resources.jpg" alt="" width="1672" height="941" loading="lazy"></div>
-        <h3 class="fam__title">Computational resources</h3>
-        <p class="t-small">Share and govern computing capacity so engineering teams can use it more efficiently.</p>
+    <div class="mission-slides">
+      <article class="mission-slide" data-mission-slide>
+        <figure class="mission-slide__art"><img src="assets/missions/resources.jpg" alt="Conceptual illustration of shared engineering computation" width="1672" height="941" loading="lazy"><figcaption class="mission-slide__copy"><h3 class="fam__title">Computational resources</h3>
+          <p class="t-small">Share and govern computing capacity so engineering teams can use it more efficiently.</p></figcaption></figure>
       </article>
-
-      <article class="fam__i" data-story-card>
-        <div class="fam__vis mission-art mission-art--workflows" aria-hidden="true"><img src="assets/missions/workflows.jpg" alt="" width="1672" height="941" loading="lazy"></div>
-        <h3 class="fam__title">Engineering workflows</h3>
-        <p class="t-small">Reduce repetitive setup, execution and documentation work under engineer oversight.</p>
+      <article class="mission-slide" data-mission-slide>
+        <figure class="mission-slide__art"><img src="assets/missions/workflows.jpg" alt="Conceptual progression from engineering model to simulation result" width="1672" height="941" loading="lazy"><figcaption class="mission-slide__copy"><h3 class="fam__title">Engineering workflows</h3>
+          <p class="t-small">Reduce repetitive setup, execution and documentation work under engineer oversight.</p></figcaption></figure>
       </article>
-
-      <article class="fam__i" data-story-card>
-        <div class="fam__vis mission-art mission-art--time-cost" aria-hidden="true"><img src="assets/missions/time-cost.jpg" alt="" width="1672" height="941" loading="lazy"></div>
-        <h3 class="fam__title">Computational time and cost</h3>
-        <p class="t-small">Pursue faster, more economical verified simulations and Physics AI data generation.</p>
+      <article class="mission-slide" data-mission-slide>
+        <figure class="mission-slide__art"><img src="assets/missions/time-cost.jpg" alt="Conceptual numerical computation and resource optimization" width="1672" height="941" loading="lazy"><figcaption class="mission-slide__copy"><h3 class="fam__title">Computational time and cost</h3>
+          <p class="t-small">Pursue faster, more economical verified simulations and Physics AI data generation.</p></figcaption></figure>
       </article>
-
-      <article class="fam__i" data-story-card>
-        <div class="fam__vis mission-art mission-art--design" aria-hidden="true"><img src="assets/missions/design.jpg" alt="" width="1672" height="941" loading="lazy"></div>
-        <h3 class="fam__title">Design</h3>
-        <p class="t-small">Explore broader design spaces and evaluate better performing structures and systems.</p>
+      <article class="mission-slide" data-mission-slide>
+        <figure class="mission-slide__art"><img src="assets/missions/design.jpg" alt="Conceptual topology-optimized engineering design" width="1672" height="941" loading="lazy"><figcaption class="mission-slide__copy"><h3 class="fam__title">Design</h3>
+          <p class="t-small">Explore broader design spaces and evaluate better performing structures and systems.</p></figcaption></figure>
       </article>
     </div>
+    <div class="mission-progress" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
   </div>
 </section>
 
@@ -339,7 +332,7 @@ document.documentElement.classList.add('js');
 <script src="js/contact.js?v=1" defer></script>
 </main>
 
-<script src="js/prime.bundle.js?v=mobile-menu-right-1" defer></script>
+<script src="js/prime.bundle.js?v=mission-story-1" defer></script>
 <noscript>
   <style>.hero__poster{opacity:1!important}</style>
 </noscript>

@@ -224,7 +224,7 @@ html:not(.js) .about__views{display:none}
 }
 
 /* =========================================================================
-   03 · PRIME-CAE PRODUCTS — the supplied wordmarks carry the identity
+   PRIME-CAE missions
    ========================================================================= */
 .fam{display:grid;gap:clamp(12px,1.35vw,22px);grid-template-columns:repeat(2,minmax(0,1fr))}
 .fam__i{display:grid;gap:10px;align-content:start;
@@ -240,11 +240,62 @@ html:not(.js) .about__views{display:none}
 .fam__vis canvas{width:100%;height:100%}
 .fam__logo{width:min(190px,88%);height:auto;max-width:100%}
 .fam__i p{max-width:none;width:100%}
-.fam__title{min-height:1.35em;font-family:var(--font-sans);font-size:1.05rem;
-  font-weight:700;line-height:1.12;letter-spacing:-.045em;text-transform:uppercase;
-  white-space:nowrap;color:#17345d}
+.fam__title{font-family:var(--font-sans);font-size:clamp(1.1rem,1.8vw,1.5rem);
+  font-weight:500;line-height:1.2;letter-spacing:-.036em;
+  white-space:nowrap;color:#0b2554}
 .mission-art{aspect-ratio:1672/941;max-height:none;background:#071c31}
 .mission-art img{display:block;width:100%;height:100%;object-fit:cover}
+.mission-stage{display:grid;gap:clamp(28px,4vw,56px)}
+.mission-slides{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(14px,1.5vw,24px)}
+.mission-slide{display:block}
+.mission-slide__copy{display:block;padding:18px 22px 20px}
+.mission-slide__copy .t-small{max-width:none;width:100%;margin-top:12px}
+.mission-slide__art{margin:0;overflow:hidden;border-radius:var(--r-3);
+  background:#fff;box-shadow:0 14px 42px rgba(15,57,87,.10)}
+.mission-slide__art img{display:block;width:100%;height:auto;aspect-ratio:1672/941;
+  object-fit:cover}
+.mission-progress{display:none}
+@media (min-width:1000px){
+  #products .story-copy{text-align:left}
+  #products .story-copy :is(h2,.t-lede){margin-inline:0}
+  #products .story-copy h2{max-width:14ch}
+  #products .story-copy .t-lede{max-width:38ch}
+  .mission-story-ready #products{height:410svh;padding:0}
+  .mission-story-ready #products .mission-stage{position:sticky;top:var(--nav-h);
+    height:calc(100svh - var(--nav-h));display:block}
+  .mission-story-ready #products .mission-intro{position:absolute;left:0;top:50%;
+    width:42%;z-index:1;transform:translateY(-50%)}
+  .mission-story-ready #products .mission-slides{position:absolute;inset:0;display:block}
+  .mission-story-ready #products .mission-slide{position:absolute;inset:0;display:block;
+    padding:0;border:0;background:none;opacity:0;visibility:hidden}
+  .mission-story-ready #products .mission-slide.is-active{opacity:1;visibility:visible}
+  .mission-story-animate #products .mission-slide{transition:opacity .6s ease}
+  .mission-story-ready #products .mission-slide__copy{position:static;width:100%;padding:20px 24px 24px}
+  .mission-story-ready #products .mission-slide__copy .t-small{max-width:none;font-size:var(--fs-lede);line-height:1.5}
+  .mission-story-ready #products .mission-slide__art{position:absolute;right:0;top:50%;
+    width:min(56%,720px);
+    transform:translateY(calc(-50% + 22px)) scale(.985)}
+  .mission-story-ready #products .mission-slide.is-active .mission-slide__art{transform:translateY(-50%) scale(1)}
+  .mission-story-animate #products .mission-slide__art{transition:transform .7s var(--ease-standard)}
+  .mission-story-ready #products .mission-progress{position:absolute;left:0;bottom:clamp(28px,5svh,50px);
+    display:flex;gap:8px;width:42%}
+  .mission-story-ready #products .mission-progress i{display:block;flex:1;height:3px;border-radius:3px;
+    background:rgba(20,89,136,.25);transition:background .4s ease}
+  .mission-story-ready #products .mission-progress i.is-active{background:#087cc6}
+}
+@media (max-width:999px){.mission-slides{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:719px){.fam__title{font-size:clamp(13px,3.5vw,18px)}}
+@media (prefers-reduced-motion:reduce){
+  .mission-story-ready #products{height:auto;padding-block:clamp(28px,5svh,72px)}
+  .mission-story-ready #products .mission-stage{position:static;height:auto;display:grid}
+  .mission-story-ready #products .mission-intro,.mission-story-ready #products .mission-slides,
+  .mission-story-ready #products .mission-slide,.mission-story-ready #products .mission-slide__copy,
+  .mission-story-ready #products .mission-slide__art{position:static;inset:auto;width:auto;transform:none;
+    visibility:visible;opacity:1}
+  .mission-story-ready #products .mission-slides{display:grid}
+  .mission-story-ready #products .mission-slide{display:block;padding:0;border:0;background:none}
+  .mission-story-ready #products .mission-progress{display:none}
+}
 
 /* =============================================================== FOOTER = */
 .foot{padding-block:var(--s-7) var(--s-6);border-top:var(--lw-1) solid var(--env-line)}

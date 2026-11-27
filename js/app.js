@@ -10,6 +10,7 @@ import { initStory } from './sections/story.js';
 import { initAbout } from './sections/about.js';
 import { initLayer } from './sections/layer.js';
 import { initProducts } from './sections/products.js';
+import { initMissions } from './sections/missions.js';
 import { initAccess } from './sections/access.js';
 
 const failed = [];
@@ -27,6 +28,7 @@ function boot() {
   safeInit('about', initAbout);
   safeInit('layer', initLayer);
   safeInit('products', initProducts);
+  safeInit('missions', initMissions);
   safeInit('contact', initAccess);
 
   document.documentElement.classList.add('prime-ready');
