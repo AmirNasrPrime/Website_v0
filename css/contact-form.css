@@ -1,6 +1,7 @@
 .contact-form{width:100%;max-width:none;display:grid;gap:clamp(5px,1.1svh,10px);margin-top:clamp(7px,1.4svh,15px);text-align:left}
 .contact-form__row{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(8px,1.5vw,18px)}
-.contact-form label{display:block;min-width:0;font:600 clamp(12px,1.6svh,15px)/1.25 var(--font-sans);color:var(--env-text)}
+.contact-form label{display:block;min-width:0;font:600 clamp(14px,1.9svh,17px)/1.25 var(--font-sans);color:var(--env-text)}
+.contact-form__required{font-size:.8em;font-weight:400;color:var(--env-text-3)}
 .contact-form :is(input,select,textarea){display:block;width:100%;min-width:0;margin-top:7px;padding:12px 13px;border:1px solid var(--env-line-strong);border-radius:8px;background:#fff;color:#14283b;font:400 1rem/1.45 var(--font-sans);box-shadow:0 2px 10px rgba(15,43,70,.04)}
 .contact-form :is(input,select){min-height:clamp(36px,5svh,46px)}
 .contact-form textarea{height:clamp(70px,calc(100dvh - var(--nav-h) - var(--contact-message-reserve)),600px);min-height:70px;resize:vertical}
@@ -26,4 +27,4 @@
 #access .t-h2{font-size:clamp(27px,min(4vw,6svh),62px);line-height:1.08;margin:0}
 .contact-form :is(input,select,textarea){margin-top:4px;padding:7px 11px;font-size:clamp(13px,1.8svh,16px)}
 @media(max-width:760px){#access.contact,#access.story-section{--contact-message-reserve:410px}.contact .contact__layout,#access .story-layout{grid-template-columns:minmax(0,1fr);gap:clamp(8px,1.4svh,16px)}.contact-form__row{gap:8px}.contact-form :is(input,select){min-height:38px}}
-@media(max-height:540px){#access.contact{padding-block:6px}.contact-form{gap:3px;margin-top:0}.contact-form :is(input,select){min-height:30px}.contact-form button{min-height:32px}#access .t-h2{font-size:clamp(22px,5svh,30px)}#access .contact__guidance{font-size:11px;line-height:1.3;margin-top:5px}#access .contact-form textarea{height:60px;min-height:60px}}
+@media(max-height:540px){#access.contact{padding-block:6px}.contact-form label{font-size:13px}.contact-form{gap:3px;margin-top:0}.contact-form :is(input,select){min-height:30px}.contact-form button{min-height:32px}#access .t-h2{font-size:clamp(22px,5svh,30px)}#access .contact__guidance{font-size:11px;line-height:1.3;margin-top:5px}#access .contact-form textarea{height:50px;min-height:50px}}

@@ -69,7 +69,7 @@ addEventListener('pageshow', function () { scrollTo({ top: 0, left: 0, behavior:
 <link rel="stylesheet" href="css/mobile.css?v=mobile-menu-right-1">
 
 <link rel="preload" as="image" href="media/hero-field-poster.jpg">
-<link rel="stylesheet" href="css/contact-form.css?v=6">
+<link rel="stylesheet" href="css/contact-form.css?v=7">
 </head>
 
 <body>
@@ -307,14 +307,14 @@ document.documentElement.classList.add('js');
     </div>
       <form class="contact-form" data-contact-form>
         <div class="contact-form__row">
-          <label>Full name <input name="name" autocomplete="name" maxlength="120" required></label>
-          <label>Email address <input name="email" type="email" autocomplete="email" maxlength="254" required></label>
+          <label>Full name <span class="contact-form__required">(required)</span><input name="name" autocomplete="name" maxlength="120" required></label>
+          <label>Email address <span class="contact-form__required">(required)</span><input name="email" type="email" autocomplete="email" maxlength="254" required></label>
         </div>
         <div class="contact-form__row">
-          <label>Organization <input name="organization" autocomplete="organization" maxlength="120" required></label>
-          <label>Inquiry type <select name="inquiry" required><option value="" selected disabled>Please select</option><option value="technical">Technical &amp; Product Inquiries</option><option value="corporate">Corporate &amp; Business Inquiries</option></select></label>
+          <label>Organization <span class="contact-form__required">(required)</span><input name="organization" autocomplete="organization" maxlength="120" required></label>
+          <label>Inquiry type <span class="contact-form__required">(required)</span><select name="inquiry" required><option value="" selected disabled>Please select</option><option value="technical">Technical &amp; Product Inquiries</option><option value="corporate">Corporate &amp; Business Inquiries</option></select></label>
         </div>
-        <label class="contact-form__message">Message <textarea name="message" rows="2" minlength="10" maxlength="5000" required></textarea></label>
+        <label class="contact-form__message">Message <span class="contact-form__required">(required)</span><textarea name="message" rows="2" minlength="10" maxlength="5000" required></textarea></label>
         <div class="contact-form__trap" aria-hidden="true"><label>Leave this field empty <input name="website" tabindex="-1" autocomplete="off"></label></div>
         <div class="contact-form__actions"><button type="submit">Send message</button><p class="contact-form__status" role="status" aria-live="polite"></p></div>
       </form>
