@@ -16,9 +16,11 @@ let categoryFrame = 0;
 
 function measureHeader() {
   document.documentElement.style.setProperty('--gazette-nav-h', `${Math.ceil(header.getBoundingClientRect().height)}px`);
+  document.documentElement.style.setProperty('--gazette-category-h', `${Math.ceil(categoryBar.getBoundingClientRect().height)}px`);
 }
 measureHeader();
 new ResizeObserver(measureHeader).observe(header);
+new ResizeObserver(measureHeader).observe(categoryBar);
 
 function selectCategory() {
   const category = location.hash.slice(1);
