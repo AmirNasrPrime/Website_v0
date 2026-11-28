@@ -1,6 +1,5 @@
 .gazette-page,.news-page{background:#f4f7fa;color:#193249}
 .gazette-page{position:relative}
-.news-page .nav{background:#030a14}
 .gazette-page .nav__a[aria-current="page"],.news-page .nav__a[aria-current="page"]{color:#78cfff}
 .gazette-hero{padding:var(--gazette-nav-h,var(--nav-h)) 0 0;background:#030a14}
 .gazette-hero__frame{position:relative;width:100%;height:50vw;isolation:isolate;overflow:hidden}
