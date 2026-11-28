@@ -7,9 +7,12 @@ const toggle = document.querySelector('[data-gazette-toggle]');
 const motion = matchMedia('(prefers-reduced-motion: reduce)');
 const tabs = [...document.querySelectorAll('[data-gazette-tab]')];
 const panels = [...document.querySelectorAll('[data-gazette-panel]')];
+const categoryBar = document.querySelector('.gazette-categories');
 const categories = new Set(['demo', 'papers', 'manuals']);
 let inView = true;
 let userPaused = false;
+let lastScroll = Math.max(0, scrollY);
+let categoryFrame = 0;
 
 function measureHeader() {
   document.documentElement.style.setProperty('--gazette-nav-h', `${Math.ceil(header.getBoundingClientRect().height)}px`);
@@ -32,6 +35,26 @@ tabs.forEach(tab => tab.addEventListener('click', event => {
 }));
 window.addEventListener('hashchange', selectCategory);
 selectCategory();
+
+function updateCategoryBar() {
+  categoryFrame = 0;
+  const y = Math.max(0, scrollY);
+  const headerHeight = header.getBoundingClientRect().height;
+  const barAtTop = categoryBar.getBoundingClientRect().top <= headerHeight + 1;
+  if (!barAtTop || y < 20 || y < lastScroll - 3) {
+    categoryBar.classList.remove('gazette-categories--hidden');
+  } else if (y > lastScroll + 3) {
+    categoryBar.classList.add('gazette-categories--hidden');
+  }
+  lastScroll = y;
+}
+window.addEventListener('scroll', () => {
+  if (!categoryFrame) categoryFrame = requestAnimationFrame(updateCategoryBar);
+}, { passive: true });
+window.addEventListener('pageshow', () => {
+  lastScroll = Math.max(0, scrollY);
+  updateCategoryBar();
+});
 
 function updatePlaybackLabel() {
   const playing = !film.paused;
