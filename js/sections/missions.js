@@ -5,6 +5,7 @@ export function initMissions() {
   const slides = [...section.querySelectorAll('[data-mission-slide]')];
   const progress = [...section.querySelectorAll('.mission-progress i')];
   const images = [...section.querySelectorAll('.mission-slide__art img')];
+  const visualTitle = section.querySelector('.mission-visual__title');
   const desktop = matchMedia('(min-width:1000px) and (min-height:600px)');
   const reduced = matchMedia('(prefers-reduced-motion: reduce)');
   let frame = 0;
@@ -26,6 +27,7 @@ export function initMissions() {
     const animated = desktop.matches && !reduced.matches && slides.length > 1;
     document.documentElement.classList.toggle('mission-story-ready', animated);
     if (!animated) {
+      visualTitle?.style.removeProperty('opacity');
       const revealStack = !desktop.matches && !reduced.matches && 'IntersectionObserver' in window;
       document.documentElement.classList.toggle('mission-stack-reveal', revealStack);
       if (revealStack && !revealObserver) {
@@ -64,6 +66,7 @@ export function initMissions() {
     // the first figure, then move through the remaining figures in short steps.
     const timeline = position * (slides.length - .3);
     const firstReveal = smooth(clamp((timeline - .1) / .45));
+    if (visualTitle) visualTitle.style.opacity = String(smooth(clamp((timeline - .02) / .28)));
     const phase = Math.max(0, timeline - .55);
     const current = Math.min(slides.length - 1, Math.floor(phase));
     // Scroll position controls the crossfade directly. There is no timed fade

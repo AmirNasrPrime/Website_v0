@@ -58,7 +58,7 @@
 <link rel="stylesheet" href="css/layout.css">
 <link rel="stylesheet" href="css/components.css">
 <link rel="stylesheet" href="css/hero.css?v=menu-full-width-1">
-<link rel="stylesheet" href="css/sections.css?v=mission-story-2">
+<link rel="stylesheet" href="css/sections.css?v=mission-story-3">
 <link rel="stylesheet" href="css/mobile.css?v=four-missions-1">
 
 <link rel="preload" as="image" href="media/hero-field-poster.jpg">
@@ -93,10 +93,10 @@ document.documentElement.classList.add('js');
 
     <nav class="nav__links" id="navLinks" aria-label="Primary">
       <a class="nav__a" href="#about">About</a>
-      <a class="nav__a" href="#layer">Platform</a>
-      <a class="nav__a" href="#products">Missions</a>
+      <a class="nav__a" href="#layer">PRIME-CAE</a>
+      <a class="nav__a" href="research.html">Research</a>
       <a class="nav__a" href="news.html">News</a>
-      <a class="nav__a" href="#access">Contact Us</a>
+      <a class="nav__a" href="#access">Contact</a>
       <span class="nav__ind" id="navInd" aria-hidden="true"></span>
     </nav>
 
@@ -111,10 +111,10 @@ document.documentElement.classList.add('js');
 
 <div class="menu" id="menu" data-env="navy">
   <a href="#about">About</a>
-  <a href="#layer">Platform</a>
-  <a href="#products">Missions</a>
+  <a href="#layer">PRIME-CAE</a>
+  <a href="research.html">Research</a>
   <a href="news.html">News</a>
-  <a href="#access">Contact Us</a>
+  <a href="#access">Contact</a>
 </div>
 
 <main id="top">
@@ -259,7 +259,9 @@ document.documentElement.classList.add('js');
       <p class="t-lede">We are building PRIME-CAE to improve how engineers use computing resources,
         run their workflows, manage computation time and cost, and explore better designs.</p>
     </div>
-    <div class="mission-slides">
+    <div class="mission-visual">
+      <p class="mission-visual__title t-meta">What we optimize?</p>
+      <div class="mission-slides">
       <article class="mission-slide" data-mission-slide>
         <figure class="mission-slide__art"><img src="assets/missions/resources.jpg" alt="Conceptual illustration of shared engineering computation" width="1672" height="941" loading="lazy"><figcaption class="mission-slide__copy"><h3 class="fam__title">Computational resources</h3>
           <p class="t-small">Share and govern computing capacity so engineering teams can use it more efficiently.</p></figcaption></figure>
@@ -276,6 +278,7 @@ document.documentElement.classList.add('js');
         <figure class="mission-slide__art"><img src="assets/missions/design.jpg" alt="Conceptual topology-optimized engineering design" width="1672" height="941" loading="lazy"><figcaption class="mission-slide__copy"><h3 class="fam__title">Design</h3>
           <p class="t-small">Explore broader design spaces and evaluate better performing structures and systems.</p></figcaption></figure>
       </article>
+      </div>
     </div>
     <div class="mission-progress" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
   </div>
@@ -314,18 +317,14 @@ document.documentElement.classList.add('js');
       <img class="foot__logo" src="assets/prime-cae-lockup.png" alt="PRIME-CAE" width="285" height="62">
       <p class="t-micro" style="margin-top:var(--s-4)">AI-Native Computer-Aided Engineering</p>
     </div>
-    <nav class="foot__links" aria-label="Footer">
-      <a href="#layer">Platform</a>
-      <a href="#products">Missions</a>
-      <a href="#access">Contact Us</a>
-    </nav>
+    <nav class="foot__links" aria-label="Footer"><a href="index.html#about">About</a> <a href="index.html#layer">PRIME-CAE</a> <a href="research.html">Research</a> <a href="news.html">News</a> <a href="index.html#access">Contact</a></nav>
     <span class="t-micro">© <span id="year">2026</span> PRIME-CAE</span>
   </div>
 </footer>
 <script src="js/contact.js?v=1" defer></script>
 </main>
 
-<script src="js/prime.bundle.js?v=mission-story-2" defer></script>
+<script src="js/prime.bundle.js?v=mission-story-3" defer></script>
 <noscript>
   <style>.hero__poster{opacity:1!important}</style>
 </noscript>
