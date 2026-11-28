@@ -255,35 +255,38 @@ html:not(.js) .about__views{display:none}
 .mission-slide__art img{display:block;width:100%;height:auto;aspect-ratio:1672/941;
   object-fit:cover}
 .mission-progress{display:none}
-@media (min-width:1000px){
+#products.mission-section{scroll-margin-top:0}
+@media (min-width:1000px) and (min-height:600px){
   #products .story-copy{text-align:left}
   #products .story-copy :is(h2,.t-lede){margin-inline:0}
   #products .story-copy h2{max-width:14ch}
   #products .story-copy .t-lede{max-width:38ch}
-  .mission-story-ready #products{height:410svh;padding:0}
-  .mission-story-ready #products .mission-stage{position:sticky;top:var(--nav-h);
-    height:calc(100svh - var(--nav-h));display:block}
+  .mission-story-ready #products{height:260svh;padding:0}
+  .mission-story-ready #products .mission-stage{position:sticky;top:0;
+    height:100svh;display:block}
   .mission-story-ready #products .mission-intro{position:absolute;left:0;top:50%;
     width:42%;z-index:1;transform:translateY(-50%)}
   .mission-story-ready #products .mission-slides{position:absolute;inset:0;display:block}
   .mission-story-ready #products .mission-slide{position:absolute;inset:0;display:block;
     padding:0;border:0;background:none;opacity:0;visibility:hidden}
-  .mission-story-ready #products .mission-slide.is-active{opacity:1;visibility:visible}
-  .mission-story-animate #products .mission-slide{transition:opacity .6s ease}
   .mission-story-ready #products .mission-slide__copy{position:static;width:100%;padding:20px 24px 24px}
   .mission-story-ready #products .mission-slide__copy .t-small{max-width:none;font-size:var(--fs-lede);line-height:1.5}
   .mission-story-ready #products .mission-slide__art{position:absolute;right:0;top:50%;
-    width:min(56%,720px);
-    transform:translateY(calc(-50% + 22px)) scale(.985)}
-  .mission-story-ready #products .mission-slide.is-active .mission-slide__art{transform:translateY(-50%) scale(1)}
-  .mission-story-animate #products .mission-slide__art{transition:transform .7s var(--ease-standard)}
+    width:min(58%,760px,calc(160svh - 480px));
+    transform:translateY(-50%)}
   .mission-story-ready #products .mission-progress{position:absolute;left:0;bottom:clamp(28px,5svh,50px);
     display:flex;gap:8px;width:42%}
   .mission-story-ready #products .mission-progress i{display:block;flex:1;height:3px;border-radius:3px;
-    background:rgba(20,89,136,.25);transition:background .4s ease}
-  .mission-story-ready #products .mission-progress i.is-active{background:#087cc6}
+    background:rgba(20,89,136,.25);overflow:hidden}
+  .mission-story-ready #products .mission-progress i::after{content:"";display:block;width:100%;height:100%;
+    background:#087cc6;transform:scaleX(var(--mission-fill,0));transform-origin:left}
 }
-@media (max-width:999px){.mission-slides{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:999px),(max-height:599px){.mission-slides{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:999px) and (prefers-reduced-motion:no-preference){
+  .mission-stack-reveal #products .mission-slide{opacity:0;transform:translateY(14px);
+    transition:opacity .4s ease-out,transform .5s var(--ease-standard)}
+  .mission-stack-reveal #products .mission-slide.is-revealed{opacity:1;transform:none}
+}
 @media (max-width:719px){.fam__title{font-size:clamp(13px,3.5vw,18px)}}
 @media (prefers-reduced-motion:reduce){
   .mission-story-ready #products{height:auto;padding-block:clamp(28px,5svh,72px)}
