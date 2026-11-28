@@ -1,5 +1,7 @@
 .contact-form{width:100%;max-width:none;display:grid;gap:clamp(5px,1.1svh,10px);margin-top:clamp(7px,1.4svh,15px);text-align:left}
 .contact-form__row{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(8px,1.5vw,18px)}
+.contact-form .contact-form__row label{display:flex;flex-direction:column;gap:4px}
+.contact-form .contact-form__row :is(input,select){margin-top:auto}
 .contact-form label{display:block;min-width:0;font:600 clamp(14px,1.9svh,17px)/1.25 var(--font-sans);color:var(--env-text)}
 .contact-form__required{font-size:.8em;font-weight:400;color:var(--env-text-3)}
 .contact-form :is(input,select,textarea){display:block;width:100%;min-width:0;margin-top:7px;padding:12px 13px;border:1px solid var(--env-line-strong);border-radius:8px;background:#fff;color:#14283b;font:400 1rem/1.45 var(--font-sans);box-shadow:0 2px 10px rgba(15,43,70,.04)}
