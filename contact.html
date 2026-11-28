@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Contact | PRIME-CAE</title>
+<meta name="description" content="Contact PRIME-CAE about technical and product questions or corporate and business inquiries.">
+<link rel="canonical" href="https://www.prime-cae.com/contact.html">
+<meta name="theme-color" content="#030a14">
+<meta property="og:title" content="Contact | PRIME-CAE">
+<meta property="og:description" content="Contact PRIME-CAE about technical and product questions or corporate and business inquiries.">
+<meta property="og:url" content="https://www.prime-cae.com/contact.html">
+<meta property="og:type" content="website">
+<link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16.png?v=2">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png?v=2">
+<link rel="icon" type="image/png" sizes="48x48" href="assets/favicon-48.png?v=2">
+<link rel="icon" type="image/png" sizes="192x192" href="assets/favicon-192.png?v=2">
+<link rel="apple-touch-icon" sizes="180x180" href="assets/favicon-180.png?v=2">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/tokens.css">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/layout.css">
+<link rel="stylesheet" href="css/components.css">
+<link rel="stylesheet" href="css/hero.css?v=hero-rail-1">
+<link rel="stylesheet" href="css/sections.css">
+<link rel="stylesheet" href="css/mobile.css?v=mobile-menu-right-1">
+<link rel="stylesheet" href="css/contact-form.css?v=7">
+<link rel="stylesheet" href="css/contact-page.css?v=1">
+</head>
+<body class="contact-page">
+<header class="nav" id="nav" data-env="navy">
+  <div class="progress" aria-hidden="true"><i id="progressBar"></i></div>
+  <div class="shell nav__in">
+    <a class="nav__brand" href="https://www.prime-cae.com/" aria-label="PRIME-CAE home">
+      <img class="nav__logo" src="assets/prime-cae-lockup.png" alt="PRIME-CAE" width="285" height="62">
+      <span class="nav__sub">AI-Native<br>Computer-Aided Engineering</span>
+    </a>
+    <div class="nav__partners">
+      <div class="nav__partner-logos">
+        <img class="nav__aws" src="assets/powered-by-aws.png" alt="Powered by AWS" width="200" height="72" decoding="async">
+        <div class="nav__inception">
+          <img src="assets/nvidia-wordmark-white.svg" alt="NVIDIA" width="164" height="30">
+          <span>Inception Program</span>
+        </div>
+      </div>
+    </div>
+
+    <nav class="nav__links" id="navLinks" aria-label="Primary">
+      <a class="nav__a" href="https://www.prime-cae.com/">Home</a>
+      <a class="nav__a" href="research.html">Research</a>
+      <a class="nav__a" href="news.html">News</a>
+      <a class="nav__a" href="contact.html" aria-current="page">Contact</a>
+      <span class="nav__ind" id="navInd" aria-hidden="true"></span>
+    </nav>
+
+    <div class="nav__act">
+      <button class="nav__icon nav__burger" id="burger" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="menu">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true">
+          <path d="M3 7h18M3 12h18M3 17h18"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+<div class="menu" id="menu" data-env="navy">
+  <a href="https://www.prime-cae.com/">Home</a>
+  <a href="index.html#about">About</a>
+  <a href="index.html#layer">PRIME-CAE</a>
+  <a href="research.html">Research</a>
+  <a href="news.html">News</a>
+  <a href="contact.html" aria-current="page">Contact</a>
+</div>
+<main id="top">
+<section class="section env contact" id="access" data-env="white">
+  <div class="shell contact__layout">
+    <div class="contact__copy">
+      <span class="t-meta">Contact</span>
+      <h1 class="t-h2">Let's build <span class="grad">what's next</span></h1>
+      <p class="contact__guidance">Choose <strong>Technical &amp; Product</strong> for product questions or engineering support. Choose <strong>Corporate &amp; Business</strong> for partnerships and general inquiries.</p>
+    </div>
+      <form class="contact-form" data-contact-form>
+        <div class="contact-form__row">
+          <label>Full name <span class="contact-form__required">(required)</span><input name="name" autocomplete="name" maxlength="120" required></label>
+          <label>Email address <span class="contact-form__required">(required)</span><input name="email" type="email" autocomplete="email" maxlength="254" required></label>
+        </div>
+        <div class="contact-form__row">
+          <label>Organization <span class="contact-form__required">(required)</span><input name="organization" autocomplete="organization" maxlength="120" required></label>
+          <label>Inquiry type <span class="contact-form__required">(required)</span><select name="inquiry" required><option value="" selected disabled>Please select</option><option value="technical">Technical &amp; Product Inquiries</option><option value="corporate">Corporate &amp; Business Inquiries</option></select></label>
+        </div>
+        <label class="contact-form__message">Message <span class="contact-form__required">(required)</span><textarea name="message" rows="2" minlength="10" maxlength="5000" required></textarea></label>
+        <div class="contact-form__trap" aria-hidden="true"><label>Leave this field empty <input name="website" tabindex="-1" autocomplete="off"></label></div>
+        <div class="contact-form__actions"><button type="submit">Send message</button><p class="contact-form__status" role="status" aria-live="polite"></p></div>
+      </form>
+  </div>
+</section>
+</main>
+<footer class="foot env" id="company" data-env="navy">
+  <div class="shell foot__in">
+    <div>
+      <img class="foot__logo" src="assets/prime-cae-lockup.png" alt="PRIME-CAE" width="285" height="62">
+      <p class="t-micro" style="margin-top:var(--s-4)">AI-Native Computer-Aided Engineering</p>
+    </div>
+    <nav class="foot__links" aria-label="Footer"><a href="index.html#about">About</a> <a href="index.html#layer">PRIME-CAE</a> <a href="research.html">Research</a> <a href="news.html">News</a> <a href="contact.html">Contact</a></nav>
+    <span class="t-micro">© <span id="year">2026</span> PRIME-CAE</span>
+  </div>
+</footer>
+<script type="module" src="js/site-page.js"></script>
+<script src="js/contact.js?v=1" defer></script>
+</body>
+</html>

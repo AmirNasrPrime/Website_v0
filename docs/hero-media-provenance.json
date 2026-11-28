@@ -1,0 +1,62 @@
+{
+  "status": "Existing project-owned computed result, not a new product-validation claim",
+  "geometry": "Undeformed stiffened tapered box support; optional postprocessor cutaway exposes actual internal frames",
+  "elements": 9380,
+  "stress_quantity": "Element-centroid maximum top/bottom von Mises stress, psi",
+  "color_limits": [
+    0,
+    45258.4929443534
+  ],
+  "colorscale": [
+    [
+      0.0,
+      "#1a1a6e"
+    ],
+    [
+      0.3,
+      "#1f77b4"
+    ],
+    [
+      0.55,
+      "#2ca02c"
+    ],
+    [
+      0.75,
+      "#ffbf00"
+    ],
+    [
+      1.0,
+      "#d62728"
+    ]
+  ],
+  "sources": {
+    "mesh_nodes_with_frames.csv": "94bea64d674462df76d81cf589d3fe1c82286b3dc43f37d2d7a8ac1da6e4f787",
+    "mesh_elements_with_frames.csv": "6deeb32a5fb523028f9752f2ab89004bc59c9f8b43c6cbd0d4d91284554d5397",
+    "stress_recovery.csv": "4b9ba6bc6efe527bb06b038e3a85ed0df42221b29c669432f9272b8ab9d8416b",
+    "stress_recovery_metadata.json": "db0965879a73bca228ade62d539ea07f2a3a64e9a0202edb6da9c640ee119cf0",
+    "static_analysis_metadata.json": "f5afb99a8563786895d16e986e69d40985d1510c30464d0d20996bd68ad8c9e7",
+    "tapered_beam_stress_contour.html": "124e4f8f035987f85964a19d3df36e47ab07103ac70517d5c0ddba72f47351ac"
+  },
+  "motion": "A slow camera orbit; geometry and scalar fields do not deform or change.",
+  "secondary_cfd": "Brief scene from the existing project-supplied my_files/Compressor.mp4 recording; full frame fitted with original colors, no new numerical claims.",
+  "cutaway": "Existing shell cells on the near and top skin are hidden between x=10 and x=86 inches to expose actual frames. Original reference geometry is unchanged.",
+  "validation_scope": "Existing project calculation, not an independently certified product-validation result. Linear-elastic stresses must not be interpreted as a safe-design claim.",
+  "web_media": {
+    "hero-simulation-support.mp4": {
+      "bytes": 1211306,
+      "sha256": "14fc84f656a22651ac5e451632165c64cacf893675b8da96625244cce7240ff8"
+    },
+    "hero-simulation-support-mobile.mp4": {
+      "bytes": 957612,
+      "sha256": "086381f7237e361e1a2d02df62997cae48cbf2489bf0484cafc324e2aaead6dd"
+    },
+    "hero-simulation-support-poster.jpg": {
+      "bytes": 73315,
+      "sha256": "5ca5759cb20324005a39d1745a98860e2b1e3e6594aac361e9ef5b3039d98bae"
+    },
+    "hero-simulation-support-mobile-poster.jpg": {
+      "bytes": 44734,
+      "sha256": "9f20af3e73db70eb23ed6e7a3a4a6cfd693bb140372dfa3671e311a83432b8c2"
+    }
+  }
+}

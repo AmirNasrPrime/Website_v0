@@ -6,6 +6,7 @@
 <title>PRIME-CAE — AI-Native Computer-Aided Engineering</title>
 <meta name="description" content="PRIME-CAE is an AI-native computer-aided engineering platform from AXIOPHYS Inc. for design, simulation and optimization.">
 <link rel="canonical" href="https://www.prime-cae.com/">
+<script>if(location.hash==="#access")location.replace("contact.html")</script>
 <meta name="theme-color" content="#050709">
 <meta name="color-scheme" content="dark">
 <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16.png?v=2">
@@ -62,7 +63,6 @@
 <link rel="stylesheet" href="css/mobile.css?v=four-missions-1">
 
 <link rel="preload" as="image" href="media/hero-field-poster.jpg">
-<link rel="stylesheet" href="css/contact-form.css?v=7">
 </head>
 
 <body>
@@ -95,7 +95,7 @@ document.documentElement.classList.add('js');
       <a class="nav__a" href="https://www.prime-cae.com/">Home</a>
       <a class="nav__a" href="research.html">Research</a>
       <a class="nav__a" href="news.html">News</a>
-      <a class="nav__a" href="#access">Contact</a>
+      <a class="nav__a" href="contact.html">Contact</a>
       <span class="nav__ind" id="navInd" aria-hidden="true"></span>
     </nav>
 
@@ -114,7 +114,7 @@ document.documentElement.classList.add('js');
   <a href="#layer">PRIME-CAE</a>
   <a href="research.html">Research</a>
   <a href="news.html">News</a>
-  <a href="#access">Contact</a>
+  <a href="contact.html">Contact</a>
 </div>
 
 <main id="top">
@@ -288,31 +288,7 @@ document.documentElement.classList.add('js');
   </div>
 </section>
 
-<div class="seam" data-from="sky" data-to="white" aria-hidden="true"></div>
 
-<!-- ============================== 05 · CONTACT ============================ -->
-<section class="section env contact" id="access" data-env="white">
-  <div class="shell contact__layout">
-    <div class="contact__copy">
-      <span class="t-meta">Contact</span>
-      <h2 class="t-h2">Let's build <span class="grad">what's next</span></h2>
-      <p class="contact__guidance">Choose <strong>Technical &amp; Product</strong> for product questions or engineering support. Choose <strong>Corporate &amp; Business</strong> for partnerships and general inquiries.</p>
-    </div>
-      <form class="contact-form" data-contact-form>
-        <div class="contact-form__row">
-          <label>Full name <span class="contact-form__required">(required)</span><input name="name" autocomplete="name" maxlength="120" required></label>
-          <label>Email address <span class="contact-form__required">(required)</span><input name="email" type="email" autocomplete="email" maxlength="254" required></label>
-        </div>
-        <div class="contact-form__row">
-          <label>Organization <span class="contact-form__required">(required)</span><input name="organization" autocomplete="organization" maxlength="120" required></label>
-          <label>Inquiry type <span class="contact-form__required">(required)</span><select name="inquiry" required><option value="" selected disabled>Please select</option><option value="technical">Technical &amp; Product Inquiries</option><option value="corporate">Corporate &amp; Business Inquiries</option></select></label>
-        </div>
-        <label class="contact-form__message">Message <span class="contact-form__required">(required)</span><textarea name="message" rows="2" minlength="10" maxlength="5000" required></textarea></label>
-        <div class="contact-form__trap" aria-hidden="true"><label>Leave this field empty <input name="website" tabindex="-1" autocomplete="off"></label></div>
-        <div class="contact-form__actions"><button type="submit">Send message</button><p class="contact-form__status" role="status" aria-live="polite"></p></div>
-      </form>
-  </div>
-</section>
 
 <!-- =============================== FOOTER ================================ -->
 <footer class="foot env" id="company" data-env="navy">
@@ -321,11 +297,10 @@ document.documentElement.classList.add('js');
       <img class="foot__logo" src="assets/prime-cae-lockup.png" alt="PRIME-CAE" width="285" height="62">
       <p class="t-micro" style="margin-top:var(--s-4)">AI-Native Computer-Aided Engineering</p>
     </div>
-    <nav class="foot__links" aria-label="Footer"><a href="index.html#about">About</a> <a href="index.html#layer">PRIME-CAE</a> <a href="research.html">Research</a> <a href="news.html">News</a> <a href="index.html#access">Contact</a></nav>
+    <nav class="foot__links" aria-label="Footer"><a href="index.html#about">About</a> <a href="index.html#layer">PRIME-CAE</a> <a href="research.html">Research</a> <a href="news.html">News</a> <a href="contact.html">Contact</a></nav>
     <span class="t-micro">© <span id="year">2026</span> PRIME-CAE</span>
   </div>
 </footer>
-<script src="js/contact.js?v=1" defer></script>
 </main>
 
 <script src="js/prime.bundle.js?v=mission-story-3" defer></script>

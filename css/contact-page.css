@@ -1,0 +1,7 @@
+.contact-page{display:flex;flex-direction:column;min-height:100dvh;background:#f4f7fa;color:#193249}
+.contact-page .nav{position:sticky;top:0;flex:none}
+.contact-page .nav__a[aria-current="page"]{color:#78cfff}
+.contact-page main{display:flex;flex:1;width:100%}
+.contact-page #access.contact{width:100%;min-block-size:0;align-self:stretch}
+.contact-page #access .t-h2 .grad{white-space:nowrap}
+.contact-page .foot{flex:none;background:#030a14;color:#d9eafa}

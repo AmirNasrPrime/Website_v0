@@ -8,6 +8,7 @@ const motion = matchMedia('(prefers-reduced-motion: reduce)');
 const tabs = [...document.querySelectorAll('[data-gazette-tab]')];
 const panels = [...document.querySelectorAll('[data-gazette-panel]')];
 const categoryBar = document.querySelector('.gazette-categories');
+const hero = document.querySelector('.gazette-hero');
 const categories = new Set(['demo', 'papers', 'manuals']);
 let inView = true;
 let userPaused = false;
@@ -42,8 +43,9 @@ function updateCategoryBar() {
   categoryFrame = 0;
   const y = Math.max(0, scrollY);
   const headerHeight = header.getBoundingClientRect().height;
-  const barAtTop = categoryBar.getBoundingClientRect().top <= headerHeight + 1;
-  if (!barAtTop || y < 20 || y < lastScroll - 3) {
+  const pastHero = hero.getBoundingClientRect().bottom <= headerHeight + 8;
+  categoryBar.classList.toggle('gazette-categories--floating', pastHero);
+  if (!pastHero || y < lastScroll - 3) {
     categoryBar.classList.remove('gazette-categories--hidden');
   } else if (y > lastScroll + 3) {
     categoryBar.classList.add('gazette-categories--hidden');
